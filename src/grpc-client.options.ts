@@ -6,6 +6,6 @@ export const grpcClientOptions: ClientOptions = {
   options: {
     url: `0.0.0.0:${port}`,
     package: 'TagDataSender',
-    protoPath: join(__dirname, './proto/schema.proto'),
+    protoPath: join(__dirname, './protos/schema.proto'),
   },
 };

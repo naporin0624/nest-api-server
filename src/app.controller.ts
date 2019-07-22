@@ -12,14 +12,7 @@ export class AppController {
 
   @GrpcMethod('TagDataSender', 'Send')
   async Send(req: TagList): Promise<Response> {
-    const status = this.appService.getStatus(1);
-    const client = await MongoClient.connect('mongodb://127.0.0.1/admin', {auth: {
-      user: 'root',
-      password: 'example',
-    }});
-    const db = client.db('test');
-    const collection = db.collection('hoge');
-    await collection.insertOne(req);
+    const status = this.appService.getStatus(req);
     return Response.create({status});
   }
 }

@@ -1,5 +1,5 @@
 // package: TagDataSender
-// file: src/proto/schemas.proto
+// file: src/protos/schemas.protos
 
 /* tslint:disable */
 

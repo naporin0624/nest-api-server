@@ -2,7 +2,7 @@
 
 'use strict';
 var grpc = require('grpc');
-var src_proto_schema_pb = require('../../src/proto/schema_pb.js');
+var src_proto_schema_pb = require('.//schema_pb.js');
 
 function serialize_TagDataSender_Res(arg) {
   if (!(arg instanceof src_proto_schema_pb.Res)) {

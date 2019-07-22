@@ -1,10 +1,10 @@
 // package: TagDataSender
-// file: src/proto/schemas.proto
+// file: src/protos/schemas.protos
 
 /* tslint:disable */
 
 import * as grpc from "grpc";
-import * as src_proto_schema_pb from "../../src/proto/schema_pb";
+import * as src_proto_schema_pb from ".//schema_pb";
 
 interface ITagDataSenderService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
     send: ITagDataSenderService_ISend;
