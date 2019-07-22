@@ -13,6 +13,7 @@ export class AppController {
   @GrpcMethod('TagDataSender', 'Send')
   async Send(req: TagList): Promise<Response> {
     const status = this.appService.getStatus(req);
+    console.log(status);
     return Response.create({status});
   }
 }
