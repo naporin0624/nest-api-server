@@ -4,12 +4,14 @@
 var $protobuf = require("protobufjs/minimal");
 
 // Common aliases
-var $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.util;
+var $Reader = $protobuf.Reader,
+    $Writer = $protobuf.Writer,
+    $util = $protobuf.util;
 
 // Exported root namespace
 var $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
 
-$root.TagDataSender = (function() {
+$root.TagDataSender = (function () {
 
     /**
      * Namespace TagDataSender.
@@ -18,7 +20,7 @@ $root.TagDataSender = (function() {
      */
     var TagDataSender = {};
 
-    TagDataSender.TagDataSender = (function() {
+    TagDataSender.TagDataSender = (function () {
 
         /**
          * Constructs a new TagDataSender service.
@@ -71,7 +73,9 @@ $root.TagDataSender = (function() {
          */
         Object.defineProperty(TagDataSender.prototype.send = function send(request, callback) {
             return this.rpcCall(send, $root.TagDataSender.TagList, $root.TagDataSender.Res, request, callback);
-        }, "name", { value: "Send" });
+        }, "name", {
+            value: "Send"
+        });
 
         /**
          * Calls Send.
@@ -86,7 +90,7 @@ $root.TagDataSender = (function() {
         return TagDataSender;
     })();
 
-    TagDataSender.TagList = (function() {
+    TagDataSender.TagList = (function () {
 
         /**
          * Properties of a TagList.
@@ -153,10 +157,10 @@ $root.TagDataSender = (function() {
             if (!writer)
                 writer = $Writer.create();
             if (message.readTime != null && message.hasOwnProperty("readTime"))
-                writer.uint32(/* id 1, wireType 2 =*/10).string(message.readTime);
+                writer.uint32( /* id 1, wireType 2 =*/ 10).string(message.readTime);
             if (message.tags != null && message.tags.length)
                 for (var i = 0; i < message.tags.length; ++i)
-                    $root.TagDataSender.TagList.Tag.encode(message.tags[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    $root.TagDataSender.TagList.Tag.encode(message.tags[i], writer.uint32( /* id 2, wireType 2 =*/ 18).fork()).ldelim();
             return writer;
         };
 
@@ -187,21 +191,22 @@ $root.TagDataSender = (function() {
         TagList.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.TagDataSender.TagList();
+            var end = length === undefined ? reader.len : reader.pos + length,
+                message = new $root.TagDataSender.TagList();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
-                case 1:
-                    message.readTime = reader.string();
-                    break;
-                case 2:
-                    if (!(message.tags && message.tags.length))
-                        message.tags = [];
-                    message.tags.push($root.TagDataSender.TagList.Tag.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    case 1:
+                        message.readTime = reader.string();
+                        break;
+                    case 2:
+                        if (!(message.tags && message.tags.length))
+                            message.tags = [];
+                        message.tags.push($root.TagDataSender.TagList.Tag.decode(reader, reader.uint32()));
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
                 }
             }
             return message;
@@ -314,7 +319,7 @@ $root.TagDataSender = (function() {
             return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
         };
 
-        TagList.Tag = (function() {
+        TagList.Tag = (function () {
 
             /**
              * Properties of a Tag.
@@ -416,17 +421,17 @@ $root.TagDataSender = (function() {
                 if (!writer)
                     writer = $Writer.create();
                 if (message.tagId != null && message.hasOwnProperty("tagId"))
-                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.tagId);
+                    writer.uint32( /* id 1, wireType 2 =*/ 10).string(message.tagId);
                 if (message.antennaNo != null && message.hasOwnProperty("antennaNo"))
-                    writer.uint32(/* id 2, wireType 0 =*/16).int32(message.antennaNo);
+                    writer.uint32( /* id 2, wireType 0 =*/ 16).int32(message.antennaNo);
                 if (message.rssi != null && message.hasOwnProperty("rssi"))
-                    writer.uint32(/* id 3, wireType 5 =*/29).float(message.rssi);
+                    writer.uint32( /* id 3, wireType 5 =*/ 29).float(message.rssi);
                 if (message.frequency != null && message.hasOwnProperty("frequency"))
-                    writer.uint32(/* id 4, wireType 5 =*/37).float(message.frequency);
+                    writer.uint32( /* id 4, wireType 5 =*/ 37).float(message.frequency);
                 if (message.phase != null && message.hasOwnProperty("phase"))
-                    writer.uint32(/* id 5, wireType 5 =*/45).float(message.phase);
+                    writer.uint32( /* id 5, wireType 5 =*/ 45).float(message.phase);
                 if (message.doppler != null && message.hasOwnProperty("doppler"))
-                    writer.uint32(/* id 6, wireType 5 =*/53).float(message.doppler);
+                    writer.uint32( /* id 6, wireType 5 =*/ 53).float(message.doppler);
                 return writer;
             };
 
@@ -457,31 +462,32 @@ $root.TagDataSender = (function() {
             Tag.decode = function decode(reader, length) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.TagDataSender.TagList.Tag();
+                var end = length === undefined ? reader.len : reader.pos + length,
+                    message = new $root.TagDataSender.TagList.Tag();
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.tagId = reader.string();
-                        break;
-                    case 2:
-                        message.antennaNo = reader.int32();
-                        break;
-                    case 3:
-                        message.rssi = reader.float();
-                        break;
-                    case 4:
-                        message.frequency = reader.float();
-                        break;
-                    case 5:
-                        message.phase = reader.float();
-                        break;
-                    case 6:
-                        message.doppler = reader.float();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
+                        case 1:
+                            message.tagId = reader.string();
+                            break;
+                        case 2:
+                            message.antennaNo = reader.int32();
+                            break;
+                        case 3:
+                            message.rssi = reader.float();
+                            break;
+                        case 4:
+                            message.frequency = reader.float();
+                            break;
+                        case 5:
+                            message.phase = reader.float();
+                            break;
+                        case 6:
+                            message.doppler = reader.float();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
                     }
                 }
                 return message;
@@ -615,7 +621,7 @@ $root.TagDataSender = (function() {
         return TagList;
     })();
 
-    TagDataSender.Res = (function() {
+    TagDataSender.Res = (function () {
 
         /**
          * Properties of a Res.
@@ -672,7 +678,7 @@ $root.TagDataSender = (function() {
             if (!writer)
                 writer = $Writer.create();
             if (message.status != null && message.hasOwnProperty("status"))
-                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.status);
+                writer.uint32( /* id 1, wireType 0 =*/ 8).int32(message.status);
             return writer;
         };
 
@@ -703,16 +709,17 @@ $root.TagDataSender = (function() {
         Res.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.TagDataSender.Res();
+            var end = length === undefined ? reader.len : reader.pos + length,
+                message = new $root.TagDataSender.Res();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
-                case 1:
-                    message.status = reader.int32();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    case 1:
+                        message.status = reader.int32();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
                 }
             }
             return message;

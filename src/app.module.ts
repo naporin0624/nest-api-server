@@ -1,15 +1,11 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { MongooseModule } from '@nestjs/mongoose';
+import { Module } from "@nestjs/common";
+import { AppController } from "./app.controller";
+import { AppService } from "./app.service";
+import { RfidGrpcController } from "./rfid-grpc/rfid-grpc.controller";
+import { HelloNestController } from "./hello-nest/hello-nest.controller";
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://130.153.120.99/mimamori', {
-    user: 'numalab',
-    pass: 'Numa0Lab',
-    dbName: 'mimamori',
-  })],
-  controllers: [AppController],
+  controllers: [AppController, RfidGrpcController, HelloNestController],
   providers: [AppService],
 })
 export class AppModule {}
