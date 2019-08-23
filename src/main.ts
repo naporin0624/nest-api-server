@@ -1,6 +1,6 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
-import { grpcClientOptions } from "./grpc-client.options";
+import { grpcClientOptions } from "./microservices/grpc/grpc.options";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

@@ -1,11 +1,27 @@
-import { Module } from "@nestjs/common";
+import { Module, MiddlewareConsumer } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { RfidGrpcController } from "./rfid-grpc/rfid-grpc.controller";
-import { HelloNestController } from "./hello-nest/hello-nest.controller";
+import { LoggerMiddleware } from "./middleware/logger.middleware";
+import { MongooseModule } from "@nestjs/mongoose";
+import { GrpcModule } from "./grpc/grpc.module";
 
 @Module({
-  controllers: [AppController, RfidGrpcController, HelloNestController],
+  imports: [
+    MongooseModule.forRoot(
+      "mongodb://numalab:Numa0Lab@mongo.nm.cs.uec.ac.jp/mimamori",
+      {
+        useNewUrlPrser: true,
+        port: 27017,
+        authenticationDatabase: "admin",
+      },
+    ),
+    GrpcModule,
+  ],
+  controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes("/*");
+  }
+}
