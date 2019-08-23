@@ -3,7 +3,7 @@ import { GrpcMethod } from "@nestjs/microservices";
 import { TagDataSender } from "./protos/tag_pb";
 import Res = TagDataSender.Res;
 
-@Controller()
+@Controller("/grpc/")
 export class GrpcRfidController {
   @GrpcMethod("TagDataSenderService", "Send")
   sendStatus(tagList: TagDataSender.ITagList): Res {

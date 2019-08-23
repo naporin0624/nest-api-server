@@ -1,7 +1,7 @@
 import { Module, MiddlewareConsumer } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { GrpcRfidController } from "./grpc-rfid/grpc-rfid.controller";
+import { GrpcRfidController } from "./grpc/grpc-rfid.controller";
 import { LoggerMiddleware } from "./middleware/logger.middleware";
 
 @Module({
