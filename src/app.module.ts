@@ -1,11 +1,15 @@
-import { Module } from "@nestjs/common";
+import { Module, MiddlewareConsumer } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { RfidGrpcController } from "./rfid-grpc/rfid-grpc.controller";
-import { HelloNestController } from "./hello-nest/hello-nest.controller";
+import { GrpcRfidController } from "./grpc-rfid/grpc-rfid.controller";
+import { LoggerMiddleware } from "./middleware/logger.middleware";
 
 @Module({
-  controllers: [AppController, RfidGrpcController, HelloNestController],
+  controllers: [AppController, GrpcRfidController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes("/*");
+  }
+}
