@@ -5,9 +5,9 @@ import { Tags } from "./interfaces/tags.interface";
 import { CreateTagsDto } from "./dto/create-tags.dto";
 
 @Injectable()
-export class GrpcService {
+export class RfidService {
   constructor(
-    @InjectModel("gRPCTags") private readonly tagsModel: Model<Tags>,
+    @InjectModel("RfidTags") private readonly tagsModel: Model<Tags>,
   ) {}
 
   async findAll(): Promise<Tags[]> {

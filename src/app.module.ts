@@ -3,7 +3,7 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { LoggerMiddleware } from "./middleware/logger.middleware";
 import { MongooseModule } from "@nestjs/mongoose";
-import { GrpcModule } from "./grpc/grpc.module";
+import { RfidModule } from "./rfid/rfid.module";
 
 @Module({
   imports: [
@@ -15,7 +15,7 @@ import { GrpcModule } from "./grpc/grpc.module";
         authenticationDatabase: "admin",
       },
     ),
-    GrpcModule,
+    RfidModule,
   ],
   controllers: [AppController],
   providers: [AppService],

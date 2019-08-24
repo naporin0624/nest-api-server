@@ -1,15 +1,15 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { GrpcRfidController } from "./grpc-rfid.controller";
+import { RfidController } from "./rfid.controller";
 
-describe("GrpcRfid Controller", () => {
-  let controller: GrpcRfidController;
+describe("Rfid Controller", () => {
+  let controller: RfidController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [GrpcRfidController],
+      controllers: [RfidController],
     }).compile();
 
-    controller = module.get<GrpcRfidController>(GrpcRfidController);
+    controller = module.get<RfidController>(RfidController);
   });
 
   it("should be defined", () => {

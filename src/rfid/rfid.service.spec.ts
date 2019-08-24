@@ -1,15 +1,15 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { GrpcService } from "./grpc.service";
+import { RfidService } from "./rfid.service";
 
-describe("GrpcService", () => {
-  let service: GrpcService;
+describe("RfidService", () => {
+  let service: RfidService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [GrpcService],
+      providers: [RfidService],
     }).compile();
 
-    service = module.get<GrpcService>(GrpcService);
+    service = module.get<RfidService>(RfidService);
   });
 
   it("should be defined", () => {
