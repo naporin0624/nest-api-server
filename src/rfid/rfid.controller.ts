@@ -3,10 +3,10 @@ import { GrpcMethod } from "@nestjs/microservices";
 import { TagDataSender } from "./protos/tag_pb";
 import { RfidService } from "./rfid.service";
 import { Response, Request } from "express";
-@Controller("/rfid/")
+@Controller("rfid")
 export class RfidController {
   constructor(private rfidService: RfidService) {}
-  @Get("/kodemari/")
+  @Get("tags")
   async findAll(@Res() res: Response, @Req() req: Request) {
     const tagsList = await this.rfidService.findAll();
     return res.status(HttpStatus.OK).json(tagsList);
