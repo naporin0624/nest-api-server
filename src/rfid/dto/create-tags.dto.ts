@@ -1,3 +1,11 @@
+import {
+  IsDefined,
+  IsString,
+  IsDate,
+  ValidateNested,
+  IsOptional,
+} from "class-validator";
+
 interface Tag {
   tagId: string;
   antennaNo: number;
@@ -7,7 +15,15 @@ interface Tag {
 }
 
 export class CreateTagsDto {
+  @IsDefined()
+  @IsString()
   readonly readTime: string;
+
+  @IsDefined()
+  @ValidateNested()
   readonly tags: Tag[];
+
+  @IsOptional()
+  @IsDate()
   readonly createdAt?: Date;
 }

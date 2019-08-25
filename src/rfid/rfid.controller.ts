@@ -7,11 +7,15 @@ import {
   Delete,
   Param,
   HttpCode,
+  Post,
+  Body,
+  UsePipes,
+  ValidationPipe,
 } from "@nestjs/common";
-import { GrpcMethod } from "@nestjs/microservices";
-import { TagDataSender } from "./protos/tag_pb";
+
 import { RfidService } from "./rfid.service";
 import { Response, Request } from "express";
+import { CreateTagsDto } from "./dto/create-tags.dto";
 @Controller("rfid")
 export class RfidController {
   constructor(private rfidService: RfidService) {}
@@ -21,19 +25,16 @@ export class RfidController {
     return res.status(HttpStatus.OK).json(tagsList);
   }
 
+  @Post("tags")
+  @UsePipes(new ValidationPipe())
+  async create(@Body() createTagsDto: CreateTagsDto) {
+    console.log(createTagsDto);
+    return await this.rfidService.create(createTagsDto);
+  }
+
   @Delete("tags/:id")
   @HttpCode(204)
   async findByDelete(@Param("id") id: string) {
     await this.rfidService.findByDelete(id);
-  }
-
-  @GrpcMethod("TagDataSenderService", "Send")
-  sendStatus(tagList: Required<TagDataSender.ITagList>): TagDataSender.Res {
-    this.rfidService.create({
-      readTime: tagList.readTime,
-      tags: tagList.tags as Array<Required<TagDataSender.TagList.ITag>>,
-    });
-    const res = new TagDataSender.Res({ status: 1 });
-    return res;
   }
 }
