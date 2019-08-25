@@ -1,18 +1,12 @@
+import { Tag } from "./tag.dto";
 import {
   IsDefined,
   IsString,
+  IsOptional,
   IsDate,
   ValidateNested,
-  IsOptional,
 } from "class-validator";
-
-interface Tag {
-  tagId: string;
-  antennaNo: number;
-  rssi: number;
-  phase: number;
-  doppler: number;
-}
+import { Type } from "class-transformer";
 
 export class CreateTagsDto {
   @IsDefined()
@@ -21,6 +15,7 @@ export class CreateTagsDto {
 
   @IsDefined()
   @ValidateNested()
+  @Type(() => Tag)
   readonly tags: Tag[];
 
   @IsOptional()
