@@ -15,7 +15,7 @@ import {
 
 import { RfidService } from "./rfid.service";
 import { Response, Request } from "express";
-import { CreateTagsDto } from "./dto/create-tags.dto";
+import { CreateTagsDto } from "./dto/createTags.dto";
 @Controller("rfid")
 export class RfidController {
   constructor(private rfidService: RfidService) {}

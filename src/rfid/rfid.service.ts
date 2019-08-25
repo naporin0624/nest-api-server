@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Tags } from "./interfaces/tags.interface";
-import { CreateTagsDto } from "./dto/create-tags.dto";
+import { CreateTagsDto } from "./dto/createTags.dto";
 import * as moment from "moment";
 
 @Injectable()
