@@ -1,0 +1,16 @@
+syntax="proto3";
+package test;
+
+enum Love {
+  SANA_SAORI = 0;
+  KAF = 1;
+  ROA_YUZUKI = 2;
+}
+
+message Request {
+  Love vtuber = 1;
+}
+
+message Response {
+  string vtuber = 1;
+}

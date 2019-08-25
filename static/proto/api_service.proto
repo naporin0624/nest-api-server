@@ -1,0 +1,13 @@
+syntax="proto3";
+package api;
+
+import "rfid_schema.proto";
+import "test_schema.proto";
+
+service TagDataSenderService {
+  rpc Send(rfid.TagList) returns (rfid.Response);
+}
+
+service TestService {
+  rpc Send(test.Request) returns (test.Response);
+}

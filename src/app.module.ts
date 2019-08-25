@@ -1,4 +1,4 @@
-import { Module, MiddlewareConsumer } from "@nestjs/common";
+import { Module, MiddlewareConsumer, HttpModule } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { LoggerMiddleware } from "./middleware/logger.middleware";
@@ -7,6 +7,7 @@ import { RfidModule } from "./rfid/rfid.module";
 
 @Module({
   imports: [
+    HttpModule,
     MongooseModule.forRoot(
       "mongodb://numalab:Numa0Lab@mongo.nm.cs.uec.ac.jp/mimamori",
       {

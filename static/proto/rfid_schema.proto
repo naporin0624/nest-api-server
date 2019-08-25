@@ -1,0 +1,20 @@
+syntax="proto3";
+package rfid;
+
+message Response {
+  int32 status_code = 1;
+  string message = 2;
+}
+message Tag {
+  string tag_id = 1;
+  int32 antenna_no = 2;
+  float rssi = 3;
+  float frequency = 4;
+  float phase = 5;
+  float doppler = 6;
+}
+
+message TagList {
+  string read_time = 1;
+  repeated Tag tags = 2;
+}
