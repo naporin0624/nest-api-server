@@ -1,4 +1,13 @@
-import { Controller, Get, Res, Req, HttpStatus } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Res,
+  Req,
+  HttpStatus,
+  Delete,
+  Param,
+  HttpCode,
+} from "@nestjs/common";
 import { GrpcMethod } from "@nestjs/microservices";
 import { TagDataSender } from "./protos/tag_pb";
 import { RfidService } from "./rfid.service";
@@ -10,6 +19,12 @@ export class RfidController {
   async findAll(@Res() res: Response, @Req() req: Request) {
     const tagsList = await this.rfidService.findAll();
     return res.status(HttpStatus.OK).json(tagsList);
+  }
+
+  @Delete("tags/:id")
+  @HttpCode(204)
+  async findByDelete(@Param("id") id: string) {
+    await this.rfidService.findByDelete(id);
   }
 
   @GrpcMethod("TagDataSenderService", "Send")
