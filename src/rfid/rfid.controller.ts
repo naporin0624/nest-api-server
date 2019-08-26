@@ -28,7 +28,6 @@ export class RfidController {
   @Post("tags")
   @UsePipes(new ValidationPipe())
   async create(@Body() createTagsDto: CreateTagsDto) {
-    console.log(createTagsDto);
     return await this.rfidService.create(createTagsDto);
   }
 
