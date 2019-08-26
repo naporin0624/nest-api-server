@@ -8,11 +8,6 @@ import { RfidModule } from "./rfid/rfid.module";
 @Module({
   imports: [
     HttpModule,
-    // MongooseModule.forRoot("mongodb://mongo.nm.cs.uec.ac.jp:27017/mimamori", {
-    //   useNewUrlParser: true,
-    //   user: "numalab",
-    //   pass: "Numa0Lab",
-    // }),
     MongooseModule.forRoot(
       `mongodb://${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DATABASE}`,
       {
