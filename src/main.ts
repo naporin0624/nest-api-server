@@ -13,4 +13,12 @@ async function bootstrap() {
 
   await app.listen(3000);
 }
+console.log(
+  `mongodb://${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DATABASE}`,
+  {
+    useNewUrlParser: true,
+    user: process.env.MONGODB_USER,
+    pass: process.env.MONGODB_PASS,
+  },
+);
 bootstrap().catch();
