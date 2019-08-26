@@ -14,8 +14,8 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     volumes:
-      - ./db:/data/db
-      - ./configdb:/data/configdb
+      - ./mongo/data:/data/db
+      - ./mongo/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     networks:
       - mongo-compose-network
 
@@ -38,8 +38,8 @@ services:
     env_file: .env
     environment:
       MONGODB_HOST: mongo
-      MONGODB_USER: ${MONGO_INITDB_ROOT_USERNAME}
-      MONGODB_PASS: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGODB_USER: user
+      MONGODB_PASS: password
       MONGODB_DATABASE: ${MONGO_INITDB_DATABASE}
       MONGODB_PORT: 27017
     build:
