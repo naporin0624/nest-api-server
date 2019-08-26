@@ -21,4 +21,10 @@ export class AppController {
       .toPromise();
     return new rfid.Response({ statusCode: 200, message: "ok" });
   }
+
+  @GrpcMethod("TestService", "Send")
+  async testGrpcService(req: Required<test.IRequest>) {
+    console.log(req);
+    return new test.Response({ vtuber: test.Love.SANA_SAORI.toString() });
+  }
 }
