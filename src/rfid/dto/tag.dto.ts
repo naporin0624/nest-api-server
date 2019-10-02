@@ -1,4 +1,4 @@
-import { IsDefined, IsString, IsNumber } from "class-validator";
+import { IsDefined, IsString, IsNumber, IsOptional } from "class-validator";
 
 export class Tag {
   @IsDefined()
@@ -17,7 +17,7 @@ export class Tag {
   @IsNumber()
   phase: number;
 
-  @IsDefined()
+  @IsOptional()
   @IsNumber()
   doppler: number;
 }

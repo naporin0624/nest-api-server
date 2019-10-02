@@ -15,7 +15,7 @@ export class AppController {
   }
 
   @GrpcMethod("TagDataSenderService", "Send")
-  async kodemariTags(tagList: rfid.ITagList) {
+  async kodemariTags(tagList: Required<rfid.ITagList>) {
     await this.httpService
       .post("http://localhost:3000/rfid/tags/", tagList)
       .toPromise();
