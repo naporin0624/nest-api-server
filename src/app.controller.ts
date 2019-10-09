@@ -14,6 +14,11 @@ export class AppController {
     return "Hello Nest Server";
   }
 
+  @Get()
+  getHello(): string {
+    return "Hello World!";
+  }
+
   @GrpcMethod("TagDataSenderService", "Send")
   async kodemariTags(tagList: Required<rfid.ITagList>) {
     await this.httpService

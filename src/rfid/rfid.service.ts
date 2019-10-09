@@ -3,7 +3,6 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Tags } from "./interfaces/tags.interface";
 import { CreateTagsDto } from "./dto/createTags.dto";
-import * as moment from "moment";
 
 @Injectable()
 export class RfidService {
@@ -16,12 +15,12 @@ export class RfidService {
   }
 
   async playground() {
-    const today = moment();
-    return await this.tagsModel
-      .find()
-      .where("createdAt")
-      .gte(today.startOf("day").toDate())
-      .lte(today.endOf("day").toDate());
+    // const today = moment();
+    // return await this.tagsModel
+    // .find()
+    // .where("createdAt")
+    // .gte(today.startOf("day").toDate())
+    // .lte(today.endOf("day").toDate());
   }
 
   async create(createTagsDto: CreateTagsDto): Promise<Tags> {
