@@ -1,0 +1,5 @@
+{
+    "watch": ["src"],
+    "ext": "ts",
+    "exec": "rm -rf dist && webpack --config webpack.config.js && node dist/server"
+}
