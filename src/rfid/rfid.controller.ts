@@ -10,11 +10,14 @@ import {
   Body,
   UsePipes,
   ValidationPipe,
+  Query,
 } from "@nestjs/common";
 
 import { RfidService } from "./rfid.service";
 import { Response } from "express";
 import { CreateTagsDto } from "./dto/createTags.dto";
+import { DateRange } from "./dto/query";
+
 @Controller("rfid")
 export class RfidController {
   constructor(private rfidService: RfidService) {}
@@ -36,11 +39,15 @@ export class RfidController {
     await this.rfidService.findByDelete(id);
   }
 
-  //@Get("antenna/:id")
-  //async findTagsWhereAntenna(
-  //@Param("id") id: string,
-  //@Query() query: DateRange,
-  //) {
-  //const tagsList = await this.rfidService;
-  //}
+  @Get("antenna/:id")
+  async findTagsWhereAntenna(
+    @Param("id") id: string,
+    @Query() query: DateRange,
+  ) {
+    const tagsCount = await this.rfidService.countReadAntennaRangeDate(
+      parseInt(id, 10),
+      query,
+    );
+    return tagsCount;
+  }
 }

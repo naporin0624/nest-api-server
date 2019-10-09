@@ -14,7 +14,8 @@
     "object-literal-sort-keys": false,
     "no-console": false,
     "ban-types": false,
-    "array-type": false
+    "array-type": false,
+    "object-literal-key-quotes": false
   },
   "rulesDirectory": []
 }
