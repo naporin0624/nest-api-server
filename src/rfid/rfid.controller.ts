@@ -2,7 +2,6 @@ import {
   Controller,
   Get,
   Res,
-  Req,
   HttpStatus,
   Delete,
   Param,
@@ -14,13 +13,13 @@ import {
 } from "@nestjs/common";
 
 import { RfidService } from "./rfid.service";
-import { Response, Request } from "express";
+import { Response } from "express";
 import { CreateTagsDto } from "./dto/createTags.dto";
 @Controller("rfid")
 export class RfidController {
   constructor(private rfidService: RfidService) {}
   @Get("tags")
-  async findAll(@Res() res: Response, @Req() req: Request) {
+  async findAll(@Res() res: Response) {
     const tagsList = await this.rfidService.findAll();
     return res.status(HttpStatus.OK).json(tagsList);
   }
@@ -36,4 +35,12 @@ export class RfidController {
   async findByDelete(@Param("id") id: string) {
     await this.rfidService.findByDelete(id);
   }
+
+  //@Get("antenna/:id")
+  //async findTagsWhereAntenna(
+  //@Param("id") id: string,
+  //@Query() query: DateRange,
+  //) {
+  //const tagsList = await this.rfidService;
+  //}
 }

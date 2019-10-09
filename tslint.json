@@ -13,7 +13,8 @@
     "arrow-parens": false,
     "object-literal-sort-keys": false,
     "no-console": false,
-    "ban-types": false
+    "ban-types": false,
+    "array-type": false
   },
   "rulesDirectory": []
 }
