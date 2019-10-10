@@ -1,7 +1,7 @@
 import { Controller, Get, HttpService } from "@nestjs/common";
 import { AppService } from "./app.service";
 import { GrpcMethod } from "@nestjs/microservices";
-import { rfid, test } from "Static/proto/api_schema_pb";
+import { rfid, test } from "static/proto/api_schema_pb";
 
 @Controller()
 export class AppController {

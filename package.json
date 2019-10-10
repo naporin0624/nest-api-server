@@ -5,12 +5,11 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf dist && tsc -p tsconfig.build.json",
+    "build": "rm -rf dist && webpack --config webpack.prod.js",
     "format": "prettier --write \"src/**/*.ts\"",
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
-    "webpack": "webpack --config webpack.config.js",
+    "webpack": "webpack --config webpack.dev.js",
     "start:dev": "nodemon dist/server",
-    "start:debug": "tsc-watch -p tsconfig.build.json --onSuccess \"node --inspect-brk dist/main.js\"",
     "start:prod": "node dist/main.js",
     "lint": "eslint ./src/**/*.ts",
     "test": "jest",
@@ -39,7 +38,8 @@
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",
     "rxjs": "^6.3.3",
-    "swagger-ui-express": "^4.0.7"
+    "swagger-ui-express": "^4.0.7",
+    "webpack-merge": "^4.2.2"
   },
   "devDependencies": {
     "@nestjs/testing": "6.1.1",
