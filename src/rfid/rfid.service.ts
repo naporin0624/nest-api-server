@@ -5,6 +5,7 @@ import { Tags } from "./interfaces/tags.interface";
 import { CreateTagsDto } from "./dto/createTags.dto";
 import { DateRange } from "./dto/query";
 import { subHours } from "date-fns";
+import { MapExclude } from "@/common/types";
 
 @Injectable()
 export class RfidService {
@@ -29,7 +30,10 @@ export class RfidService {
     return this.tagsModel.findByIdAndDelete(rdidID);
   }
 
-  async countReadAntennaRangeDate(antennaNo: number, dateRange: DateRange) {
+  async countReadAntennaRangeDate(
+    antennaNo: number,
+    dateRange: MapExclude<DateRange, string>,
+  ) {
     return this.tagsModel.aggregate([
       {
         $unwind: "$tags",

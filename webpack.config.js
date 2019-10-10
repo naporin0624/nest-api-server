@@ -13,17 +13,20 @@ module.exports = {
     }),
   ],
   module: {
-    rules: [{
-      test: /.tsx?$/,
-      use: "ts-loader",
-      exclude: [/node_modules/, /.spec.tsx?$/],
-    }, ],
+    rules: [
+      {
+        test: /.tsx?$/,
+        use: "ts-loader",
+        exclude: [/node_modules/, /.spec.tsx?$/],
+      },
+    ],
   },
   mode: "development",
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
     alias: {
       Static: path.resolve(__dirname, "./static/"),
+      "@": path.resolve(__dirname, "./src/"),
     },
   },
   plugins: [new webpack.HotModuleReplacementPlugin()],
