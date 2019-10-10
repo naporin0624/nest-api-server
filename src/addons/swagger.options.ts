@@ -4,5 +4,5 @@ export const swaggerOptions = new DocumentBuilder()
   .setTitle("Nest API List")
   .setDescription("API一覧を表示するやつね")
   .setVersion("1.0")
-  .setSchemes("http", "https")
+  .setSchemes(process.env.NODE_ENV === "production" ? "https" : "http")
   .build();
