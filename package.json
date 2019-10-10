@@ -7,10 +7,9 @@
   "scripts": {
     "build": "rm -rf dist && webpack --config webpack.prod.js",
     "format": "prettier --write \"src/**/*.ts\"",
-    "start": "ts-node -r tsconfig-paths/register src/main.ts",
     "webpack": "webpack --config webpack.dev.js",
-    "start:dev": "nodemon dist/server",
-    "start:prod": "node dist/main.js",
+    "start:dev": "nodemon dist/src/server",
+    "start:prod": "node dist/src/server",
     "lint": "eslint ./src/**/*.ts",
     "test": "jest",
     "test:watch": "jest --watch",

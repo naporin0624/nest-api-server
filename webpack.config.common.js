@@ -12,13 +12,11 @@ module.exports = {
     }),
   ],
   module: {
-    rules: [
-      {
-        test: /.tsx?$/,
-        use: "ts-loader",
-        exclude: [/node_modules/, /.spec.tsx?$/],
-      },
-    ],
+    rules: [{
+      test: /.tsx?$/,
+      use: "ts-loader",
+      exclude: [/node_modules/, /.spec.tsx?$/],
+    }, ],
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
@@ -29,7 +27,7 @@ module.exports = {
   },
   plugins: [new webpack.HotModuleReplacementPlugin()],
   output: {
-    path: path.join(__dirname, "dist"),
+    path: path.join(__dirname, "dist/src"),
     filename: "server.js",
   },
 };

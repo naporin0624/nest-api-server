@@ -50,20 +50,20 @@ export class RfidService {
       {
         $group: {
           _id: "$_id",
-          createdAt: {
-            $first: "$createdAt",
-          },
           readTime: {
             $first: "$readTime",
           },
-          tags: {
-            $push: {
-              tags: "$tags",
-            },
-          },
-          tagCount: {
+          readCount: {
             $sum: 1,
           },
+          createdAt: {
+            $first: "$createdAt",
+          },
+          // tags: {
+          //   $push: {
+          //     tags: "$tags",
+          //   },
+          // },
         },
       },
       {
