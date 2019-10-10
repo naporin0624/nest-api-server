@@ -3,9 +3,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Tags } from "./interfaces/tags.interface";
 import { CreateTagsDto } from "./dto/createTags.dto";
-import { DateRange } from "./dto/query";
 import { subHours } from "date-fns";
-import { MapExclude } from "@/common/types";
 
 @Injectable()
 export class RfidService {
@@ -32,7 +30,8 @@ export class RfidService {
 
   async countReadAntennaRangeDate(
     antennaNo: number,
-    dateRange: MapExclude<DateRange, string>,
+    startTime: Date,
+    endTime: Date,
   ) {
     return this.tagsModel.aggregate([
       {
@@ -42,8 +41,8 @@ export class RfidService {
         $match: {
           "tags.antennaNo": antennaNo,
           createdAt: {
-            $gte: dateRange.startTime || subHours(new Date(), 1),
-            $lt: dateRange.endTime || new Date(),
+            $gte: startTime,
+            $lt: endTime,
           },
         },
       },

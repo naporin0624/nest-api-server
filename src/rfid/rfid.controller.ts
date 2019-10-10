@@ -12,13 +12,14 @@ import {
   ValidationPipe,
   Query,
 } from "@nestjs/common";
+import { ApiUseTags, ApiImplicitQuery } from "@nestjs/swagger";
 
 import { RfidService } from "./rfid.service";
 import { Response } from "express";
 import { CreateTagsDto } from "./dto/createTags.dto";
-import { DateRange } from "./dto/query";
-import { dateRangeExcludeString } from "@/common/usecases";
+import { subHours, format } from "date-fns";
 
+@ApiUseTags("rfid")
 @Controller("rfid")
 export class RfidController {
   constructor(private rfidService: RfidService) {}
@@ -41,13 +42,28 @@ export class RfidController {
   }
 
   @Get("antenna/:id")
+  @ApiImplicitQuery({
+    name: "startTime",
+    required: false,
+    type: String,
+    description: format(subHours(new Date(), 1), "yyyy/MM/dd HH:mm:ss"),
+  })
+  @ApiImplicitQuery({
+    name: "endTime",
+    required: false,
+    type: String,
+    description: format(new Date(), "yyyy/MM/dd HH:mm:ss"),
+  })
   async findTagsWhereAntenna(
     @Param("id") id: string,
-    @Query() query: DateRange,
+    @Query("startTime") startTime,
+    @Query("endTime") endTime,
   ) {
+    console.log(new Date(startTime));
     const tagsCount = await this.rfidService.countReadAntennaRangeDate(
       parseInt(id, 10),
-      dateRangeExcludeString(query),
+      startTime ? new Date(startTime) : subHours(new Date(), 1),
+      endTime ? new Date(endTime) : new Date(),
     );
     return tagsCount;
   }
