@@ -17,6 +17,7 @@ import { RfidService } from "./rfid.service";
 import { Response } from "express";
 import { CreateTagsDto } from "./dto/createTags.dto";
 import { DateRange } from "./dto/query";
+import { dateRangeExcludeString } from "@/common/usecases";
 
 @Controller("rfid")
 export class RfidController {
@@ -46,7 +47,7 @@ export class RfidController {
   ) {
     const tagsCount = await this.rfidService.countReadAntennaRangeDate(
       parseInt(id, 10),
-      query,
+      dateRangeExcludeString(query),
     );
     return tagsCount;
   }
