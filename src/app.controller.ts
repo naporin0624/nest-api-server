@@ -3,7 +3,7 @@ import { ApiUseTags } from "@nestjs/swagger";
 
 import { AppService } from "./app.service";
 import { GrpcMethod } from "@nestjs/microservices";
-import { rfid, test } from "static/proto/api_schema_pb";
+import { rfid, test } from "../static/proto/api_schema_pb";
 
 @ApiUseTags("root")
 @Controller()
@@ -11,7 +11,7 @@ export class AppController {
   constructor(
     private readonly appService: AppService,
     private readonly httpService: HttpService,
-  ) { }
+  ) {}
   @Get()
   root(): string {
     return "Hello Nest Server";
