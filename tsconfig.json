@@ -10,10 +10,12 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
+    "jsx": "react",
     "paths": {
       "@/*": ["./src/*"],
       "static/*": ["./static/*"]
     }
   },
+  "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }
