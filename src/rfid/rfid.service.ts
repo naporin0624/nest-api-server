@@ -4,6 +4,7 @@ import { Model } from "mongoose";
 import { Tags } from "./interfaces/tags.interface";
 import { CreateTagsDto } from "./dto/createTags.dto";
 import { subHours } from "date-fns";
+import { CountTags } from "./interfaces/count.interface";
 
 @Injectable()
 export class RfidService {
@@ -24,26 +25,37 @@ export class RfidService {
     return createTags.save();
   }
 
-  async findByDelete(rdidID: string) {
-    return this.tagsModel.findByIdAndDelete(rdidID);
+  async findByDelete(rfidID: string) {
+    return this.tagsModel.findByIdAndDelete(rfidID);
+  }
+
+  async findAtTimeRange(
+    startTime = subHours(new Date(), 1),
+    endTime = new Date(),
+  ) {
+    return this.tagsModel
+      .find()
+      .where("createdAt")
+      .gte(startTime)
+      .lt(endTime);
   }
 
   async countReadAntennaRangeDate(
     antennaNo: number,
-    startTime: Date,
-    endTime: Date,
-  ) {
+    startTime = subHours(new Date(), 12),
+    endTime = new Date(),
+  ): Promise<CountTags[]> {
     return this.tagsModel.aggregate([
       {
         $unwind: "$tags",
       },
       {
         $match: {
-          "tags.antennaNo": antennaNo,
           createdAt: {
             $gte: startTime,
             $lt: endTime,
           },
+          "tags.antennaNo": antennaNo,
         },
       },
       {

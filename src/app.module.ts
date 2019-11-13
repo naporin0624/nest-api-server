@@ -4,6 +4,7 @@ import { AppService } from "./app.service";
 import { LoggerMiddleware } from "./middleware/logger.middleware";
 import { MongooseModule } from "@nestjs/mongoose";
 import { RfidModule } from "./rfid/rfid.module";
+import { WssModule } from "./wss/wss.module";
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { RfidModule } from "./rfid/rfid.module";
       },
     ),
     RfidModule,
+    WssModule,
   ],
   controllers: [AppController],
   providers: [AppService],
