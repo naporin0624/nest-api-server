@@ -41,4 +41,3 @@ jobs:
         with:
           name: backend-dist
           path: dist
-      - run: printenv
