@@ -33,11 +33,12 @@ jobs:
           restore-keys: ${{ runner.os }}-yarn-
       - name: Install Dependencies
         run: yarn install
-      - name: run lint
+      - name: Lint
         run: yarn lint
-      - name: build
+      - name: Build
         run: yarn build
       - uses: actions/upload-artifact@master
         with:
-          name: backend dist directory
+          name: backend-dist
           path: dist
+        run: printenv
