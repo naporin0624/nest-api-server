@@ -23,6 +23,7 @@ module.exports = merge(config, {
     overlay: true,
     watchContentBase: true,
     historyApiFallback: true,
+    open: true,
     proxy: {
       "/api": "http://localhost:3000",
     },

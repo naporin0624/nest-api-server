@@ -4,5 +4,4 @@ const common = require("./webpack.config.common");
 
 module.exports = merge(common, {
   mode: "development",
-  watch: true,
 });

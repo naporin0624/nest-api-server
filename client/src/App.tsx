@@ -1,4 +1,5 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { Home } from "./Home/index";
 
-ReactDOM.render(<p>hoge</p>, document.getElementById("root"));
+ReactDOM.render(<Home />, document.getElementById("root"));

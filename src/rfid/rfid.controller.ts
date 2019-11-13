@@ -21,7 +21,7 @@ import { subHours, format, subMinutes } from "date-fns";
 import { WssGateway } from "@/wss/wss.gateway";
 
 @ApiUseTags("rfid")
-@Controller("api/rfid")
+@Controller("rfid")
 export class RfidController {
   constructor(
     private rfidService: RfidService,

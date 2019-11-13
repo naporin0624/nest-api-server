@@ -5,9 +5,12 @@ import { LoggerMiddleware } from "./middleware/logger.middleware";
 import { MongooseModule } from "@nestjs/mongoose";
 import { RfidModule } from "./rfid/rfid.module";
 import { WssModule } from "./wss/wss.module";
-import { join, resolve } from 'path';
-import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from "path";
+import { DummyModule } from "./dummy/dummy.module";
+import { ServeStaticModule } from "@nestjs/serve-static";
 
+
+const ServerStaticAndDummyModule = process.env.NODE_ENV === "production" ? ServeStaticModule.forRoot({ rootPath: join(__dirname, "..", "public"), renderPath: "/" }) : DummyModule.forRoot();
 @Module({
   imports: [
     MongooseModule.forRoot(
@@ -18,12 +21,10 @@ import { ServeStaticModule } from '@nestjs/serve-static';
         pass: process.env.MONGODB_PASS,
       },
     ),
-    ServeStaticModule.forRoot({
-       rootPath: join(__dirname, "..", "public")
-     }),
     RfidModule,
     WssModule,
     HttpModule,
+    ServerStaticAndDummyModule
   ],
   controllers: [AppController],
   providers: [AppService],
