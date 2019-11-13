@@ -12,11 +12,13 @@ module.exports = {
     }),
   ],
   module: {
-    rules: [{
-      test: /.tsx?$/,
-      use: "ts-loader",
-      exclude: [/node_modules/, /.spec.tsx?$/],
-    }, ],
+    rules: [
+      {
+        test: /.tsx?$/,
+        use: "ts-loader",
+        exclude: [/node_modules/, /.spec.tsx?$/],
+      },
+    ],
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],

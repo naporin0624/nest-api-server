@@ -17,12 +17,17 @@ import { ApiUseTags, ApiImplicitQuery } from "@nestjs/swagger";
 import { RfidService } from "./rfid.service";
 import { Response } from "express";
 import { CreateTagsDto } from "./dto/createTags.dto";
-import { subHours, format } from "date-fns";
+import { subHours, format, subMinutes } from "date-fns";
+import { WssGateway } from "@/wss/wss.gateway";
 
 @ApiUseTags("rfid")
 @Controller("rfid")
 export class RfidController {
-  constructor(private rfidService: RfidService) {}
+  constructor(
+    private rfidService: RfidService,
+    private readonly gateway: WssGateway,
+  ) {}
+
   @Get("tags")
   async findAll(@Res() res: Response) {
     const tagsList = await this.rfidService.findAll();
@@ -32,7 +37,9 @@ export class RfidController {
   @Post("tags")
   @UsePipes(new ValidationPipe())
   async create(@Body() createTagsDto: CreateTagsDto) {
-    return await this.rfidService.create(createTagsDto);
+    const response = await this.rfidService.create(createTagsDto);
+    this.gateway.wss.emit("add_tags", response);
+    return response;
   }
 
   @Delete("tags/:id")
@@ -56,15 +63,34 @@ export class RfidController {
   })
   async findTagsWhereAntenna(
     @Param("id") id: string,
-    @Query("startTime") startTime,
-    @Query("endTime") endTime,
+    @Query("startTime") startTime = subHours(new Date(), 1),
+    @Query("endTime") endTime = new Date(),
   ) {
-    console.log(new Date(startTime));
     const tagsCount = await this.rfidService.countReadAntennaRangeDate(
       parseInt(id, 10),
-      startTime ? new Date(startTime) : subHours(new Date(), 1),
-      endTime ? new Date(endTime) : new Date(),
+      startTime,
+      endTime,
     );
     return tagsCount;
+  }
+
+  @Get("at_time_range")
+  @ApiImplicitQuery({
+    name: "startTime",
+    required: false,
+    type: String,
+    description: format(subMinutes(new Date(), 1), "yyyy/MM/dd HH:mm:ss"),
+  })
+  @ApiImplicitQuery({
+    name: "endTime",
+    required: false,
+    type: String,
+    description: format(new Date(), "yyyy/MM/dd HH:mm:ss"),
+  })
+  async atTimeRange(
+    @Query("startTime") startTime = subMinutes(new Date(), 1),
+    @Query("endTime") endTime = new Date(),
+  ) {
+    return this.rfidService.findAtTimeRange(startTime, endTime);
   }
 }
