@@ -29,10 +29,7 @@ export class RfidService {
     return this.tagsModel.findByIdAndDelete(rfidID);
   }
 
-  async findAtTimeRange(
-    startTime = subHours(new Date(), 1),
-    endTime = new Date(),
-  ) {
+  async findAtTimeRange(startTime: Date, endTime: Date) {
     return this.tagsModel
       .find()
       .where("createdAt")
@@ -42,8 +39,8 @@ export class RfidService {
 
   async countReadAntennaRangeDate(
     antennaNo: number,
-    startTime = subHours(new Date(), 12),
-    endTime = new Date(),
+    startTime: Date,
+    endTime: Date,
   ): Promise<CountTags[]> {
     return this.tagsModel.aggregate([
       {

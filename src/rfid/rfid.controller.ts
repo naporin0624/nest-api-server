@@ -63,13 +63,13 @@ export class RfidController {
   })
   async findTagsWhereAntenna(
     @Param("id") id: string,
-    @Query("startTime") startTime,
-    @Query("endTime") endTime,
+    @Query("startTime") startTime = subHours(new Date(), 1),
+    @Query("endTime") endTime = new Date(),
   ) {
     const tagsCount = await this.rfidService.countReadAntennaRangeDate(
       parseInt(id, 10),
-      startTime ? new Date(startTime) : subHours(new Date(), 1),
-      endTime ? new Date(endTime) : new Date(),
+      startTime,
+      endTime,
     );
     return tagsCount;
   }
@@ -79,7 +79,7 @@ export class RfidController {
     name: "startTime",
     required: false,
     type: String,
-    description: format(subHours(new Date(), 1), "yyyy/MM/dd HH:mm:ss"),
+    description: format(subMinutes(new Date(), 1), "yyyy/MM/dd HH:mm:ss"),
   })
   @ApiImplicitQuery({
     name: "endTime",
