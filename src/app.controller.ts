@@ -12,16 +12,6 @@ export class AppController {
     private readonly appService: AppService,
     private readonly httpService: HttpService,
   ) { }
-  @Get()
-  root(): string {
-    return "Hello Nest Server";
-  }
-
-  @Get()
-  getHello(): string {
-    return "Hello World!";
-  }
-
   @GrpcMethod("TagDataSenderService", "Send")
   async kodemariTags(tagList: Required<rfid.ITagList>) {
     await this.httpService
