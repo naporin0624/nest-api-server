@@ -28,8 +28,8 @@ jobs:
       - name: Cache node_modules
         uses: actions/cache@preview
         with:
-          path: node_modules 
-          key: ${{ runner.os }}-yarn-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+          path: node_modules
+          key: ${{ matrix.os }}-frontend-${{ hashFiles('**/yarn.lock') }}
           restore-keys: ${{ runner.os }}-yarn-
       - name: Install Dependencies
         run: yarn install
