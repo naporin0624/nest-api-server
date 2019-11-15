@@ -12,9 +12,9 @@ module.exports = {
   },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "..", "..", "./client"),
+      "@": path.resolve(__dirname, "..", "..", "./client/src/"),
     },
-    extensions: [".ts", ".tsx", ".js", ".jsx"],
+    extensions: [".ts", ".tsx"],
   },
   module: {
     rules: [{
@@ -60,7 +60,7 @@ module.exports = {
   },
   plugins: [
     new htmlWebpackPlugin({
-      template: path.resolve(__dirname, "..", "..", "client/public/index.html"),
+      template: path.join(__dirname, "..", "..", "client/public/index.html"),
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
