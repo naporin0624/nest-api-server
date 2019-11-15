@@ -2,19 +2,14 @@
 const path = require("path");
 const htmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
-
+console.log(path.join(__dirname, "..", "..", "client/public/index.html"))
 module.exports = {
   entry: ["./client/src/App.tsx", "babel-polyfill"],
-  target: "node",
-  node: {
-    __dirname: false,
-    __filename: false,
-  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "..", "..", "./client/src/"),
     },
-    extensions: [".ts", ".tsx"],
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
   module: {
     rules: [{
