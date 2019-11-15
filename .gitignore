@@ -41,4 +41,4 @@ lerna-debug.log*
 .env
 
 # dist public
-public
+/public
