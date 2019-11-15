@@ -63,8 +63,8 @@ export class RfidController {
   })
   async findTagsWhereAntenna(
     @Param("id") id: string,
-    @Query("startTime") startTime = subHours(new Date(), 1),
-    @Query("endTime") endTime = new Date(),
+    @Query("startTime") startTime?: Date,
+    @Query("endTime") endTime?: Date,
   ) {
     const tagsCount = await this.rfidService.countReadAntennaRangeDate(
       parseInt(id, 10),
@@ -88,8 +88,8 @@ export class RfidController {
     description: format(new Date(), "yyyy/MM/dd HH:mm:ss"),
   })
   async atTimeRange(
-    @Query("startTime") startTime = subMinutes(new Date(), 1),
-    @Query("endTime") endTime = new Date(),
+    @Query("startTime") startTime?: Date,
+    @Query("endTime") endTime?: Date,
   ) {
     return this.rfidService.findAtTimeRange(startTime, endTime);
   }

@@ -1,4 +1,4 @@
-import { Module, MiddlewareConsumer, HttpModule, Logger } from "@nestjs/common";
+import { Module, MiddlewareConsumer, HttpModule } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { LoggerMiddleware } from "./middleware/logger.middleware";
@@ -9,8 +9,13 @@ import { join } from "path";
 import { DummyModule } from "./dummy/dummy.module";
 import { ServeStaticModule } from "@nestjs/serve-static";
 
-
-const ServerStaticAndDummyModule = process.env.NODE_ENV === "production" ? ServeStaticModule.forRoot({ rootPath: join(__dirname, "..", "public"), renderPath: "/" }) : DummyModule.forRoot();
+const ServerStaticAndDummyModule =
+  process.env.NODE_ENV === "production"
+    ? ServeStaticModule.forRoot({
+        rootPath: join(__dirname, "..", "public"),
+        renderPath: "/",
+      })
+    : DummyModule.forRoot();
 @Module({
   imports: [
     MongooseModule.forRoot(
@@ -24,7 +29,7 @@ const ServerStaticAndDummyModule = process.env.NODE_ENV === "production" ? Serve
     RfidModule,
     WssModule,
     HttpModule,
-    ServerStaticAndDummyModule
+    ServerStaticAndDummyModule,
   ],
   controllers: [AppController],
   providers: [AppService],
