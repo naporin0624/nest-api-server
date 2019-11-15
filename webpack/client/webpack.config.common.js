@@ -5,6 +5,7 @@ const webpack = require("webpack");
 
 module.exports = {
   entry: ["./client/src/App.tsx", "babel-polyfill"],
+  target: "node",
   node: {
     __dirname: false,
     __filename: false,
