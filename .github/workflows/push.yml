@@ -35,7 +35,7 @@ jobs:
         run: yarn install
       - name: Lint
         run: yarn lint:client
-      - run: pwd
+      - run: ls client/public
       - name: Build
         run: yarn client:build:prod
 
