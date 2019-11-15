@@ -1,6 +1,6 @@
-import axios from "axios";
-// import * as React from "react";
+import * as React from "react";
 
 export default () => {
-  axios.get("/api/rfid/tags");
+  const [msg, setMsg] = React.useState("Welcome");
+  return { msg, setMsg }
 };

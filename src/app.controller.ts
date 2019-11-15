@@ -1,4 +1,4 @@
-import { Controller, HttpService } from "@nestjs/common";
+import { Controller, HttpService, Get } from "@nestjs/common";
 import { ApiUseTags } from "@nestjs/swagger";
 
 import { AppService } from "./app.service";
@@ -12,6 +12,12 @@ export class AppController {
     private readonly appService: AppService,
     private readonly httpService: HttpService,
   ) {}
+
+  @Get()
+  sayHello() {
+    return "Hello World";
+  }
+
   @GrpcMethod("TagDataSenderService", "Send")
   async kodemariTags(tagList: Required<rfid.ITagList>) {
     await this.httpService
