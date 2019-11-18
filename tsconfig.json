@@ -1,19 +1,24 @@
 {
   "compilerOptions": {
+    "target": "es6",
     "module": "commonjs",
-    "declaration": true,
+    "declaration": false,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es2017",
-    "sourceMap": true,
+    "resolveJsonModule": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "sourceMap": false,
+    "allowJs": true,
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./server/*"],
       "static/*": ["./static/*"]
     }
   },
-  "exclude": ["node_modules", "dist"]
+  "include": ["server"],
+  "exclude": ["node_modules", "dist", "test"]
 }

@@ -3,7 +3,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Tags } from "./interfaces/tags.interface";
 import { CreateTagsDto } from "./dto/createTags.dto";
-import { subHours } from "date-fns";
+import { subHours, subMinutes } from "date-fns";
 import { CountTags } from "./interfaces/count.interface";
 
 @Injectable()
@@ -29,7 +29,10 @@ export class RfidService {
     return this.tagsModel.findByIdAndDelete(rfidID);
   }
 
-  async findAtTimeRange(startTime: Date, endTime: Date) {
+  async findAtTimeRange(
+    startTime = subHours(new Date(), 1),
+    endTime = new Date(),
+  ) {
     return this.tagsModel
       .find()
       .where("createdAt")
@@ -39,8 +42,8 @@ export class RfidService {
 
   async countReadAntennaRangeDate(
     antennaNo: number,
-    startTime: Date,
-    endTime: Date,
+    startTime = subMinutes(new Date(), 1),
+    endTime = new Date(),
   ): Promise<CountTags[]> {
     return this.tagsModel.aggregate([
       {
