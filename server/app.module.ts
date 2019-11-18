@@ -6,16 +6,8 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { RfidModule } from "./rfid/rfid.module";
 import { WssModule } from "./wss/wss.module";
 import { join } from "path";
-import { DummyModule } from "./dummy/dummy.module";
 import { ServeStaticModule } from "@nestjs/serve-static";
 
-const ServerStaticAndDummyModule =
-  process.env.NODE_ENV === "production"
-    ? ServeStaticModule.forRoot({
-        rootPath: join(__dirname, "..", "public"),
-      })
-    : DummyModule.forRoot();
-    
 @Module({
   imports: [
     MongooseModule.forRoot(
@@ -27,12 +19,12 @@ const ServerStaticAndDummyModule =
         pass: process.env.MONGODB_PASS,
       },
     ),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, "..", "public"),
+    }),
     RfidModule,
     WssModule,
     HttpModule,
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, "..", "public"),
-    })
   ],
   controllers: [AppController],
   providers: [AppService],
