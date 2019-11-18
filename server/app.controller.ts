@@ -4,7 +4,7 @@ import { ApiUseTags } from "@nestjs/swagger";
 import { AppService } from "./app.service";
 import { GrpcMethod } from "@nestjs/microservices";
 import { rfid, test } from "static/proto/api_schema_pb";
-import { RfidService } from './rfid/rfid.service';
+import { RfidService } from "./rfid/rfid.service";
 import { DeepRequired } from "ts-essentials";
 
 @ApiUseTags("root")
@@ -13,8 +13,8 @@ export class AppController {
   constructor(
     private readonly appService: AppService,
     private readonly httpService: HttpService,
-    private readonly rfidService: RfidService
-  ) { }
+    private readonly rfidService: RfidService,
+  ) {}
 
   @Get()
   sayHello() {

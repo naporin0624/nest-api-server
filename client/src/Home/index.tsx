@@ -3,7 +3,6 @@ import { Container, Text } from "./styles";
 import enhance from "./enhance";
 import axios from "axios";
 export const Home: React.FC = () => {
-  console.log("hoge");
   const { msg, setMsg } = enhance();
   React.useEffect(() => {
     setTimeout(async () => {
@@ -14,7 +13,6 @@ export const Home: React.FC = () => {
 
   return (
     <Container>
-      <Text>hogehoge</Text>
       <Text>{msg}</Text>
     </Container>
   );
