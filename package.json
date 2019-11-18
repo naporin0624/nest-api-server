@@ -13,7 +13,7 @@
     "server:build:prod": "webpack --config webpack/server/webpack.config.prod.js",
     "server:start:dev": "yarn server:build:dev --watch & nodemon dist/server",
     "start:dev": "yarn server:build:dev && run-p server:start:dev client:start:dev",
-    "lint:server": "eslint src --ext .ts",
+    "lint:server": "eslint server --ext .ts",
     "lint:client": "eslint client/src --ext .ts,.tsx",
     "test": "jest",
     "test:watch": "jest --watch",
