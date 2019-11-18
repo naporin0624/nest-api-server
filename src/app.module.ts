@@ -13,7 +13,6 @@ const ServerStaticAndDummyModule =
   process.env.NODE_ENV === "production"
     ? ServeStaticModule.forRoot({
         rootPath: join(__dirname, "..", "public"),
-        renderPath: "/",
       })
     : DummyModule.forRoot();
 @Module({
@@ -22,6 +21,7 @@ const ServerStaticAndDummyModule =
       `mongodb://${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DATABASE}`,
       {
         useNewUrlParser: true,
+        useUnifiedTopology: true,
         user: process.env.MONGODB_USER,
         pass: process.env.MONGODB_PASS,
       },
