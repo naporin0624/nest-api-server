@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
-const htmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 
 module.exports = {
@@ -12,34 +11,27 @@ module.exports = {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.(png|jpe?g|gif)$/i,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: "file-loader",
-          },
-        ],
+        use: [{
+          loader: "file-loader",
+        }, ],
       },
       {
         test: /\.json$/,
         exclude: /node_modules/,
         type: "javascript/auto",
-        use: [
-          {
-            loader: "json-loader",
-          },
-        ],
+        use: [{
+          loader: "json-loader",
+        }, ],
       },
       {
         test: /\.ts(x?)$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: "ts-loader",
-          },
-        ],
+        use: [{
+          loader: "ts-loader",
+        }, ],
       },
     ],
   },
@@ -60,10 +52,5 @@ module.exports = {
     path: path.join(__dirname, "..", "..", "public"),
     publicPath: "/",
   },
-  plugins: [
-    new htmlWebpackPlugin({
-      template: path.join(__dirname, "..", "..", "client/public/index.html"),
-    }),
-    new webpack.HotModuleReplacementPlugin(),
-  ],
+  plugins: [],
 };

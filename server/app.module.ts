@@ -15,6 +15,7 @@ const ServerStaticAndDummyModule =
         rootPath: join(__dirname, "..", "public"),
       })
     : DummyModule.forRoot();
+    
 @Module({
   imports: [
     MongooseModule.forRoot(
@@ -29,7 +30,9 @@ const ServerStaticAndDummyModule =
     RfidModule,
     WssModule,
     HttpModule,
-    ServerStaticAndDummyModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, "..", "public"),
+    })
   ],
   controllers: [AppController],
   providers: [AppService],

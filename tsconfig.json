@@ -2,8 +2,6 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
-    "lib": ["dom", "esnext"],
-    "jsx": "react",
     "declaration": false,
     "removeComments": true,
     "emitDecoratorMetadata": true,
@@ -12,14 +10,15 @@
     "noImplicitAny": true,
     "esModuleInterop": true,
     "sourceMap": false,
+    "allowJs": true,
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./server/*"],
       "static/*": ["./static/*"]
     }
   },
-  "include": ["./src", "./client"],
+  "include": ["server"],
   "exclude": ["node_modules", "dist", "test"]
 }
