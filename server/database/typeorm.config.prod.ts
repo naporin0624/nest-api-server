@@ -9,5 +9,5 @@ export const options: TypeOrmModuleOptions = {
   password: process.env.MYSQL_PASSWORD || "root",
   database: process.env.MYSQL_DATABASE || "test",
   entities: [Tag, TagContainer],
-  synchronize: true,
+  synchronize: false,
 };

@@ -28,6 +28,7 @@ export class RfidService {
     const tagContainer = new TagContainer();
     const tags = await this.tagRepository.create(createTagsDto.tags);
     tagContainer.tags = tags;
+    tagContainer.readTime = createTagsDto.readTime;
     await this.tagRepository.save(tags);
     return this.tagContainerRepository.save(tagContainer);
   }

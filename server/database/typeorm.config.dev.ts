@@ -5,6 +5,6 @@ import { Tag, TagContainer } from "@/entities";
 export const options: TypeOrmModuleOptions = {
   type: "sqlite",
   database: join(__dirname, "..", "db", "development.sqlite3"),
-  synchronize: true,
+  synchronize: false,
   entities: [Tag, TagContainer],
 };

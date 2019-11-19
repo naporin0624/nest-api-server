@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, OneToMany, Column } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from "typeorm";
 import { Tag } from "./Tag.entity";
 
 @Entity()
@@ -11,4 +18,10 @@ export class TagContainer {
 
   @OneToMany(() => Tag, tag => tag.tagContainer)
   tags: Tag[];
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
