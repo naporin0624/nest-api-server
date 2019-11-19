@@ -1,7 +1,13 @@
 import * as React from "react";
 import { Container, Text } from "./styles";
 import {
-  BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
 } from "recharts";
 
 import enhance from "./enhance";
@@ -23,7 +29,10 @@ export const Home: React.FC = () => {
         height={300}
         data={data}
         margin={{
-          top: 20, right: 30, left: 20, bottom: 5,
+          top: 20,
+          right: 30,
+          left: 20,
+          bottom: 5,
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
