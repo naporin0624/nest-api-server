@@ -13,5 +13,12 @@
     "protobuf",
     "rfid",
     "vtuber"
+  ],
+  "sqltools.connections": [
+    {
+      "database": "${workspaceFolder}/db/development.sqlite3",
+      "dialect": "SQLite",
+      "name": "nest"
+    }
   ]
 }
