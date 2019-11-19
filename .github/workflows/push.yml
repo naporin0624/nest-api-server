@@ -13,17 +13,6 @@ on:
       - "!master"
 
 jobs:
-  make-pr:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-    steps:
-      - uses: actions/checkout@v1
-      - name: Create PR
-        uses: funivan/github-autopr@0.2.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   client:
     runs-on: ${{ matrix.os }}
     strategy:
