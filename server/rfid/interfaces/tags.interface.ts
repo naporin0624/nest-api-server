@@ -13,22 +13,3 @@ export interface Tags extends Document {
   tags: Tag[];
   createdAt: Date;
 }
-
-export interface NumalabTagEncode {
-  companies: CompanyEncode[];
-}
-
-interface CompanyEncode {
-  name: string;
-  bit: number;
-  filters: string[];
-  groups: Group[];
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-interface Group {
-  name: string;
-  bit: number;
-  existingNum: number;
-}

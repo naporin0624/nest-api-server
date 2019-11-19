@@ -48,7 +48,7 @@ export class RfidController {
     await this.rfidService.findByDelete(id);
   }
 
-  @Get("encode-map/numalab-tag-encode/:companyName")
+  @Get("encode-map/numalab-tag-encode/:company-name")
   @HttpCode(200)
   @ApiImplicitQuery({
     name: "companyName",
@@ -56,7 +56,7 @@ export class RfidController {
     type: String,
     description: "",
   })
-  async getTagsCorrespondence(@Param("companyName") companyName: string) {
+  async getTagsCorrespondence(@Param("company-name") companyName: string) {
     const response = await this.rfidService.getEncodeMap(companyName);
     return response;
   }
