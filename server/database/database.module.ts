@@ -1,7 +1,6 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { join } from "path";
 import * as mongooseDevConfig from "./mongo.config.dev";
 import * as mongooseProdConfig from "./mongo.config.dev";
 import * as typeormDevConfig from "./typeorm.config.dev";

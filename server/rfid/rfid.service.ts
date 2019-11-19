@@ -4,7 +4,6 @@ import { Model } from "mongoose";
 import { Tags } from "./interfaces/tags.interface";
 import { CreateTagsDto } from "./dto/createTags.dto";
 import { subHours, subMinutes } from "date-fns";
-import { CountTags } from "./interfaces/count.interface";
 import { TagContainer, Tag } from "@/entities";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
