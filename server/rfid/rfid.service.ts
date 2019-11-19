@@ -1,10 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { Tags } from "./interfaces/tags.interface";
+import { Tags, NumalabTagEncode } from "./interfaces/tags.interface";
 import { CreateTagsDto } from "./dto/createTags.dto";
 import { subHours, subMinutes } from "date-fns";
 import { CountTags } from "./interfaces/count.interface";
+import { json } from "body-parser";
 
 @Injectable()
 export class RfidService {
@@ -22,12 +23,13 @@ export class RfidService {
 
   async create(createTagsDto: CreateTagsDto) {
     const createTags = new this.tagsModel(createTagsDto);
-    return createTags.save();
+    return createTags;
   }
 
   async findByDelete(rfidID: string) {
     return this.tagsModel.findByIdAndDelete(rfidID);
   }
+
 
   async findAtTimeRange(
     startTime = subHours(new Date(), 1),
@@ -83,5 +85,9 @@ export class RfidService {
         },
       },
     ]);
+  }
+
+  async getEncodeMap(companyName: string) {
+    return {};
   }
 }
