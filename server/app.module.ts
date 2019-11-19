@@ -2,29 +2,21 @@ import { Module, MiddlewareConsumer, HttpModule } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { LoggerMiddleware } from "./middleware/logger.middleware";
-import { MongooseModule } from "@nestjs/mongoose";
 import { RfidModule } from "./rfid/rfid.module";
 import { WssModule } from "./wss/wss.module";
 import { join } from "path";
 import { ServeStaticModule } from "@nestjs/serve-static";
+import { DatabaseModule } from "./database/database.module";
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      `mongodb://${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DATABASE}`,
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        user: process.env.MONGODB_USER,
-        pass: process.env.MONGODB_PASS,
-      },
-    ),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, "..", "public"),
     }),
     RfidModule,
     WssModule,
     HttpModule,
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -36,6 +36,7 @@ lerna-debug.log*
 
 # db dirs
 /mongo/data/
+*.sqlite3
 
 # env files
 .env
