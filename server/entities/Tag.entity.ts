@@ -21,6 +21,6 @@ export class Tag {
   @Column("int")
   doppler: number;
 
-  @ManyToOne(type => TagContainer, tagContainer => tagContainer.tags)
+  @ManyToOne(() => TagContainer, tagContainer => tagContainer.tags)
   tagContainer: TagContainer;
 }
