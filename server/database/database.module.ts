@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import * as mongooseDevConfig from "./mongo.config.dev";
-import * as mongooseProdConfig from "./mongo.config.dev";
+import * as mongooseProdConfig from "./mongo.config.prod";
 import * as typeormDevConfig from "./typeorm.config.dev";
 import * as typeormProdConfig from "./typeorm.config.prod";
 
