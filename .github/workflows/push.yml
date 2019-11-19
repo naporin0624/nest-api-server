@@ -2,15 +2,11 @@ name: push & PR event
 
 on:
   pull_request:
-    branches:
-      - "*/*"
-      - "*"
-      - "!master"
+    branches-ignore:
+      - master
   push:
-    branches:
-      - "*/*"
-      - "*"
-      - "!master"
+    branches-ignore:
+      - master
 
 jobs:
   client:
