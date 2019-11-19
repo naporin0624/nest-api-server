@@ -15,7 +15,7 @@ function mongooseDynamicModule() {
 
 function typeormDynamicModule() {
   const isDev = process.env.NODE_ENV === "development";
-  const { options } = isDev ? typeormDevConfig : typeormProdConfig;
+  const options = isDev ? typeormDevConfig : typeormProdConfig;
   return TypeOrmModule.forRoot(options);
 }
 
