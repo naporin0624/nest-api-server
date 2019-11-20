@@ -6,7 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { TagContainer } from "./TagContainer";
+import { TagContainer } from "./TagContainer.entity";
 
 @Entity()
 export class Tag {
@@ -16,19 +16,22 @@ export class Tag {
   @Column("varchar")
   tagId: string;
 
-  @Column("varchar")
+  @Column("int")
   antennaNo: number;
 
-  @Column("int")
+  @Column("float")
   rssi: number;
 
-  @Column("int")
+  @Column("float")
   phase: number;
 
-  @Column("int")
+  @Column("float")
   doppler: number;
 
-  @ManyToOne(() => TagContainer, tagContainer => tagContainer.tags)
+  @ManyToOne(
+    () => TagContainer,
+    tagContainer => tagContainer.tags,
+  )
   tagContainer: TagContainer;
 
   @CreateDateColumn()
