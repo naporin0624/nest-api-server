@@ -1,2 +1,2 @@
 export * from "./Tag.entity";
-export * from "./TagContainer";
+export * from "./TagContainer.entity";
