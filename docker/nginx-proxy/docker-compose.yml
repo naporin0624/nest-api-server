@@ -51,7 +51,7 @@ services:
       SSL_POLICY: "Mozilla-Modern"
     networks:
       - mysql-network
-      # - nginx_proxy_link
+      - nginx_proxy_link
     ports:
       - 3000:3000
       - 5000:5000
@@ -60,5 +60,5 @@ services:
 networks:
   mysql-network:
     driver: bridge
-  # nginx_proxy_link:
-  #   external: true
+  nginx_proxy_link:
+    external: true
