@@ -36,9 +36,16 @@ lerna-debug.log*
 
 # db dirs
 /mongo/data/
+*.sqlite3
 
 # env files
 .env
 
 # dist public
 /public
+
+# docker
+./Dockerfile
+./docker-compose.yml
+./.dockerignore
+db
