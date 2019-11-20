@@ -17,11 +17,12 @@ services:
   mysql:
     image: mysql:5
     restart: always
+    env_file: .env
     environment:
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: nest-api-database
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     volumes:
       - ./db/mysql_data:/var/lib/mysql
     networks:
@@ -37,12 +38,12 @@ services:
       MONGODB_USER: ${MONGODB_USER}
       MONGODB_PASS: ${MONGODB_PASS}
       MONGODB_DATABASE: ${MONGODB_DATABASE}
-      MONGODB_PORT: 27017
+      MONGODB_PORT: ${MONGODB_PORT}
       MYSQL_HOST: mysql
-      MYSQL_DATABASE: nest-api-database
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-      MYSQL_PORT: 3306
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_PORT: ${MYSQL_PORT}
       VIRTUAL_HOST: ${WEB_DOMAIN_NAME}
       VIRTUAL_PORT: 3000
       LETSENCRYPT_HOST: ${WEB_DOMAIN_NAME}
@@ -54,7 +55,7 @@ services:
     ports:
       - 3000:3000
       - 5000:5000
-      - 4000:4000
+      - 8000:8000
 
 networks:
   mysql-network:
