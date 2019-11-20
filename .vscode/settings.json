@@ -4,6 +4,7 @@
     "Grpc",
     "INITDB",
     "Interop",
+    "LETSENCRYPT",
     "Microservice",
     "kodemari",
     "microservices",

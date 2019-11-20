@@ -43,3 +43,9 @@ lerna-debug.log*
 
 # dist public
 /public
+
+# docker
+./Dockerfile
+./docker-compose.yml
+./.dockerignore
+db

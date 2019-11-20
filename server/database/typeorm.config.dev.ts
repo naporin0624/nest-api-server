@@ -4,9 +4,10 @@ import ormConfig from "../../ormconfig.json";
 
 const options: TypeOrmModuleOptions = {
   type: "mysql",
-  host: process.env.MYSQL_HOST || "127.0.0.1",
+  host: process.env.MYSQL_HOST || "localhost",
+  port: parseInt(process.env.MYSQL_PORT || "3308"),
   username: process.env.MYSQL_USER || "root",
-  password: process.env.MYSQL_PASSWORD || "",
+  password: process.env.MYSQL_PASSWORD || "root",
   database: process.env.MYSQL_DATABASE || "nest-api-database",
   entities: [Tag, TagContainer],
   synchronize: false,
