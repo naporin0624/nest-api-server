@@ -5,7 +5,7 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf dist && rm -rf public && yarn client:build:prod && yarn server:build:prod",
+    "build": "rm -rf dist && rm -rf public && run-p client:build:prod server:build:prod",
     "start:prod": "node dist/server",
     "client:build:prod": "webpack --config webpack/client/webpack.config.prod.js",
     "server:build:dev": "webpack --config webpack/server/webpack.config.dev.js",
