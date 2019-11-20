@@ -49,7 +49,6 @@ export class RfidController {
   }
 
   @Get("encode-map/numalab-tag-encode/:companyName")
-  @HttpCode(200)
   async getTagsCorrespondence(@Param("companyName") companyName: string) {
     const response = await this.rfidService.getEncodeMap(companyName);
     return response;
