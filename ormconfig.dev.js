@@ -1,7 +1,7 @@
 module.exports = {
   type: "mysql",
-  host: process.env.MYSQL_HOST || "localhost",
-  port: parseInt(process.env.MYSQL_PORT || "3306"),
+  host: process.env.MYSQL_HOST || "127.0.0.1",
+  port: parseInt(process.env.MYSQL_PORT || "3308"),
   username: process.env.MYSQL_USER || "root",
   password: process.env.MYSQL_PASSWORD || "",
   database: process.env.MYSQL_DATABASE || "nest-api-database",
