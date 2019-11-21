@@ -5,10 +5,11 @@ module.exports = {
   username: process.env.MYSQL_USER || "root",
   password: process.env.MYSQL_PASSWORD || "",
   database: process.env.MYSQL_DATABASE || "nest-api-database",
-  entities: ["dist/server/entities/*.js"],
+  entities: ["server/entities/**/*.js"],
+  migrations: ["server/migration/**/*.js"],
   synchronize: false,
   cli: {
-    entitiesDir: "dist/server/entities",
-    migrationsDir: "dist/server/migration",
+    entitiesDir: "server/entities",
+    migrationsDir: "server/migration",
   },
 }
