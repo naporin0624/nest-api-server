@@ -21,6 +21,6 @@
       "static/*": ["./static/*"]
     }
   },
-  "include": ["server/**/*.ts"],
+  "include": ["server/**/*.ts", "tasks/generateOrmConfig.ts", "tasks/**/*.ts"],
   "exclude": ["node_modules", "dist", "test", "**/*.spec.ts", "webpack"]
 }
