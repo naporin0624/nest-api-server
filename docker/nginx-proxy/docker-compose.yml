@@ -17,7 +17,7 @@ services:
       LETSENCRYPT_EMAIL: ${EMAIL}
       SSL_POLICY: "Mozilla-Modern"
     volumes:
-      - docker/volumes/metabase:/metabase.db:cached
+      - ./docker/volumes/metabase:/metabase.db:cached
   mysql:
     image: mysql:5
     restart: always
@@ -28,7 +28,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     volumes:
-      - docker/volumes/db/mysql_data:/var/lib/mysql
+      - ./docker/volumes/db/mysql_data:/var/lib/mysql
     networks:
       - mysql-network
   web:
