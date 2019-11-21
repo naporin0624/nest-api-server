@@ -41,11 +41,8 @@ lerna-debug.log*
 # env files
 .env
 
-# dist public
-/public
-
 # docker
 ./Dockerfile
 ./docker-compose.yml
 ./.dockerignore
-db
+docker/volumes

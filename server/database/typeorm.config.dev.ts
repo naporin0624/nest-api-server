@@ -1,17 +1,6 @@
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
-import { Tag, TagContainer } from "@/entities";
-import ormConfig from "../../ormconfig.json";
+import ormConfig from "@@/ormconfig.dev.js";
 
-const options: TypeOrmModuleOptions = {
-  type: "mysql",
-  host: process.env.MYSQL_HOST || "localhost",
-  port: parseInt(process.env.MYSQL_PORT || "3308"),
-  username: process.env.MYSQL_USER || "root",
-  password: process.env.MYSQL_PASSWORD || "root",
-  database: process.env.MYSQL_DATABASE || "nest-api-database",
-  entities: [Tag, TagContainer],
-  synchronize: false,
-  ...ormConfig,
-};
+const options = ormConfig as TypeOrmModuleOptions;
 
 export = options;
