@@ -4,6 +4,7 @@ services:
   metabase:
     container_name: metabase
     image: metabase/metabase
+    env_file: .env
     ports:
       - 3001:3000
     networks:
