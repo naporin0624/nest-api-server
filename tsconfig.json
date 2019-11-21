@@ -14,11 +14,13 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
+    "types": ["react"],
     "paths": {
       "@/*": ["./server/*"],
+      "@@/*": ["./*"],
       "static/*": ["./static/*"]
     }
   },
-  "include": ["server"],
-  "exclude": ["node_modules", "dist", "test"]
+  "include": ["server/**/*.ts"],
+  "exclude": ["node_modules", "dist", "test", "**/*.spec.ts", "webpack"]
 }
