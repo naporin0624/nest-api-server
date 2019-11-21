@@ -9,7 +9,7 @@
     "server:build:prod": "tsc -p tsconfig.json",
     "client:build:prod": "webpack --config webpack/client/webpack.config.prod.js",
     "prebuild:build": "run-p client:build:prod server:build:prod",
-    "postbuild": "cp -r static dist/static && cp tsconfig.json dist",
+    "postbuild": "cp -r static dist/static && cp tsconfig.json dist && cp ormconfig.prod.js dist",
     "build": "run-s prebuild:rm prebuild:build postbuild",
     "start:prod": "cd dist && node -r tsconfig-paths/register server",
     "start:dev": "NODE_ENV=development nodemon",
@@ -23,11 +23,10 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm:dev": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config server/database/typeorm.config.dev.ts",
-    "typeorm:prod": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config server/database/typeorm.config.prod.ts",
-    "entity:create": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config server/database/typeorm.config.dev.ts migration:create -n",
-    "migration:dev": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config server/database/typeorm.config.dev.ts schema:sync",
-    "migration:prod": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config server/database/typeorm.config.prod.ts schema:sync"
+    "typeorm": "ts-node node_modules/typeorm/cli.js --config ormconfig.dev.js",
+    "migration:create": "yarn typeorm migration:create -n",
+    "migration:generate": "yarn typeorm migration:generate -n",
+    "migration:run": "yarn typeorm migration:run"
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.5.1",
@@ -64,7 +63,7 @@
     "source-map-loader": "^0.2.4",
     "styled-components": "^4.4.1",
     "swagger-ui-express": "^4.0.7",
-    "typeorm": "^0.2.20"
+    "typeorm": "latest"
   },
   "devDependencies": {
     "@nestjs/testing": "6.1.1",
