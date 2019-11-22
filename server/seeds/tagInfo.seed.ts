@@ -323,4 +323,16 @@ export const TagInfoSeed = [
     filterName: "dependent",
     groupName: "NameTag4",
   },
+  {
+    epc: "0000 0000 0000 0000 0000 0003",
+    companyName: "kodemari",
+    filterName: "",
+    groupName: "",
+  },
+  {
+    epc: "3333 3333 3333 3333 3333 0000",
+    companyName: "kodemari",
+    filterName: "",
+    groupName: "",
+  },
 ];
