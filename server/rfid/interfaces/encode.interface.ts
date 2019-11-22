@@ -13,4 +13,5 @@ interface Group {
   // index of filters array
   filterIndex: number;
   existingNum: number;
+  description?: string;
 }
