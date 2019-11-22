@@ -64,6 +64,7 @@ const companyEncode: CompanyEncode = {
 import { TagContainer, Tag } from "@/entities";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
+import { WssGateway } from "@/wss/wss.gateway";
 
 @Injectable()
 export class RfidService {
@@ -72,6 +73,7 @@ export class RfidService {
     @InjectRepository(Tag) private readonly tagRepository: Repository<Tag>,
     @InjectRepository(TagContainer)
     private readonly tagContainerRepository: Repository<TagContainer>,
+    private readonly gateway: WssGateway,
   ) {}
 
   async findAll() {
@@ -86,6 +88,7 @@ export class RfidService {
     tagContainer.tags = tags;
     tagContainer.readTime = createTagsDto.readTime;
     await this.tagRepository.save(tags);
+    this.gateway.wss.emit("add_tags", tagContainer);
     return this.tagContainerRepository.save(tagContainer);
   }
 

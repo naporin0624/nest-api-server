@@ -1,10 +1,9 @@
 import * as React from "react";
-import io from "socket.io-client";
+import { socket } from "@/lib/socket";
 
 export default () => {
   const [msg, setMsg] = React.useState("Welcome");
   React.useEffect(() => {
-    const socket = io("http://localhost:8000");
     socket.on("connect", () => {
       console.log("Connected");
     });

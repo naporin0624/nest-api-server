@@ -2,7 +2,10 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
-    "jsx": "react"
+    "jsx": "react",
+    "paths": {
+      "@/*": ["./client/src/"]
+    }
   },
   "include": ["src"]
 }
