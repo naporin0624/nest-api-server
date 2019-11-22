@@ -7,10 +7,7 @@ import { NestExpressApplication } from "@nestjs/platform-express";
 import webpack from "webpack";
 import webpackDevMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
-import config from "../webpack/client/webpack.config.dev";
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-declare const module: any;
+import config from "@@/webpack/client/webpack.config.dev";
 
 function webpackDevServer(app: NestExpressApplication): void {
   if (process.env.NODE_ENV === "development") {
@@ -46,11 +43,6 @@ async function bootstrap() {
 
   app.setGlobalPrefix("api");
   await app.listen(3000);
-
-  if (module.hot) {
-    module.hot.accept();
-    module.hot.dispose(() => app.close());
-  }
 }
 
 bootstrap().catch();

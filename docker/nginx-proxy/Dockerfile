@@ -9,4 +9,4 @@ RUN yarn install
 
 RUN yarn build
 
-CMD yarn migration:prod && yarn start:prod
+CMD yarn migration:run && yarn start:prod

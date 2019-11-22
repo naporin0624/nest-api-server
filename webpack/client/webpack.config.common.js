@@ -11,27 +11,34 @@ module.exports = {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
   module: {
-    rules: [{
+    rules: [
+      {
         test: /\.(png|jpe?g|gif)$/i,
         exclude: /node_modules/,
-        use: [{
-          loader: "file-loader",
-        }, ],
+        use: [
+          {
+            loader: "file-loader",
+          },
+        ],
       },
       {
         test: /\.json$/,
         exclude: /node_modules/,
         type: "javascript/auto",
-        use: [{
-          loader: "json-loader",
-        }, ],
+        use: [
+          {
+            loader: "json-loader",
+          },
+        ],
       },
       {
         test: /\.ts(x?)$/,
         exclude: /node_modules/,
-        use: [{
-          loader: "ts-loader",
-        }, ],
+        use: [
+          {
+            loader: "ts-loader",
+          },
+        ],
       },
     ],
   },
@@ -49,7 +56,7 @@ module.exports = {
   },
   output: {
     filename: "js/[name]-[hash].js",
-    path: path.join(__dirname, "..", "..", "public"),
+    path: path.join(__dirname, "..", "..", "dist/public"),
     publicPath: "/",
   },
   plugins: [],
