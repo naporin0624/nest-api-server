@@ -9,11 +9,13 @@ module.exports = merge(config, {
   watch: true,
   devtool: "source-map",
   module: {
-    rules: config.module.rules.concat([{
-      enforce: "pre",
-      test: /\.js$/,
-      loader: "source-map-loader",
-    }, ]),
+    rules: config.module.rules.concat([
+      {
+        enforce: "pre",
+        test: /\.js$/,
+        loader: "source-map-loader",
+      },
+    ]),
   },
   plugins: [
     ...config.plugins,
