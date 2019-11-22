@@ -22,7 +22,10 @@ export class Filter {
   @Column("varchar")
   description?: string;
 
-  @ManyToOne(() => CompanyEncode, companyEncode => companyEncode.filters)
+  @ManyToOne(
+    () => CompanyEncode,
+    companyEncode => companyEncode.filters,
+  )
   companyEncode: CompanyEncode;
 
   @CreateDateColumn()

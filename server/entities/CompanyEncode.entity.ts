@@ -17,10 +17,16 @@ export class CompanyEncode {
   @Column("varchar")
   name: string;
 
-  @OneToMany(() => Filter, filter => filter.companyEncode)
+  @OneToMany(
+    () => Filter,
+    filter => filter.companyEncode,
+  )
   filters: Filter[];
 
-  @OneToMany(() => Group, group => group.companyEncode)
+  @OneToMany(
+    () => Group,
+    group => group.companyEncode,
+  )
   groups: Group[];
 
   @CreateDateColumn()
