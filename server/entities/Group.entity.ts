@@ -28,10 +28,7 @@ export class Group {
   @Column("varchar")
   description?: string;
 
-  @ManyToOne(
-    () => CompanyEncode,
-    companyEncode => companyEncode.groups,
-  )
+  @ManyToOne(() => CompanyEncode, companyEncode => companyEncode.groups)
   companyEncode: CompanyEncode;
 
   @CreateDateColumn()

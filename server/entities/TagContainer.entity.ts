@@ -16,10 +16,7 @@ export class TagContainer {
   @Column()
   readTime: string;
 
-  @OneToMany(
-    () => Tag,
-    tag => tag.tagContainer,
-  )
+  @OneToMany(() => Tag, tag => tag.tagContainer)
   tags: Tag[];
 
   @CreateDateColumn()

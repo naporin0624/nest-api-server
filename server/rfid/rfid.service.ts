@@ -10,7 +10,6 @@ import { TagContainer, Tag, CompanyEncode, Filter, Group } from "@/entities";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { WssGateway } from "@/wss/wss.gateway";
-import { number } from "prop-types";
 
 @Injectable()
 export class RfidService {
@@ -21,8 +20,10 @@ export class RfidService {
     private readonly tagContainerRepository: Repository<TagContainer>,
     @InjectRepository(CompanyEncode)
     private readonly companyEncodeRepository: Repository<CompanyEncode>,
-    @InjectRepository(Filter) private readonly filterRepository: Repository<Filter>,
-    @InjectRepository(Group) private readonly groupRepository: Repository<Group>,
+    @InjectRepository(Filter)
+    private readonly filterRepository: Repository<Filter>,
+    @InjectRepository(Group)
+    private readonly groupRepository: Repository<Group>,
     private readonly gateway: WssGateway,
   ) {}
 
@@ -57,31 +58,18 @@ export class RfidService {
 
   async getEncodeMap(companyId: number) {
     const companyEncode = await this.companyEncodeRepository.findOne(companyId);
-    const filters = await this.filterRepository.find({where: {companyEncodeId: companyId}});
-    const groups = await this.groupRepository.find({where: {companyEncodeId: companyId}});
+    const filters = await this.filterRepository.find({
+      where: { companyEncodeId: companyId },
+    });
+    const groups = await this.groupRepository.find({
+      where: { companyEncodeId: companyId },
+    });
     companyEncode.filters = filters;
     companyEncode.groups = groups;
     return {
       ...companyEncode,
       filters,
       groups,
-    }
+    };
   }
-
-  // async create(createTagsDto: CreateTagsDto) {
-  //   const createTags = new this.tagsModel(createTagsDto);
-  //   createTags.save();
-  //   const tagContainer = new TagContainer();
-  //   const tags = await this.tagRepository.create(createTagsDto.tags);
-  //   tagContainer.tags = tags;
-  //   tags.forEach(tag => {
-  //     const meta = new Meta()
-  //     tag.meta = meta;
-  //     this.metaRepository.save(meta);
-  //   })
-  //   tagContainer.readTime = createTagsDto.readTime;
-  //   await this.tagRepository.save(tags);
-  //   this.gateway.wss.emit("add_tags", tagContainer);
-  //   return this.tagContainerRepository.save(tagContainer);
-  // }
 }

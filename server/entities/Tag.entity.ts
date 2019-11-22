@@ -28,10 +28,7 @@ export class Tag {
   @Column("float")
   doppler: number;
 
-  @ManyToOne(
-    () => TagContainer,
-    tagContainer => tagContainer.tags,
-  )
+  @ManyToOne(() => TagContainer, tagContainer => tagContainer.tags)
   tagContainer: TagContainer;
 
   @CreateDateColumn()
