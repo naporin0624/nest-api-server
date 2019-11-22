@@ -48,9 +48,9 @@ export class RfidController {
     await this.rfidService.findByDelete(id);
   }
 
-  @Get("encode-map/numalab-tag-encode/:companyName")
-  async getTagsCorrespondence(@Param("companyName") companyName: string) {
-    const response = await this.rfidService.getEncodeMap(companyName);
+  @Get("encode-map/numalab-tag-encode/:companyId")
+  async getTagsCorrespondence(@Param("companyId") companyId: number) {
+    const response = await this.rfidService.getEncodeMap(companyId);
     return response;
   }
 

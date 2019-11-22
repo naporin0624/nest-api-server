@@ -8,10 +8,11 @@ export class TagEncodeSeeding1574400954171 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
     const filters = await getRepository(Filter).save(FilterSeed);
     const groups = await getRepository(Group).save(GroupSeed);
-    const companyEncodeSeed: any = CompanyEncodeSeed;
-    companyEncodeSeed.filters = filters;
-    companyEncodeSeed.groups = groups;
-    await getRepository(CompanyEncode).save(companyEncodeSeed);
+    await getRepository(CompanyEncode).save({
+      ...CompanyEncodeSeed,
+      filters,
+      groups
+    });
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {

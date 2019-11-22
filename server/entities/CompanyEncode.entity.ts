@@ -35,3 +35,4 @@ export class CompanyEncode {
   @UpdateDateColumn()
   updatedAt: Date;
 }
+
