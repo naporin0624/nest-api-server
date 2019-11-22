@@ -17,15 +17,6 @@ export class CompanyEncode {
   @Column("varchar")
   name: string;
 
-  @Column("int")
-  companyId: number;
-
-  @Column("int")
-  phase: number;
-
-  @Column("int")
-  doppler: number;
-
   @OneToMany(
     () => Filter,
     filter => filter.companyEncode,
