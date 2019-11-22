@@ -5,7 +5,8 @@
     "jsx": "react",
     "paths": {
       "@/*": ["./client/src/"]
-    }
+    },
+    "types": ["node"]
   },
   "include": ["src"]
 }
