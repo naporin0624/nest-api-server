@@ -83,7 +83,9 @@ export class RfidService {
   private addTagInfoTo(tags: Tag[]) {
     return Promise.all(
       tags.map(async tag => {
-        tag.tagInfo = await this.tagInfoRepository.findOne({ epc: tag.tagId });
+        tag.tagInfo = await this.tagInfoRepository.findOne({
+          epc: tag.tagId,
+        });
         return tag;
       }),
     );
