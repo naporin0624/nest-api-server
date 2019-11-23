@@ -21,7 +21,8 @@
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-parameter-properties": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-unused-vars": "warn",
-    "max-len": ["error", { "code": 240, "tabWidth": 2 }]
+    "@typescript-eslint/no-unused-vars": "warn", //これは消す
+    "max-len": ["error", { "code": 240, "tabWidth": 2 }],
+    "require-atomic-updates": "off" //こういうことはやりたくないが, issueをみてもわからなかった(https://github.com/eslint/eslint/issues/11899)
   }
 }
