@@ -20,12 +20,14 @@ export class CompanyEncode {
   @OneToMany(
     () => Filter,
     filter => filter.companyEncode,
+    { onDelete: "CASCADE" },
   )
   filters: Filter[];
 
   @OneToMany(
     () => Group,
     group => group.companyEncode,
+    { onDelete: "CASCADE" },
   )
   groups: Group[];
 
