@@ -5,7 +5,6 @@ import {
   ManyToOne,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToOne,
   JoinColumn,
 } from "typeorm";
 import { TagContainer } from "./TagContainer.entity";

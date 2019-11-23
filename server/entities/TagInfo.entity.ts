@@ -4,9 +4,7 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToOne,
 } from "typeorm";
-import { Tag } from "./Tag.entity";
 
 @Entity()
 export class TagInfo {
