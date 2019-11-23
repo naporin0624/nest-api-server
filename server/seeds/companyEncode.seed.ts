@@ -1,3 +1,3 @@
-export const CompanyEncodeSeed = {
+export const companyEncodeSeed = {
   name: "kodemari",
 };

@@ -5,8 +5,11 @@ import {
   ManyToOne,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
 } from "typeorm";
 import { TagContainer } from "./TagContainer.entity";
+import { TagInfo } from "./TagInfo.entity";
 
 @Entity()
 export class Tag {
@@ -27,6 +30,10 @@ export class Tag {
 
   @Column("float")
   doppler: number;
+
+  @ManyToOne(() => TagInfo)
+  @JoinColumn()
+  tagInfo: TagInfo;
 
   @ManyToOne(
     () => TagContainer,

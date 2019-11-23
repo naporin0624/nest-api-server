@@ -8,6 +8,7 @@ import webpack from "webpack";
 import webpackDevMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
 import config from "@@/webpack/client/webpack.config.dev";
+import { LoggingInterceptor } from "./interceptors/logging.interceptor";
 
 function webpackDevServer(app: NestExpressApplication): void {
   if (process.env.NODE_ENV === "development") {
@@ -42,6 +43,7 @@ async function bootstrap() {
   SwaggerModule.setup("swagger", app, document);
 
   app.setGlobalPrefix("api");
+  app.useGlobalInterceptors(new LoggingInterceptor());
   await app.listen(3000);
 }
 

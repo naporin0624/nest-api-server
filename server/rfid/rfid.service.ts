@@ -10,12 +10,15 @@ import { TagContainer, Tag, CompanyEncode, Filter, Group } from "@/entities";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { WssGateway } from "@/wss/wss.gateway";
+import { TagInfo } from "../entities/TagInfo.entity";
 
 @Injectable()
 export class RfidService {
   constructor(
     @InjectModel("RfidTags") private readonly tagsModel: Model<Tags>,
     @InjectRepository(Tag) private readonly tagRepository: Repository<Tag>,
+    @InjectRepository(TagInfo)
+    private readonly tagInfoRepository: Repository<TagInfo>,
     @InjectRepository(TagContainer)
     private readonly tagContainerRepository: Repository<TagContainer>,
     @InjectRepository(CompanyEncode)
@@ -32,13 +35,17 @@ export class RfidService {
   }
 
   async create(createTagsDto: CreateTagsDto) {
+    // mongoへログを保存
     const createTags = new this.tagsModel(createTagsDto);
     createTags.save();
+
+    // MySQLに保存
     const tagContainer = new TagContainer();
     const tags = await this.tagRepository.create(createTagsDto.tags);
-    tagContainer.tags = tags;
+    const tagsAppendInfo = await this.addTagInfoTo(tags);
+    tagContainer.tags = tagsAppendInfo;
     tagContainer.readTime = createTagsDto.readTime;
-    await this.tagRepository.save(tags);
+    await this.tagRepository.save(tagsAppendInfo);
     this.gateway.wss.emit("add_tags", tagContainer);
     return this.tagContainerRepository.save(tagContainer);
   }
@@ -71,5 +78,16 @@ export class RfidService {
       filters,
       groups,
     };
+  }
+
+  private addTagInfoTo(tags: Tag[]) {
+    return Promise.all(
+      tags.map(async tag => {
+        tag.tagInfo = await this.tagInfoRepository.findOne({
+          epc: tag.tagId,
+        });
+        return tag;
+      }),
+    );
   }
 }

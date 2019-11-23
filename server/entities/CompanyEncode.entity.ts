@@ -14,18 +14,20 @@ export class CompanyEncode {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column("varchar")
+  @Column("varchar", { unique: true })
   name: string;
 
   @OneToMany(
     () => Filter,
     filter => filter.companyEncode,
+    { onDelete: "CASCADE" },
   )
   filters: Filter[];
 
   @OneToMany(
     () => Group,
     group => group.companyEncode,
+    { onDelete: "CASCADE" },
   )
   groups: Group[];
 
