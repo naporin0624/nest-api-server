@@ -31,7 +31,7 @@ export class Tag {
   @Column("float")
   doppler: number;
 
-  @OneToOne(() => TagInfo)
+  @ManyToOne(() => TagInfo)
   @JoinColumn()
   tagInfo: TagInfo;
 
