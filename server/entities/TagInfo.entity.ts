@@ -13,7 +13,7 @@ export class TagInfo {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column("varchar")
+  @Column("varchar", { unique: true })
   epc: string;
 
   @Column("varchar")
@@ -24,12 +24,6 @@ export class TagInfo {
 
   @Column("varchar")
   groupName: string;
-
-  @OneToOne(
-    () => Tag,
-    tag => tag,
-  )
-  tag: Tag;
 
   @CreateDateColumn()
   createdAt: Date;
