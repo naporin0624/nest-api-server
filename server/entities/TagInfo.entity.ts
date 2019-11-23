@@ -4,7 +4,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToOne,
 } from "typeorm";
+import { Tag } from "./Tag.entity";
 
 @Entity()
 export class TagInfo {
@@ -22,6 +24,12 @@ export class TagInfo {
 
   @Column("varchar")
   groupName: string;
+
+  @OneToOne(
+    () => Tag,
+    tag => tag,
+  )
+  tag: Tag;
 
   @CreateDateColumn()
   createdAt: Date;
