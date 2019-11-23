@@ -19,7 +19,7 @@ services:
     volumes:
       - ./docker/volumes/metabase:/metabase.db:cached
   mysql:
-    image: mysql:5
+    image: mysql:5.7
     restart: always
     env_file: .env
     environment:
@@ -48,6 +48,8 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_PORT: ${MYSQL_PORT}
+      WS_HOST: ${WS_HOST}
+      WS_PORT: ${WS_PORT}
       VIRTUAL_HOST: ${WEB_DOMAIN_NAME}
       VIRTUAL_PORT: 3000
       LETSENCRYPT_HOST: ${WEB_DOMAIN_NAME}

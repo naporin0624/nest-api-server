@@ -11,7 +11,7 @@
     "prebuild:build": "run-p client:build:prod server:build:prod",
     "postbuild": "cp -r static dist/static && cp tsconfig.json dist && cp ormconfig.prod.js dist",
     "build": "run-s prebuild:rm prebuild:build postbuild",
-    "start:prod": "cd dist && node -r tsconfig-paths/register server",
+    "start:prod": "cd dist && NODE_ENV=production node -r tsconfig-paths/register server",
     "start:dev": "NODE_ENV=development nodemon",
     "lint:server": "eslint server --ext .ts",
     "lint:client": "eslint client/src --ext .ts,.tsx",
@@ -29,7 +29,8 @@
     "migration:generate": "yarn typeorm migration:generate -n",
     "migration:run": "yarn typeorm migration:run",
     "migration:revert": "yarn typeorm migration:revert",
-    "migration:show": "yarn typeorm migration:show"
+    "migration:show": "yarn typeorm migration:show",
+    "migration:prod": "cd dist && node -r tsconfig-paths/register ./../node_modules/typeorm/cli.js --config ormconfig.prod.js migration:run"
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.5.1",
@@ -49,7 +50,6 @@
     "date-fns": "^2.4.1",
     "google-protobuf": "^3.9.0",
     "grpc": "^1.23.2",
-    "merge": "^1.2.1",
     "mongo": "^0.1.0",
     "mongoose": "^5.7.5",
     "mysql": "^2.17.1",
@@ -95,6 +95,7 @@
     "eslint-plugin-react": "^7.16.0",
     "html-webpack-plugin": "^3.2.0",
     "jest": "24.7.1",
+    "merge": "^1.2.1",
     "nodemon": "^1.19.3",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
