@@ -14,7 +14,7 @@ export class CompanyEncode {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column("varchar")
+  @Column("varchar", { unique: true })
   name: string;
 
   @OneToMany(
