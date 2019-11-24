@@ -40,14 +40,15 @@ export class RfidService {
     createTags.save();
 
     // MySQLに保存
-    const tagContainer = new TagContainer();
+    const _tagContainer = new TagContainer();
     const tags = await this.tagRepository.create(createTagsDto.tags);
     const tagsAppendInfo = await this.addTagInfoTo(tags);
-    tagContainer.tags = tagsAppendInfo;
-    tagContainer.readTime = createTagsDto.readTime;
+    _tagContainer.tags = tagsAppendInfo;
+    _tagContainer.readTime = createTagsDto.readTime;
     await this.tagRepository.save(tagsAppendInfo);
+    const tagContainer = await this.tagContainerRepository.save(_tagContainer);
     this.gateway.wss.emit("add_tags", tagContainer);
-    return this.tagContainerRepository.save(tagContainer);
+    return tagContainer;
   }
 
   async findByDelete(rfidID: string) {}

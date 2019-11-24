@@ -1,35 +1,27 @@
 import * as React from "react";
 import { Container, Text } from "./styles";
 import {
-  BarChart,
-  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend,
+  LineChart,
+  Line,
 } from "recharts";
 
-import enhance from "./enhance";
-import axios from "axios";
+import { useEnhance } from "./enhance";
 export const Home: React.FC = () => {
-  const { msg, setMsg, data } = enhance();
-  React.useEffect(() => {
-    setTimeout(async () => {
-      const res = await axios.get<"HelloWorld">("/api");
-      setMsg(res.data);
-    }, 2000);
-  }, []);
+  const { lineChartNames, readCountEachAntenna } = useEnhance();
 
   return (
     <Container>
-      <Text>{msg}</Text>
-      <BarChart
+      <LineChart
         width={500}
         height={300}
-        data={data}
+        data={readCountEachAntenna}
         margin={{
-          top: 20,
+          top: 5,
           right: 30,
           left: 20,
           bottom: 5,
@@ -40,10 +32,16 @@ export const Home: React.FC = () => {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="pv" stackId="a" fill="#8884d8" />
-        <Bar dataKey="uv" stackId="a" fill="#82ca9d" />
-        <Bar dataKey="amt" stackId="a" fill="#c2ca9c" />
-      </BarChart>
+        {lineChartNames.map(l => (
+          <Line
+            key={l.n}
+            type="monotone"
+            dataKey={`antenna${l.n}`}
+            strokeWidth={2}
+            stroke={l.c}
+          />
+        ))}
+      </LineChart>
     </Container>
   );
 };
