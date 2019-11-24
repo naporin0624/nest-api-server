@@ -15,5 +15,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: nest-api-database
+      TZ: "Asia/Tokyo"
     ports:
       - 3308:3306
