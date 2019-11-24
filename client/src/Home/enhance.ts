@@ -33,7 +33,7 @@ export const useEnhance = () => {
         ...p,
         {
           ...eventPayload,
-          createdAt: addHours(new Date(eventPayload.createdAt), 9),
+          createdAt: new Date(eventPayload.createdAt),
           updatedAt: new Date(eventPayload.updatedAt),
         },
       ]);
