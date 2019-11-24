@@ -39,6 +39,7 @@ export const Home: React.FC = () => {
             dataKey={`antenna${l.n}`}
             strokeWidth={2}
             stroke={l.c}
+            strokeDasharray={`${l.n} ${l.n}`}
           />
         ))}
       </LineChart>
