@@ -56,5 +56,13 @@ export const useEnhance = () => {
     setReadCountEachAntenna(readCount);
   }, [tagContainer]);
 
-  return { tagContainer, addTagContainer, readCountEachAntenna };
+  const lineChartNames = [
+    { n: 1, c: "#b0c4de" },
+    { n: 2, c: "#00fa9a" },
+    { n: 3, c: "#778899" },
+    { n: 4, c: "#ffa500" },
+    { n: 5, c: "#87cefa" },
+  ];
+
+  return { tagContainer, lineChartNames, readCountEachAntenna };
 };

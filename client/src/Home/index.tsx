@@ -12,7 +12,7 @@ import {
 
 import { useEnhance } from "./enhance";
 export const Home: React.FC = () => {
-  const { addTagContainer, readCountEachAntenna } = useEnhance();
+  const { lineChartNames, readCountEachAntenna } = useEnhance();
 
   return (
     <Container>
@@ -32,13 +32,7 @@ export const Home: React.FC = () => {
         <YAxis />
         <Tooltip />
         <Legend />
-        {[
-          { n: 1, c: "#b0c4de" },
-          { n: 2, c: "#00fa9a" },
-          { n: 3, c: "#778899" },
-          { n: 4, c: "#ffa500" },
-          { n: 5, c: "#87cefa" },
-        ].map(l => (
+        {lineChartNames.map(l => (
           <Line
             key={l.n}
             type="monotone"
