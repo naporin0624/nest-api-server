@@ -35,7 +35,9 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile
+      args:
+        WS_HOST: ${WS_HOST}
+        WS_PORT: ${WS_PORT}
     restart: always
     env_file: .env
     environment:

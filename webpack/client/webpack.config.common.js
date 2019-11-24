@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
 const webpack = require("webpack");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   entry: ["./client/src/App.tsx", "babel-polyfill"],
@@ -59,5 +60,11 @@ module.exports = {
     path: path.join(__dirname, "..", "..", "dist/public"),
     publicPath: "/",
   },
-  plugins: [],
+  plugins: [
+    new webpack.DefinePlugin({
+      "process.env.WS_HOST": JSON.stringify(process.env.WS_HOST),
+      "process.env.WS_PORT": JSON.stringify(process.env.WS_PORT),
+    }),
+    new Dotenv(),
+  ],
 };

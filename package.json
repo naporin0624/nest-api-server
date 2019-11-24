@@ -30,7 +30,9 @@
     "migration:run": "yarn typeorm migration:run",
     "migration:revert": "yarn typeorm migration:revert",
     "migration:show": "yarn typeorm migration:show",
-    "migration:prod": "cd dist && node -r tsconfig-paths/register ./../node_modules/typeorm/cli.js --config ormconfig.prod.js migration:run"
+    "migration:prod": "cd dist && node -r tsconfig-paths/register ./../node_modules/typeorm/cli.js --config ormconfig.prod.js migration:run",
+    "cp:docker": "cp -Rp docker/nginx-proxy/* . & cp docker/nginx-proxy/.dockerignore . & cp docker/nginx-proxy/.env .",
+    "rm:docker": "rm docker-compose.yml & rm Dockerfile & rm .dockerignore & rm .env"
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.5.1",
@@ -88,6 +90,7 @@
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
     "babel-polyfill": "^6.26.0",
+    "dotenv-webpack": "^1.7.0",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-jest": "^23.0.3",
