@@ -1,7 +1,7 @@
 import * as React from "react";
 import { socket } from "../lib/socket";
 import { TagContainer } from "../types/";
-import { format, addHours } from "date-fns";
+import { format, subHours } from "date-fns";
 
 export interface ReadCountGraphSchema {
   name: string;
@@ -18,6 +18,7 @@ type EventPayload = Omit<Omit<TagContainer, "createdAt">, "updatedAt"> & {
 };
 
 export const useEnhance = () => {
+  const [plotLength, setPlotLength] = React.useState(10);
   const [tagContainer, setTagContainer] = React.useState<TagContainer[]>([]);
   const [readCountEachAntenna, setReadCountEachAntenna] = React.useState<
     ReadCountGraphSchema[]
@@ -25,26 +26,23 @@ export const useEnhance = () => {
 
   socket.on("connect", () => console.log("Connect"));
 
-  const addTagContainer = (c: TagContainer) => setTagContainer(p => [...p, c]);
-
   React.useEffect(() => {
     socket.on("add_tags", (eventPayload: EventPayload) => {
       setTagContainer(p => [
         ...p,
         {
           ...eventPayload,
-          createdAt: new Date(eventPayload.createdAt),
-          updatedAt: new Date(eventPayload.updatedAt),
+          createdAt: subHours(new Date(eventPayload.createdAt), 9),
+          updatedAt: subHours(new Date(eventPayload.updatedAt), 9),
         },
       ]);
     });
   }, []);
 
   React.useEffect(() => {
-    const plotLength = tagContainer.length - 10;
     const relu = (n: number) => (n > 0 ? n : 0);
     const readCount = tagContainer
-      .slice(relu(plotLength))
+      .slice(relu(tagContainer.length - plotLength))
       .map<ReadCountGraphSchema>(container => ({
         name: format(container.createdAt, "HH:mm:ss"),
         antenna1: container.tags.filter(tag => tag.antennaNo === 1).length,
@@ -54,7 +52,7 @@ export const useEnhance = () => {
         antenna5: container.tags.filter(tag => tag.antennaNo === 5).length,
       }));
     setReadCountEachAntenna(readCount);
-  }, [tagContainer]);
+  }, [tagContainer, plotLength]);
 
   const lineChartNames = [
     { n: 1, c: "#b0c4de" },
@@ -64,5 +62,11 @@ export const useEnhance = () => {
     { n: 5, c: "#87cefa" },
   ];
 
-  return { tagContainer, lineChartNames, readCountEachAntenna };
+  return {
+    tagContainer,
+    lineChartNames,
+    readCountEachAntenna,
+    plotLength,
+    setPlotLength,
+  };
 };

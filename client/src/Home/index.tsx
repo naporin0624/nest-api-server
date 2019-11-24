@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Container, Text } from "./styles";
+import { Container, Text, InputNumber, Label } from "./styles";
 import {
   XAxis,
   YAxis,
@@ -12,10 +12,23 @@ import {
 
 import { useEnhance } from "./enhance";
 export const Home: React.FC = () => {
-  const { lineChartNames, readCountEachAntenna } = useEnhance();
+  const {
+    lineChartNames,
+    readCountEachAntenna,
+    plotLength,
+    setPlotLength,
+  } = useEnhance();
 
   return (
     <Container>
+      <Label>
+        表示するプロット数を入力する
+        <InputNumber
+          type="number"
+          value={plotLength}
+          onChange={e => setPlotLength(parseInt(e.currentTarget.value.trim()))}
+        />
+      </Label>
       <LineChart
         width={500}
         height={300}
