@@ -30,7 +30,8 @@
     "migration:run": "yarn typeorm migration:run",
     "migration:revert": "yarn typeorm migration:revert",
     "migration:show": "yarn typeorm migration:show",
-    "migration:prod": "cd dist && node -r tsconfig-paths/register ./../node_modules/typeorm/cli.js --config ormconfig.prod.js migration:run"
+    "migration:prod": "cd dist && node -r tsconfig-paths/register ./../node_modules/typeorm/cli.js --config ormconfig.prod.js migration:run",
+    "cp:docker": "cp -Rp docker/nginx-proxy/* . && cp docker/nginx-proxy/.dockerignore"
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.5.1",
