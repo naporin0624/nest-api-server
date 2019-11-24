@@ -26,7 +26,10 @@ export const Home: React.FC = () => {
         <InputNumber
           type="number"
           value={plotLength}
-          onChange={e => setPlotLength(parseInt(e.currentTarget.value.trim()))}
+          min={2}
+          onChange={e => {
+            setPlotLength(parseInt(e.currentTarget.value.trim()));
+          }}
         />
       </Label>
       <LineChart
