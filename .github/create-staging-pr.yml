@@ -1,0 +1,22 @@
+name: create staging PR
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  build:
+    steps:
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v1
+        with:
+          title: "[Deploy] Staging deploy"
+          body: ステージングにデプロイします
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: deploy/staging
+          branch-suffix: short-commit-hash
