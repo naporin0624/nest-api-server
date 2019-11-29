@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  metabase:
+  metabase-staging:
     container_name: metabase
     image: metabase/metabase
     env_file: .env
