@@ -1,0 +1,68 @@
+version: "3"
+
+services:
+  mongo-staging:
+    image: mongo
+    restart: always
+    env_file: .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASS}
+    networks:
+      - mongo-network
+  mysql-staging:
+    image: mysql:5.7
+    restart: always
+    env_file: .env
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ./docker/volumes/db/mysql_data:/var/lib/mysql
+    networks:
+      - mysql-network
+  web-staging:
+    build:
+      context: .
+      args:
+        WS_HOST: ${WS_HOST}
+        WS_PORT: ${WS_PORT}
+    restart: always
+    env_file: .env
+    environment:
+      MONGODB_HOST: ${MONGODB_HOST}
+      MONGODB_USER: ${MONGODB_USER}
+      MONGODB_PASS: ${MONGODB_PASS}
+      MONGODB_DATABASE: ${MONGODB_DATABASE}
+      MONGODB_PORT: ${MONGODB_PORT}
+      MYSQL_HOST: mysql-staging
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_PORT: ${MYSQL_PORT}
+      WS_HOST: ${WS_HOST}
+      WS_PORT: ${WS_PORT}
+      VIRTUAL_HOST: ${WEB_DOMAIN_NAME}
+      VIRTUAL_PORT: 3000
+      LETSENCRYPT_HOST: ${WEB_DOMAIN_NAME}
+      LETSENCRYPT_EMAIL: ${EMAIL}
+      SSL_POLICY: "Mozilla-Modern"
+    networks:
+      - mysql-network
+      - nginx_proxy_link
+    expose:
+      - 3000
+      - 8000
+    ports:
+      - 5000:5000
+
+networks:
+  mysql-network:
+    driver: bridge
+  mongo-network:
+    driver: bridge
+  nginx_proxy_link:
+    external: true
