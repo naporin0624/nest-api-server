@@ -57,7 +57,7 @@ services:
       - 3000
       - 8000
     ports:
-      - 5000:5000
+      - 5001:5000
 
 networks:
   mysql-network:
