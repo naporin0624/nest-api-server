@@ -2,6 +2,7 @@ version: "3"
 
 services:
   metabase-staging:
+    container_name: metabase-staging
     image: metabase/metabase
     env_file: .env
     expose:
@@ -17,6 +18,7 @@ services:
     volumes:
       - ./docker/volumes/metabase:/metabase.db:cached
   mongo-staging:
+    container_name: mongo-staging
     image: mongo
     restart: always
     env_file: .env
@@ -24,6 +26,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASS}
   mysql-staging:
+    container_name: mysql-staging
     image: mysql:5.7
     restart: always
     env_file: .env
@@ -36,6 +39,7 @@ services:
     volumes:
       - ./docker/volumes/db/mysql_data:/var/lib/mysql
   web-staging:
+    container_name: web-staging
     build:
       context: .
       args:
