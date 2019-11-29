@@ -17,6 +17,8 @@ services:
       SSL_POLICY: "Mozilla-Modern"
     volumes:
       - ./docker/volumes/metabase:/metabase.db:cached
+    networks:
+      - mysql-network
   mongo-staging:
     container_name: mongo-staging
     image: mongo
@@ -25,6 +27,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASS}
+    networks:
+      - mongo-network
   mysql-staging:
     container_name: mysql-staging
     image: mysql:5.7
@@ -38,6 +42,8 @@ services:
       TZ: "Asia/Tokyo"
     volumes:
       - ./docker/volumes/db/mysql_data:/var/lib/mysql
+    networks:
+      - mysql-network
   web-staging:
     container_name: web-staging
     build:
@@ -67,6 +73,8 @@ services:
       SSL_POLICY: "Mozilla-Modern"
     networks:
       - nginx_proxy_link
+      - mysql-network
+      - mongo-network
     expose:
       - 3000
       - 8000
@@ -76,3 +84,7 @@ services:
 networks:
   nginx_proxy_link:
     external: true
+  mysql-network:
+    driver: bridge
+  mongo-network:
+    driver: bridge
