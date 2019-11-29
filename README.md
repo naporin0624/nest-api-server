@@ -42,6 +42,34 @@ swagger に生えてる api が見れます。CRUD は[SwaggerUI](http://localho
 
 [React で書いてる画面](http://localhost:3000)ここでデータが飛んでくるたびにグラフが更新されるものが見えると思います
 
+
+## API開発の手順
+
+### 準備するもの
+[nest-cli](https://github.com/nestjs/nest-cli)
+
+```
+yarn global add @nestjs/cli
+```
+
+### nest-cliの基本的な使い方
+基本的にgenerateコマンドを使うことが多いと思う[参考](https://docs.nestjs.com/cli/usages#nest-generate)
+
+モジュールの作成
+```
+nest g mo MODULE_NAME
+```
+
+コントローラーの作成
+```
+nest g c CONTROLLER_NAME
+```
+
+サービスの作成
+```
+nest g s SERVICE_NAME
+```
+
 ## マイグレーション周り
 
 ### テーブルを作る
