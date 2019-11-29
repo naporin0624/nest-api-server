@@ -18,8 +18,9 @@ jobs:
           title: "[Deploy] Staging deploy"
           body: ステージングにデプロイします
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: deploy/staging
+          branch: deploy-staging
           branch-suffix: short-commit-hash
+          base: staging
       - name: Check outputs
         run: |
           echo "Pull Request Number - ${{ env.PULL_REQUEST_NUMBER }}"
