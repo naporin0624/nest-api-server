@@ -6,7 +6,14 @@ import { CreateTagsDto } from "./dto/createTags.dto";
 import { subHours, subMinutes } from "date-fns";
 import { CountTags } from "./interfaces/count.interface";
 
-import { TagContainer, Tag, CompanyEncode, Filter, Group } from "@/entities";
+import {
+  TagContainer,
+  Tag,
+  CompanyEncode,
+  Filter,
+  Group,
+  TagInfoForLab,
+} from "@/entities";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository, LessThanOrEqual, MoreThan } from "typeorm";
 import { WssGateway } from "@/wss/wss.gateway";
@@ -28,6 +35,8 @@ export class RfidService {
     private readonly filterRepository: Repository<Filter>,
     @InjectRepository(Group)
     private readonly groupRepository: Repository<Group>,
+    @InjectRepository(TagInfoForLab)
+    private readonly tagInfoForLabRepository: Repository<TagInfoForLab>,
     private readonly gateway: WssGateway,
   ) {}
 
@@ -113,6 +122,9 @@ export class RfidService {
     return Promise.all(
       tags.map(async tag => {
         tag.tagInfo = await this.tagInfoRepository.findOne({
+          epc: tag.tagId,
+        });
+        tag.tagInfoForLab = await this.tagInfoForLabRepository.findOne({
           epc: tag.tagId,
         });
         return tag;

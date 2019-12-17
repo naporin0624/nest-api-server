@@ -5,6 +5,7 @@ import { RfidController } from "./rfid.controller";
 import { RfidService } from "./rfid.service";
 import { WssModule } from "@/wss/wss.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { TagInfoForLab } from "@/entities";
 import {
   TagContainer,
   TagInfo,
@@ -25,6 +26,7 @@ import {
       CompanyEncode,
       Filter,
       Group,
+      TagInfoForLab,
     ]),
   ],
   controllers: [RfidController],
