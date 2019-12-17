@@ -1,35 +1,33 @@
 import { ApiModelProperty } from "@nestjs/swagger";
 import {
   Entity,
-  Column,
   PrimaryGeneratedColumn,
+  Column,
   CreateDateColumn,
   UpdateDateColumn,
 } from "typeorm";
 
 @Entity()
-export class TagInfo {
-  @ApiModelProperty({
-    description: "primary key",
-  })
+export class TagInfoForLab {
+  @ApiModelProperty()
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @ApiModelProperty({ description: "tag id", default: "0000 0000 0000 0000" })
+  @ApiModelProperty()
   @Column("varchar", { unique: true })
   epc: string;
 
-  @ApiModelProperty({ description: "Installation location", default: "house" })
+  @ApiModelProperty()
   @Column("varchar")
-  companyName: string;
+  name: string;
 
   @ApiModelProperty()
   @Column("varchar")
-  filterName: string;
+  environment: string;
 
   @ApiModelProperty()
   @Column("varchar")
-  groupName: string;
+  description: string;
 
   @ApiModelProperty()
   @CreateDateColumn()

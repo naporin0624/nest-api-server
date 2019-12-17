@@ -6,11 +6,19 @@ import { CreateTagsDto } from "./dto/createTags.dto";
 import { subHours, subMinutes } from "date-fns";
 import { CountTags } from "./interfaces/count.interface";
 
-import { TagContainer, Tag, CompanyEncode, Filter, Group } from "@/entities";
+import {
+  TagContainer,
+  Tag,
+  CompanyEncode,
+  Filter,
+  Group,
+  TagInfoForLab,
+} from "@/entities";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { Repository, LessThanOrEqual, MoreThan } from "typeorm";
 import { WssGateway } from "@/wss/wss.gateway";
 import { TagInfo } from "../entities/TagInfo.entity";
+import { Parser } from "json2csv";
 
 @Injectable()
 export class RfidService {
@@ -27,11 +35,40 @@ export class RfidService {
     private readonly filterRepository: Repository<Filter>,
     @InjectRepository(Group)
     private readonly groupRepository: Repository<Group>,
+    @InjectRepository(TagInfoForLab)
+    private readonly tagInfoForLabRepository: Repository<TagInfoForLab>,
     private readonly gateway: WssGateway,
   ) {}
 
-  async findAll() {
-    return this.tagContainerRepository.find({ relations: ["tags"] });
+  async findRangeDate(end: Date, start: Date) {
+    return this.tagRepository.find({
+      join: {
+        alias: "tag",
+        leftJoinAndSelect: {
+          tagInfo: "tag.tagInfo",
+        },
+      },
+      where: [
+        { createdAt: MoreThan(start) },
+        { createdAt: LessThanOrEqual(end) },
+      ],
+    });
+  }
+
+  json2csv(json: Tag[]) {
+    const JSON2CSV = new Parser({
+      fields: [
+        "rssi",
+        "doppler",
+        "phase",
+        "tagInfo.epc",
+        "tagInfo.companyName",
+        "tagInfo.groupName",
+        "tagInfo.filterName",
+        "createdAt",
+      ],
+    });
+    return JSON2CSV.parse(json);
   }
 
   async create(createTagsDto: CreateTagsDto) {
@@ -85,6 +122,9 @@ export class RfidService {
     return Promise.all(
       tags.map(async tag => {
         tag.tagInfo = await this.tagInfoRepository.findOne({
+          epc: tag.tagId,
+        });
+        tag.tagInfoForLab = await this.tagInfoForLabRepository.findOne({
           epc: tag.tagId,
         });
         return tag;
