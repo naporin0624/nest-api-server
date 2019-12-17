@@ -4,3 +4,4 @@ export * from "./Filter.entity";
 export * from "./Group.entity";
 export * from "./CompanyEncode.entity";
 export * from "./TagInfo.entity";
+export * from "./TagInfoForLab.entity";

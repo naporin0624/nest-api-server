@@ -1,7 +1,8 @@
-import { IsDefined, IsString } from "class-validator";
 import { ApiModelProperty } from "@nestjs/swagger";
 
-export abstract class TagInfoDto {
+import { IsDefined, IsString } from "class-validator";
+
+export abstract class TagInfoForLabDto {
   @ApiModelProperty()
   @IsDefined()
   @IsString()
@@ -10,15 +11,15 @@ export abstract class TagInfoDto {
   @ApiModelProperty()
   @IsDefined()
   @IsString()
-  readonly companyName: string;
+  readonly environment: string;
 
   @ApiModelProperty()
   @IsDefined()
   @IsString()
-  readonly filterName: string;
+  readonly name: string;
 
   @ApiModelProperty()
   @IsDefined()
   @IsString()
-  readonly groupName: string;
+  readonly description: string;
 }

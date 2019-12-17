@@ -9,6 +9,7 @@ import {
 } from "typeorm";
 import { TagContainer } from "./TagContainer.entity";
 import { TagInfo } from "./TagInfo.entity";
+import { TagInfoForLab } from "./TagInfoForLab.entity";
 
 @Entity()
 export class Tag {
@@ -33,6 +34,10 @@ export class Tag {
   @ManyToOne(() => TagInfo)
   @JoinColumn()
   tagInfo: TagInfo;
+
+  @ManyToOne(() => TagInfoForLab)
+  @JoinColumn()
+  tagInfoForLab: TagInfoForLab;
 
   @ManyToOne(
     () => TagContainer,
