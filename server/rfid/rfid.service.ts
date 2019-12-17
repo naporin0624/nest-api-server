@@ -3,14 +3,15 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Tags } from "./interfaces/tags.interface";
 import { CreateTagsDto } from "./dto/createTags.dto";
-import { subHours, subMinutes } from "date-fns";
+import { subHours, subMinutes, subDays } from "date-fns";
 import { CountTags } from "./interfaces/count.interface";
 
 import { TagContainer, Tag, CompanyEncode, Filter, Group } from "@/entities";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { Repository, LessThanOrEqual, MoreThan } from "typeorm";
 import { WssGateway } from "@/wss/wss.gateway";
 import { TagInfo } from "../entities/TagInfo.entity";
+import { Parser, parse } from "json2csv";
 
 @Injectable()
 export class RfidService {
@@ -30,8 +31,35 @@ export class RfidService {
     private readonly gateway: WssGateway,
   ) {}
 
-  async findAll() {
-    return this.tagContainerRepository.find({ relations: ["tags"] });
+  async findRangeDate(end: Date, start: Date) {
+    return this.tagRepository.find({
+      join: {
+        alias: "tag",
+        leftJoinAndSelect: {
+          tagInfo: "tag.tagInfo",
+        },
+      },
+      where: [
+        { createdAt: MoreThan(start) },
+        { createdAt: LessThanOrEqual(end) },
+      ],
+    });
+  }
+
+  json2csv(json: Tag[]) {
+    const JSON2CSV = new Parser({
+      fields: [
+        "rssi",
+        "doppler",
+        "phase",
+        "tagInfo.epc",
+        "tagInfo.companyName",
+        "tagInfo.groupName",
+        "tagInfo.filterName",
+        "createdAt",
+      ],
+    });
+    return JSON2CSV.parse(json);
   }
 
   async create(createTagsDto: CreateTagsDto) {
