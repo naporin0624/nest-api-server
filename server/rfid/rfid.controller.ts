@@ -11,13 +11,21 @@ import {
   UsePipes,
   ValidationPipe,
   Query,
+  UseFilters,
+  Header,
 } from "@nestjs/common";
-import { ApiUseTags, ApiImplicitQuery } from "@nestjs/swagger";
+import {
+  ApiUseTags,
+  ApiImplicitQuery,
+  ApiResponse,
+  ApiCreatedResponse,
+} from "@nestjs/swagger";
 
+import * as json2csv from "json2csv";
 import { RfidService } from "./rfid.service";
 import { Response } from "express";
 import { CreateTagsDto } from "./dto/createTags.dto";
-import { subHours, format, subMinutes } from "date-fns";
+import { subHours, format, subMinutes, subDays, subWeeks } from "date-fns";
 import { WssGateway } from "@/wss/wss.gateway";
 
 @ApiUseTags("rfid")
@@ -28,10 +36,28 @@ export class RfidController {
     private readonly gateway: WssGateway,
   ) {}
 
-  @Get("tags")
-  async findAll(@Res() res: Response) {
-    const tagsList = await this.rfidService.findAll();
-    return res.status(HttpStatus.OK).json(tagsList);
+  @Get("tags/one-day")
+  async oneDay(@Res() res: Response) {
+    const tagsList = await this.rfidService.findRangeDate(
+      new Date(),
+      subDays(new Date(), 1),
+    );
+
+    res.setHeader("Content-disposition", "attachment; filename=data.csv");
+    res.setHeader("Content-Type", "text/csv; charset=UTF-8");
+    res.send(this.rfidService.json2csv(tagsList));
+  }
+
+  @Get("tags/one-week")
+  async oneWeek(@Res() res: Response) {
+    const tagsList = await this.rfidService.findRangeDate(
+      new Date(),
+      subWeeks(new Date(), 1),
+    );
+
+    res.setHeader("Content-disposition", "attachment; filename=data.csv");
+    res.setHeader("Content-Type", "text/csv; charset=UTF-8");
+    res.send(this.rfidService.json2csv(tagsList));
   }
 
   @Post("tags")
