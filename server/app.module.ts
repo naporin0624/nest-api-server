@@ -7,6 +7,7 @@ import { WssModule } from "./wss/wss.module";
 import { join } from "path";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { DatabaseModule } from "./database/database.module";
+import { TagInfoModule } from "./tag-info/tag-info.module";
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { DatabaseModule } from "./database/database.module";
     WssModule,
     HttpModule,
     DatabaseModule,
+    TagInfoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
