@@ -1,5 +1,4 @@
 import { ApiModelProperty } from "@nestjs/swagger";
-import { InitialDataBase1574368743160 } from "../migration/1574368743160-InitialDataBase";
 import {
   Entity,
   Column,
