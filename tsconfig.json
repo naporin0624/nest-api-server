@@ -14,7 +14,7 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
-    "types": ["react"],
+    "types": ["react", "jest", "node"],
     "paths": {
       "@/*": ["./server/*"],
       "@@/*": ["./*"],
