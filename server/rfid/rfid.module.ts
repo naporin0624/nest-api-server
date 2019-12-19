@@ -3,9 +3,9 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { TagsSchema } from "./schemas/tags.schema";
 import { RfidController } from "./rfid.controller";
 import { RfidService } from "./rfid.service";
-import { WssModule } from "@/wss/wss.module";
+import { WssModule } from "@/server/wss/wss.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { TagInfoForLab } from "@/entities";
+import { TagInfoForLab } from "@/server/entities";
 import {
   TagContainer,
   TagInfo,
@@ -13,7 +13,7 @@ import {
   CompanyEncode,
   Filter,
   Group,
-} from "@/entities";
+} from "@/server/entities";
 
 @Module({
   imports: [

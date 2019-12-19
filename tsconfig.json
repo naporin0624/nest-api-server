@@ -2,6 +2,8 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "jsx": "react",
     "declaration": false,
     "removeComments": true,
     "emitDecoratorMetadata": true,
@@ -16,11 +18,9 @@
     "incremental": true,
     "types": ["react", "jest", "node"],
     "paths": {
-      "@/*": ["./server/*"],
-      "@@/*": ["./*"],
-      "static/*": ["./static/*"]
+      "@/*": ["./*"]
     }
   },
-  "include": ["server/**/*.ts"],
+  "include": ["server", "client"],
   "exclude": ["node_modules", "dist", "test", "**/*.spec.ts", "webpack"]
 }

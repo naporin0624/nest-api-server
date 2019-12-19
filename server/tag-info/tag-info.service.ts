@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { Repository } from "typeorm";
-import { TagInfo, TagInfoForLab } from "@/entities";
+import { TagInfo, TagInfoForLab } from "@/server/entities";
 import { InjectRepository } from "@nestjs/typeorm";
 import { TagInfoDto } from "./dto/tagInfo.dto";
 import { TagInfoForLabDto } from "./dto/tagInfoForLab.dto";

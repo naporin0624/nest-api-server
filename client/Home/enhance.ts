@@ -1,6 +1,6 @@
 import * as React from "react";
-import { socket } from "../lib/socket";
-import { TagContainer } from "../types/";
+import { socket } from "@/client/lib/socket";
+import { TagContainer } from "@/client/types/";
 import { format, subHours } from "date-fns";
 
 export interface ReadCountGraphSchema {
