@@ -7,7 +7,7 @@ import { NestExpressApplication } from "@nestjs/platform-express";
 import webpack from "webpack";
 import webpackDevMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
-import config from "@@/webpack/client/webpack.config.dev";
+import config from "@/webpack/client/webpack.config.dev";
 import { LoggingInterceptor } from "./interceptors/logging.interceptor";
 
 function webpackDevServer(app: NestExpressApplication): void {

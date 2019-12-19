@@ -13,10 +13,10 @@ import {
   Filter,
   Group,
   TagInfoForLab,
-} from "@/entities";
+} from "@/server/entities";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository, LessThanOrEqual, MoreThan } from "typeorm";
-import { WssGateway } from "@/wss/wss.gateway";
+import { WssGateway } from "@/server/wss/wss.gateway";
 import { TagInfo } from "../entities/TagInfo.entity";
 import { Parser } from "json2csv";
 

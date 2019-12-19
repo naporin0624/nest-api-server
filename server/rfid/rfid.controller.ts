@@ -26,7 +26,7 @@ import { RfidService } from "./rfid.service";
 import { Response } from "express";
 import { CreateTagsDto } from "./dto/createTags.dto";
 import { subHours, format, subMinutes, subDays, subWeeks } from "date-fns";
-import { WssGateway } from "@/wss/wss.gateway";
+import { WssGateway } from "@/server/wss/wss.gateway";
 
 @ApiUseTags("rfid")
 @Controller("rfid")
