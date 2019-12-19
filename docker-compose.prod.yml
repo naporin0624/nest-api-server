@@ -1,35 +1,24 @@
 version: "3"
 
 services:
-  metabase-staging:
-    container_name: metabase-staging
+  metabase:
+    container_name: metabase
     image: metabase/metabase
     env_file: .env
-    expose:
-      - 3000
+    ports:
+      - 3001:3000
+    networks:
+      - mysql-network
+      - nginx_proxy_link
     environment:
       VIRTUAL_HOST: ${METABASE_DOMAIN_NAME}
-      VIRTUAL_PORT: 3000
+      VIRTUAL_PORT: 3001
       LETSENCRYPT_HOST: ${METABASE_DOMAIN_NAME}
       LETSENCRYPT_EMAIL: ${EMAIL}
       SSL_POLICY: "Mozilla-Modern"
     volumes:
       - ./docker/volumes/metabase:/metabase.db:cached
-    networks:
-      - nginx_proxy_link
-      - mysql-network
-  mongo-staging:
-    container_name: mongo-staging
-    image: mongo
-    restart: always
-    env_file: .env
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASS}
-    networks:
-      - mongo-network
-  mysql-staging:
-    container_name: mysql-staging
+  mysql:
     image: mysql:5.7
     restart: always
     env_file: .env
@@ -43,10 +32,10 @@ services:
       - ./docker/volumes/db/mysql_data:/var/lib/mysql
     networks:
       - mysql-network
-  web-staging:
-    container_name: web-staging
+  web:
     build:
       context: .
+      dockerfile: Dockerfile.prod
       args:
         WS_HOST: ${WS_HOST}
         WS_PORT: ${WS_PORT}
@@ -58,7 +47,7 @@ services:
       MONGODB_PASS: ${MONGODB_PASS}
       MONGODB_DATABASE: ${MONGODB_DATABASE}
       MONGODB_PORT: ${MONGODB_PORT}
-      MYSQL_HOST: mysql-staging
+      MYSQL_HOST: mysql
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
@@ -71,19 +60,16 @@ services:
       LETSENCRYPT_EMAIL: ${EMAIL}
       SSL_POLICY: "Mozilla-Modern"
     networks:
-      - nginx_proxy_link
       - mysql-network
-      - mongo-network
+      - nginx_proxy_link
     expose:
       - 3000
       - 8000
     ports:
-      - 5001:5000
+      - 5000
 
 networks:
-  nginx_proxy_link:
-    external: true
   mysql-network:
     driver: bridge
-  mongo-network:
-    driver: bridge
+  nginx_proxy_link:
+    external: true
