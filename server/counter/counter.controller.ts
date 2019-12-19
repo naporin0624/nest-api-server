@@ -11,7 +11,8 @@ export class CounterController {
     const antennaList = [...new Set(tags.map(t => t.antennaNo))].sort();
 
     return antennaList.map(a => ({
-      [`antenna${a}`]: this.counterService.valueCounter(
+      name: `antenna${a}`,
+      ...this.counterService.valueCounter(
         tags.filter(t => t.antennaNo === a).map(t => t.tagInfoForLab.name),
       ),
     }));
