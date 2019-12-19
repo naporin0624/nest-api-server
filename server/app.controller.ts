@@ -3,7 +3,7 @@ import { ApiUseTags } from "@nestjs/swagger";
 
 import { AppService } from "./app.service";
 import { GrpcMethod } from "@nestjs/microservices";
-import { rfid, test } from "@@/static/proto/api_schema_pb";
+import { rfid, test } from "@/static/proto/api_schema_pb";
 import { RfidService } from "./rfid/rfid.service";
 import { DeepRequired } from "ts-essentials";
 

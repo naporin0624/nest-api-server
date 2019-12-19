@@ -4,42 +4,35 @@ const webpack = require("webpack");
 const Dotenv = require("dotenv-webpack");
 
 module.exports = {
-  entry: ["./client/src/App.tsx", "babel-polyfill"],
+  entry: ["./client/App.tsx", "babel-polyfill"],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "..", "..", "./client/src/"),
+      "@": path.resolve(__dirname, "..", "..", "./"),
     },
     extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.(png|jpe?g|gif)$/i,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: "file-loader",
-          },
-        ],
+        use: [{
+          loader: "file-loader",
+        }, ],
       },
       {
         test: /\.json$/,
         exclude: /node_modules/,
         type: "javascript/auto",
-        use: [
-          {
-            loader: "json-loader",
-          },
-        ],
+        use: [{
+          loader: "json-loader",
+        }, ],
       },
       {
         test: /\.ts(x?)$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: "ts-loader",
-          },
-        ],
+        use: [{
+          loader: "ts-loader",
+        }, ],
       },
     ],
   },

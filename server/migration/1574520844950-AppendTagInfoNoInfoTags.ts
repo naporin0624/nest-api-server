@@ -5,7 +5,7 @@ import {
   IsNull,
   getManager,
 } from "typeorm";
-import { Tag, TagInfo } from "@/entities";
+import { Tag, TagInfo } from "@/server/entities";
 
 export class AppendTagInfoNoInfoTags1574520844950
   implements MigrationInterface {

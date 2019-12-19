@@ -7,7 +7,7 @@ import {
 } from "@nestjs/common";
 import { TagInfoService } from "./tag-info.service";
 import { TagInfoDto } from "./dto/tagInfo.dto";
-import { TagInfo, TagInfoForLab } from "@/entities";
+import { TagInfo, TagInfoForLab } from "@/server/entities";
 import {
   ApiUseTags,
   ApiResponse,
