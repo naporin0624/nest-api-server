@@ -9,7 +9,7 @@ export const useEnhance = () => {
   const [counter, setCounter] = useState<Counter[]>([]);
   const [colors, setColors] = useState<string[]>([]);
   const barNames = useMemo(() => {
-    const { name, ...bar } = !!counter.length ? counter[0] : { name: "" };
+    const { name, ...bar } = counter.length ? counter[0] : { name: "" };
     return Object.keys(bar);
   }, [counter]);
 

@@ -11,9 +11,9 @@ import {
   Legend,
   Line,
 } from "recharts";
-type Props = {
+interface Props {
   container: TagContainer[];
-};
+}
 export const Proximity: React.FC<Props> = (props: Props) => {
   const { humanMovementData } = useEnhance(props.container);
   console.log(humanMovementData);

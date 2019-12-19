@@ -37,7 +37,7 @@ export class ExperimentV1Service {
 
   valueCounter(arr: string[]) {
     let counts: { [key: string]: number } = {};
-    arr.forEach(el => (!!counts[el] ? counts[el]++ : (counts[el] = 1)));
+    arr.forEach(el => (counts[el] ? counts[el]++ : (counts[el] = 1)));
     return counts;
   }
 }
