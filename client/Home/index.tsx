@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Container } from "./styles";
-import { ObjectCounterGraph } from "./ObjctCounterGraph/index";
+import { ObjectCounterGraph } from "./ObjectCounterGraph/index";
 
 export const Home: React.FC = () => {
   return (
