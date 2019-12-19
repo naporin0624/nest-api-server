@@ -8,6 +8,7 @@ import { join } from "path";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { DatabaseModule } from "./database/database.module";
 import { TagInfoModule } from "./tag-info/tag-info.module";
+import { CounterModule } from "./counter/counter.module";
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { TagInfoModule } from "./tag-info/tag-info.module";
     HttpModule,
     DatabaseModule,
     TagInfoModule,
+    CounterModule,
   ],
   controllers: [AppController],
   providers: [AppService],
