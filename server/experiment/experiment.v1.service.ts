@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Tag, TagContainer } from "@/server/entities";
 import { Repository } from "typeorm";
-import { subSeconds, subMinutes } from "date-fns";
+import { subSeconds, subMinutes, addHours } from "date-fns";
 
 @Injectable()
 export class ExperimentV1Service {
@@ -16,7 +16,7 @@ export class ExperimentV1Service {
     return await this.tagRepository
       .createQueryBuilder("tag")
       .where(":start < tag.createdAt", {
-        start: subSeconds(new Date(), 10),
+        start: addHours(subSeconds(new Date(), 10), 9),
       })
       .innerJoinAndSelect("tag.tagInfoForLab", "tag_info")
       .getMany();
@@ -29,7 +29,7 @@ export class ExperimentV1Service {
       .leftJoinAndSelect("tags.tagInfoForLab", "tagInfoForLab")
       .where("tagInfoForLab.name like :name", { name: "%NameTag%" })
       .where(":start < container.createdAt", {
-        start: subMinutes(new Date(), 10),
+        start: addHours(subMinutes(new Date(), 10), 9),
       })
       .getMany();
   }
