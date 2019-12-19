@@ -20,7 +20,7 @@ export const useEnhance = () => {
 
   useEffect(() => {
     setInterval(async () => {
-      const res = await api.get<Counter[]>("/api/counter");
+      const res = await api.get<Counter[]>("/api/experiment/v1/object_count");
       !!res.data.length && setCounter(res.data);
     }, 2000);
   }, []);
