@@ -15,25 +15,24 @@ export class ExperimentV1Service {
   async findTagData() {
     return await this.tagRepository
       .createQueryBuilder("tag")
-      .where(":start < tag.createdAt AND tag.createdAt <= :end", {
+      .where(":start < tag.createdAt", {
         start: subSeconds(new Date(), 10),
-        end: new Date(),
       })
       .innerJoinAndSelect("tag.tagInfoForLab", "tag_info")
       .getMany();
   }
 
   async humanReadResult() {
-    return await this.tagContainerRepository
+    const a = this.tagContainerRepository
       .createQueryBuilder("container")
-      .where(":start < container.createdAt and container.createdAt <= :end", {
-        start: subMinutes(new Date(), 10),
-        end: new Date(),
-      })
       .leftJoinAndSelect("container.tags", "tags")
       .leftJoinAndSelect("tags.tagInfoForLab", "tagInfoForLab")
       .where("tagInfoForLab.name like :name", { name: "%NameTag%" })
-      .getMany();
+      .where(":start < container.createdAt", {
+        start: subMinutes(new Date(), 10),
+      });
+    console.log(a.getSql());
+    return await a.getMany();
   }
 
   valueCounter(arr: string[]) {
