@@ -8,9 +8,12 @@ export class CounterController {
   @Get()
   async tenSecondReadCounter() {
     const tags = await this.counterService.findTagData();
+    const antennaList = [...new Set(tags.map(t => t.antennaNo))].sort();
 
-    return this.counterService.valueCounter(
-      tags.map(tag => tag.tagInfoForLab.name),
-    );
+    return antennaList.map(a => ({
+      [`antenna${a}`]: this.counterService.valueCounter(
+        tags.filter(t => t.antennaNo === a).map(t => t.tagInfoForLab.name),
+      ),
+    }));
   }
 }
