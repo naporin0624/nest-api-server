@@ -28,7 +28,7 @@ export class ExperimentV1Service {
       .leftJoinAndSelect("container.tags", "tags")
       .leftJoinAndSelect("tags.tagInfoForLab", "tagInfoForLab")
       .where("tagInfoForLab.name like :name", { name: "%NameTag%" })
-      .where(":start < container.createdAt", {
+      .andWhere(":start < container.createdAt", {
         start: addHours(subMinutes(new Date(), 10), 9),
       })
       .getMany();
