@@ -23,16 +23,15 @@ export class ExperimentV1Service {
   }
 
   async humanReadResult() {
-    const a = this.tagContainerRepository
+    return this.tagContainerRepository
       .createQueryBuilder("container")
       .leftJoinAndSelect("container.tags", "tags")
       .leftJoinAndSelect("tags.tagInfoForLab", "tagInfoForLab")
       .where("tagInfoForLab.name like :name", { name: "%NameTag%" })
       .where(":start < container.createdAt", {
         start: subMinutes(new Date(), 10),
-      });
-    console.log(a.getSql());
-    return await a.getMany();
+      })
+      .getMany();
   }
 
   valueCounter(arr: string[]) {
