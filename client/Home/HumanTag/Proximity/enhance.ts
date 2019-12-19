@@ -1,6 +1,5 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { TagContainer } from "@/server/entities";
-import { api } from "@/client/lib/axios";
 import { zip } from "@/client/utils/index";
 import { format } from "date-fns";
 

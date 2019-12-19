@@ -16,7 +16,7 @@ interface Props {
 }
 export const Proximity: React.FC<Props> = (props: Props) => {
   const { humanMovementData } = useEnhance(props.container);
-  console.log(humanMovementData);
+
   return (
     <Container>
       <GraphLabel>人タグ</GraphLabel>

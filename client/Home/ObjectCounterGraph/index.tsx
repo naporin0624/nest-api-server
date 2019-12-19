@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useEnhance } from "./enhance";
 import {
   BarChart,
@@ -8,7 +8,6 @@ import {
   Tooltip,
   Legend,
   Bar,
-  Label,
 } from "recharts";
 import { Container, GraphLabel } from "./styles";
 export const ObjectCounterGraph: React.FC = () => {
