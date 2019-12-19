@@ -8,22 +8,15 @@ import {
   Tooltip,
   Legend,
   Bar,
+  Label,
 } from "recharts";
+import { Container, GraphLabel } from "./styles";
 export const ObjectCounterGraph: React.FC = () => {
   const { counter, barNames, colors } = useEnhance();
   return (
-    <Fragment>
-      <BarChart
-        width={500}
-        height={300}
-        data={counter}
-        margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5,
-        }}
-      >
+    <Container>
+      <GraphLabel>10秒間に読まれたタグ</GraphLabel>
+      <BarChart width={500} height={300} data={counter}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />
@@ -33,6 +26,6 @@ export const ObjectCounterGraph: React.FC = () => {
           <Bar dataKey={name} key={name} fill={colors[idx]} />
         ))}
       </BarChart>
-    </Fragment>
+    </Container>
   );
 };
