@@ -11,7 +11,9 @@ export const useEnhance = (props: Props) => {
     props.data.length > 0
       ? unique(
           props.data.map(d => Object.keys(d)).reduce((a, b) => [...a, ...b]),
-        ).filter(n => n !== "name")
+        )
+          .filter(n => n !== "name")
+          .sort()
       : [];
 
   return { data, names };
