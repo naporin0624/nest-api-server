@@ -19,6 +19,7 @@ import { Repository, LessThanOrEqual, MoreThan } from "typeorm";
 import { WssGateway } from "@/server/wss/wss.gateway";
 import { TagInfo } from "../entities/TagInfo.entity";
 import { Parser } from "json2csv";
+import { ExperimentV1Service } from "@/server/experiment/experiment.v1.service";
 
 @Injectable()
 export class RfidService {
@@ -38,6 +39,7 @@ export class RfidService {
     @InjectRepository(TagInfoForLab)
     private readonly tagInfoForLabRepository: Repository<TagInfoForLab>,
     private readonly gateway: WssGateway,
+    private readonly experimentV1Service: ExperimentV1Service,
   ) {}
 
   async findRangeDate(end: Date, start: Date) {
@@ -89,6 +91,14 @@ export class RfidService {
 
     // websocketでinsertを通知
     this.gateway.wss.emit("add_tags", tagContainer);
+    this.gateway.wss.emit(
+      "object_count",
+      await this.experimentV1Service.tenSecondReadCounter(),
+    );
+    this.gateway.wss.emit(
+      "human_read_result",
+      await this.experimentV1Service.humanReadResult(),
+    );
     return tagContainer;
   }
 
