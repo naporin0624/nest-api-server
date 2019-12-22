@@ -15,12 +15,11 @@
     "rfid",
     "vtuber"
   ],
-  "sqltools.connections": [
-    {
-      "database": "${workspaceFolder}/db/development.sqlite3",
-      "dialect": "SQLite",
-      "name": "nest"
-    }
-  ],
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "sqltools.connections": [{
+    "database": "${workspaceFolder}/db/development.sqlite3",
+    "dialect": "SQLite",
+    "name": "nest"
+  }],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.formatOnSave": true
 }
