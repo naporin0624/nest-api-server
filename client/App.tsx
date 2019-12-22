@@ -1,9 +1,10 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Home } from "./Home";
+import { Room709 } from "./Room709";
 import { Room806 } from "./Room806";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { List } from "./styles";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 ReactDOM.render(
   <Router>
@@ -26,9 +27,9 @@ ReactDOM.render(
         <Route path="/room/806">
           <Room806 />
         </Route>
-        {/* <Route path="/room/709">
+        <Route path="/room/709">
           <Room709 />
-        </Route> */}
+        </Route>
         <Route path="/">
           <Home />
         </Route>
