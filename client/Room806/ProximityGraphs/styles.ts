@@ -6,7 +6,7 @@ export const SubTitle = styled.h2`
 `;
 export const Grid = styled.div`
   display: grid;
-  grid-gap: 20px;
+  grid-gap: 8px;
   grid-template-columns: repeat(4, 1fr);
   justify-content: center;
 `;
