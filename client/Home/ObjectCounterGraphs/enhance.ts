@@ -18,12 +18,6 @@ export const useEnhance = () => {
     return "#" + ("000000" + random).slice(-6);
   }, []);
 
-  // useEffect(() => {
-  //   setInterval(async () => {
-  //     const res = await api.get<Counter[]>("/api/experiment/v1/object_count");
-  //     !!res.data.length && setCounter(res.data);
-  //   }, 2000);
-  // }, []);
   useEffect(() => {
     socket.on("object_count", (e: Counter[]) => !!e.length && setCounter(e));
   });

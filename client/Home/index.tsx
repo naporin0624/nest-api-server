@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Container } from "./styles";
-import { ObjectCounterGraph } from "./ObjectCounterGraph/index";
+import { ObjectCounterGraph } from "./ObjectCounterGraphs/index";
 import { ProximityGraphs } from "./ProximityGraphs";
 
 export const Home: React.FC = () => {

@@ -23,7 +23,7 @@ export const Proximity: React.FC<Props> = (props: Props) => {
   return (
     <Container>
       <GraphLabel>{props.label}</GraphLabel>
-      <ScatterChart width={500} height={300}>
+      <ScatterChart width={400} height={300}>
         <CartesianGrid strokeDasharray="5 5" />
         <XAxis
           dataKey="createdAt"
