@@ -1,8 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Tag, TagContainer } from "@/server/entities";
+import { Tag, TagContainer, TagInfoForLab } from "@/server/entities";
 import { Repository } from "typeorm";
 import { subSeconds, subMinutes, addHours } from "date-fns";
+import { TagContainerJoinTagInfoForLab, TagJoinTagInfoForLab } from "@/types";
 
 @Injectable()
 export class ExperimentV1Service {
@@ -13,25 +14,35 @@ export class ExperimentV1Service {
   ) {}
 
   async findTagData() {
-    return await this.tagRepository
+    return (await this.tagRepository
       .createQueryBuilder("tag")
+      .innerJoinAndMapOne(
+        "tag.tagInfoForLab",
+        TagInfoForLab,
+        "tagInfoForLab",
+        "tag.tagId = tagInfoForLab.epc",
+      )
       .where(":start < tag.createdAt", {
-        start: addHours(subSeconds(new Date(), 10), 9),
+        start: addHours(subSeconds(new Date(), 10), 0),
       })
-      .innerJoinAndSelect("tag.tagInfoForLab", "tag_info")
-      .getMany();
+      .getMany()) as TagJoinTagInfoForLab[];
   }
 
   async humanReadResult() {
-    return this.tagContainerRepository
+    return (await this.tagContainerRepository
       .createQueryBuilder("container")
       .leftJoinAndSelect("container.tags", "tags")
-      .leftJoinAndSelect("tags.tagInfoForLab", "tagInfoForLab")
+      .innerJoinAndMapOne(
+        "tags.tagInfoForLab",
+        TagInfoForLab,
+        "tagInfoForLab",
+        "tags.tagId = tagInfoForLab.epc",
+      )
       .where("tagInfoForLab.name like :name", { name: "%NameTag%" })
       .andWhere(":start < container.createdAt", {
-        start: addHours(subMinutes(new Date(), 10), 9),
+        start: addHours(subMinutes(new Date(), 10), 0),
       })
-      .getMany();
+      .getMany()) as TagContainerJoinTagInfoForLab[];
   }
 
   valueCounter(arr: string[]) {

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Container, GraphLabel } from "./styles";
 import { useEnhance } from "./enhance";
-import { TagContainer } from "@/server/entities";
+import { TagContainerJoinTagInfoForLab } from "@/types/";
 import {
   LineChart,
   CartesianGrid,
@@ -12,7 +12,7 @@ import {
   Line,
 } from "recharts";
 interface Props {
-  container: TagContainer[];
+  container: TagContainerJoinTagInfoForLab[];
 }
 export const Proximity: React.FC<Props> = (props: Props) => {
   const { humanMovementData } = useEnhance(props.container);

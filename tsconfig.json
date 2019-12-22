@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["server", "client"],
+  "include": ["server", "client", "types"],
   "exclude": ["node_modules", "dist", "test", "**/*.spec.ts", "webpack"]
 }
