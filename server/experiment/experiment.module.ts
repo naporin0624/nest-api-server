@@ -12,5 +12,6 @@ import { WssModule } from "@/server/wss/wss.module";
   ],
   providers: [ExperimentV1Service],
   controllers: [ExperimentV1Controller],
+  exports: [ExperimentV1Service],
 })
 export class ExperimentModule {}
