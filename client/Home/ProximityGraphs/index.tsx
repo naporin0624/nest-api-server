@@ -4,7 +4,7 @@ import { Proximity } from "./Proximity";
 import { Container } from "./styles";
 
 export const HumanTag: React.FC = () => {
-  const { humanData, wheelChairData, slipperData } = useEnhance();
+  const { humanData, wheelChairData, slipperData, wearData } = useEnhance();
 
   return (
     <Container>

@@ -5,6 +5,7 @@ export const useEnhance = () => {
   const [humanData, setHumanData] = useState<TagContainerJoinTagInfoForLab[]>(
     [],
   );
+  const [wearData, setWearData] = useState<TagContainerJoinTagInfoForLab[]>([]);
   const [wheelChairData, setWheelchairData] = useState<
     TagContainerJoinTagInfoForLab[]
   >([]);
@@ -22,7 +23,10 @@ export const useEnhance = () => {
     socket.on("slipper_read_result", (e: TagContainerJoinTagInfoForLab[]) =>
       setSlipperData(e),
     );
+    socket.on("wear_read_result", (e: TagContainerJoinTagInfoForLab[]) =>
+      setWearData(e),
+    );
   });
 
-  return { humanData, wheelChairData, slipperData };
+  return { humanData, wheelChairData, slipperData, wearData };
 };
