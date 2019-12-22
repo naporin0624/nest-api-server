@@ -3,7 +3,7 @@ import { Container } from "./styles";
 import { ObjectCounterGraphs } from "./ObjectCounterGraphs";
 import { ProximityGraphs } from "./ProximityGraphs";
 
-export const Home: React.FC = () => {
+export const Room806: React.FC = () => {
   return (
     <Container>
       <ObjectCounterGraphs />
