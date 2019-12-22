@@ -40,8 +40,8 @@ export class ExperimentV1Service {
     return counter;
   }
 
-  async humanReadResult() {
-    const data = this.tagContainerRepository
+  async choiceTagReadResult(name: string) {
+    return (await this.tagContainerRepository
       .createQueryBuilder("container")
       .leftJoinAndSelect("container.tags", "tags")
       .innerJoinAndMapOne(
@@ -50,13 +50,11 @@ export class ExperimentV1Service {
         "tagInfoForLab",
         "tags.tagId = tagInfoForLab.epc",
       )
-      .where("tagInfoForLab.name like :name", { name: "%NameTag%" })
+      .where("tagInfoForLab.name like :name", { name: `%${name}%` })
       .andWhere(":start < container.createdAt", {
-        start: addHours(subMinutes(new Date(), 10), 0),
-      });
-    // .groupBy("UNIX_TIMESTAMP(container.createdAt) DIV 30");
-    console.log(data.getSql());
-    return (await data.getMany()) as TagContainerJoinTagInfoForLab[];
+        start: subSeconds(new Date(), 30),
+      })
+      .getMany()) as TagContainerJoinTagInfoForLab[];
   }
 
   async checkExistenceTag(tagId: string) {

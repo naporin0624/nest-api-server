@@ -24,8 +24,6 @@ export const useEnhance = () => {
     ReadCountGraphSchema[]
   >([]);
 
-  socket.on("connect", () => console.log("Connect"));
-
   React.useEffect(() => {
     socket.on("add_tags", (eventPayload: EventPayload) => {
       setTagContainer(p => [

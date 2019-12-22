@@ -1,5 +1,4 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { api } from "@/client/lib/axios";
 import { socket } from "@/client/lib/socket";
 
 interface Counter {

@@ -3,7 +3,7 @@ import { useEnhance } from "./enhance";
 import { Proximity } from "./Proximity";
 import { Container } from "./styles";
 
-export const HumanTag: React.FC = () => {
+export const ProximityGraphs: React.FC = () => {
   const { humanData, wheelChairData, slipperData, wearData } = useEnhance();
 
   return (
