@@ -1,11 +1,11 @@
 import { useCallback, useMemo } from "react";
-import { TagContainer } from "@/server/entities";
 import { zip } from "@/client/utils/index";
 import { format } from "date-fns";
+import { TagContainerJoinTagInfoForLab } from "@/types";
 
-export const useEnhance = (humanData: TagContainer[]) => {
+export const useEnhance = (humanData: TagContainerJoinTagInfoForLab[]) => {
   const proximity = useCallback(
-    (containers: TagContainer[], filter: string) => {
+    (containers: TagContainerJoinTagInfoForLab[], filter: string) => {
       return containers.map(
         c =>
           c.tags
