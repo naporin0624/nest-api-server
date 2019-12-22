@@ -15,4 +15,14 @@ export class WssGateway {
   addTags(): WsResponse<void> {
     return;
   }
+
+  @SubscribeMessage("object_count")
+  objectCount(): WsResponse<void> {
+    return;
+  }
+
+  @SubscribeMessage("human_read_result")
+  humanReadResult(): WsResponse<void> {
+    return;
+  }
 }
