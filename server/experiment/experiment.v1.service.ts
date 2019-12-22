@@ -15,7 +15,7 @@ export class ExperimentV1Service {
     private readonly tagInfoForLabRepository: Repository<TagInfoForLab>,
   ) {}
 
-  async tenSecondReadCounter() {
+  async choiceTagTenSecondReadCounter(name: string) {
     const data = (await this.tagRepository
       .createQueryBuilder("tag")
       .innerJoinAndMapOne(
@@ -24,7 +24,8 @@ export class ExperimentV1Service {
         "tagInfoForLab",
         "tag.tagId = tagInfoForLab.epc",
       )
-      .where(":start < tag.createdAt", {
+      .where("tagInfoForLab.name like :name", { name: `${name}%` })
+      .andWhere(":start < tag.createdAt", {
         start: addHours(subSeconds(new Date(), 10), 0),
       })
       .getMany()) as TagJoinTagInfoForLab[];

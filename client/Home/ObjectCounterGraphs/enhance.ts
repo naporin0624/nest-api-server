@@ -1,35 +1,26 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { socket } from "@/client/lib/socket";
 
 interface Counter {
   [key: string]: string | number;
 }
 export const useEnhance = () => {
-  const [objCount, setObjCount] = useState(0);
-  const [counter, setCounter] = useState<Counter[]>([]);
-  const [colors, setColors] = useState<string[]>([]);
-  const barNames = useMemo(() => {
-    const { name, ...bar } = counter.length ? counter[0] : { name: "" };
-    return Object.keys(bar);
-  }, [counter]);
-
-  const randomColor = useCallback(() => {
-    const random = ((Math.random() * 0xffffff) | 0).toString(16);
-    return "#" + ("000000" + random).slice(-6);
-  }, []);
+  const [chair, setChair] = useState<Counter[]>([]);
+  const [floor, setFloor] = useState<Counter[]>([]);
+  const [border, setBorder] = useState<Counter[]>([]);
 
   useEffect(() => {
-    socket.on("object_count", (e: Counter[]) => !!e.length && setCounter(e));
+    socket.on("chair_count", (e: Counter[]) => !!e.length && setChair(e));
+    socket.on("floor_count", (e: Counter[]) => !!e.length && setFloor(e));
+    socket.on("border_count", (e: Counter[]) => !!e.length && setBorder(e));
   });
 
-  useEffect(() => setObjCount(barNames.length), [barNames]);
-  useEffect(() => {
-    if (colors.length !== objCount) {
-      let c = [];
-      for (let i = 0; i < objCount; i++) c.push(randomColor());
-      setColors(c);
-    }
-  }, [objCount]);
-
-  return { counter, barNames, colors };
+  return {
+    chair,
+    chairColors: ["#053a69", "#cd8235", "#de6383", "#c56b0c"],
+    floor,
+    floorColors: ["#aab7ef", "#4f0f45"],
+    border,
+    borderColors: ["#aab7ef", "#4f0f45"],
+  };
 };

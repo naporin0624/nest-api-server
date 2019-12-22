@@ -57,8 +57,16 @@ export class RfidService {
     // websocketでinsertを通知
     this.gateway.wss.emit("add_tags", tagContainer);
     this.gateway.wss.emit(
-      "object_count",
-      await this.experimentV1Service.tenSecondReadCounter(),
+      "chair_count",
+      await this.experimentV1Service.choiceTagTenSecondReadCounter("Chair"),
+    );
+    this.gateway.wss.emit(
+      "floor_count",
+      await this.experimentV1Service.choiceTagTenSecondReadCounter("Floor"),
+    );
+    this.gateway.wss.emit(
+      "border_count",
+      await this.experimentV1Service.choiceTagTenSecondReadCounter("Border"),
     );
     this.gateway.wss.emit(
       "human_read_result",
