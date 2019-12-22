@@ -11,10 +11,12 @@ export class ExperimentV1Service {
     @InjectRepository(Tag) private readonly tagRepository: Repository<Tag>,
     @InjectRepository(TagContainer)
     private readonly tagContainerRepository: Repository<TagContainer>,
+    @InjectRepository(TagInfoForLab)
+    private readonly tagInfoForLabRepository: Repository<TagInfoForLab>,
   ) {}
 
-  async findTagData() {
-    return (await this.tagRepository
+  async tenSecondReadCounter() {
+    const data = (await this.tagRepository
       .createQueryBuilder("tag")
       .innerJoinAndMapOne(
         "tag.tagInfoForLab",
@@ -26,10 +28,20 @@ export class ExperimentV1Service {
         start: addHours(subSeconds(new Date(), 10), 0),
       })
       .getMany()) as TagJoinTagInfoForLab[];
+
+    const antennaList = [...new Set(data.map(t => t.antennaNo))].sort();
+    const counter = antennaList.map(a => ({
+      name: `antenna${a}`,
+      ...this.valueCounter(
+        data.filter(t => t.antennaNo === a).map(t => t.tagInfoForLab.name),
+      ),
+    }));
+
+    return counter;
   }
 
   async humanReadResult() {
-    return (await this.tagContainerRepository
+    const data = this.tagContainerRepository
       .createQueryBuilder("container")
       .leftJoinAndSelect("container.tags", "tags")
       .innerJoinAndMapOne(
@@ -41,8 +53,24 @@ export class ExperimentV1Service {
       .where("tagInfoForLab.name like :name", { name: "%NameTag%" })
       .andWhere(":start < container.createdAt", {
         start: addHours(subMinutes(new Date(), 10), 0),
-      })
-      .getMany()) as TagContainerJoinTagInfoForLab[];
+      });
+    // .groupBy("UNIX_TIMESTAMP(container.createdAt) DIV 30");
+    console.log(data.getSql());
+    return (await data.getMany()) as TagContainerJoinTagInfoForLab[];
+  }
+
+  async checkExistenceTag(tagId: string) {
+    return await this.tagRepository
+      .createQueryBuilder("tag")
+      .where("tag.tagId = :tagId", { tagId })
+      .andWhere(":start < tag.createdAt", { start: subMinutes(new Date(), 5) })
+      .orderBy("tag.createdAt", "DESC")
+      .limit(1)
+      .getOne();
+  }
+
+  async findRegisteredTags(environment: string) {
+    return await this.tagInfoForLabRepository.find({ where: { environment } });
   }
 
   valueCounter(arr: string[]) {
