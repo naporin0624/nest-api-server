@@ -1,7 +1,7 @@
 import React from "react";
 import { useEnhance } from "./enhance";
 import { Container, Grid, SubTitle } from "./styles";
-import { CounterGraph } from "./CounterGraph";
+import { CounterGraph } from "@/client/common/CounterGraph";
 export const ObjectCounterGraphs: React.FC = () => {
   const {
     chair,
@@ -13,7 +13,7 @@ export const ObjectCounterGraphs: React.FC = () => {
   } = useEnhance();
   return (
     <Container>
-      <SubTitle>10秒間に読まれたタグ</SubTitle>
+      <SubTitle>10秒間に読まれたタグ数</SubTitle>
       <hr />
       <Grid>
         <CounterGraph label="椅子" data={chair} colors={chairColors} />

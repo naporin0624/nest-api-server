@@ -1,6 +1,6 @@
 import React from "react";
 import { useEnhance } from "./enhance";
-import { Proximity } from "./Proximity";
+import { Proximity } from "@/client/common/Proximity";
 import { Container, SubTitle, Grid } from "./styles";
 
 export const ProximityGraphs: React.FC = () => {
