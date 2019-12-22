@@ -77,13 +77,17 @@ export class RfidService {
     createTags.save();
 
     // MySQLに保存
-    const _tagContainer = new TagContainer();
+    // Tagデータを保存
     const tags = await this.tagRepository.create(createTagsDto.tags);
-    const tagsAppendInfo = await this.addTagInfoTo(tags);
-    _tagContainer.tags = tagsAppendInfo;
+    await this.tagRepository.save(tags);
+
+    // TagContainerとしてTagsをManyToOneで保存
+    const _tagContainer = new TagContainer();
+    _tagContainer.tags = tags;
     _tagContainer.readTime = createTagsDto.readTime;
-    await this.tagRepository.save(tagsAppendInfo);
     const tagContainer = await this.tagContainerRepository.save(_tagContainer);
+
+    // websocketでinsertを通知
     this.gateway.wss.emit("add_tags", tagContainer);
     return tagContainer;
   }
@@ -116,19 +120,5 @@ export class RfidService {
       filters,
       groups,
     };
-  }
-
-  private addTagInfoTo(tags: Tag[]) {
-    return Promise.all(
-      tags.map(async tag => {
-        tag.tagInfo = await this.tagInfoRepository.findOne({
-          epc: tag.tagId,
-        });
-        tag.tagInfoForLab = await this.tagInfoForLabRepository.findOne({
-          epc: tag.tagId,
-        });
-        return tag;
-      }),
-    );
   }
 }
