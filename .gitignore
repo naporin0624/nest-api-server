@@ -39,7 +39,7 @@ lerna-debug.log*
 *.sqlite3
 
 # env files
-.env
+.env*
 
 # docker
 ./Dockerfile

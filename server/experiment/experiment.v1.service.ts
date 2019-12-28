@@ -11,10 +11,12 @@ export class ExperimentV1Service {
     @InjectRepository(Tag) private readonly tagRepository: Repository<Tag>,
     @InjectRepository(TagContainer)
     private readonly tagContainerRepository: Repository<TagContainer>,
+    @InjectRepository(TagInfoForLab)
+    private readonly tagInfoForLabRepository: Repository<TagInfoForLab>,
   ) {}
 
-  async findTagData() {
-    return (await this.tagRepository
+  async choiceTagTenSecondReadCounter(name: string) {
+    const data = (await this.tagRepository
       .createQueryBuilder("tag")
       .innerJoinAndMapOne(
         "tag.tagInfoForLab",
@@ -22,13 +24,24 @@ export class ExperimentV1Service {
         "tagInfoForLab",
         "tag.tagId = tagInfoForLab.epc",
       )
-      .where(":start < tag.createdAt", {
+      .where("tagInfoForLab.name like :name", { name: `${name}%` })
+      .andWhere(":start < tag.createdAt", {
         start: addHours(subSeconds(new Date(), 10), 0),
       })
       .getMany()) as TagJoinTagInfoForLab[];
+
+    const antennaList = [...new Set(data.map(t => t.antennaNo))].sort();
+    const counter = antennaList.map(a => ({
+      name: `antenna${a}`,
+      ...this.valueCounter(
+        data.filter(t => t.antennaNo === a).map(t => t.tagInfoForLab.name),
+      ),
+    }));
+
+    return counter;
   }
 
-  async humanReadResult() {
+  async choiceTagReadResult(name: string) {
     return (await this.tagContainerRepository
       .createQueryBuilder("container")
       .leftJoinAndSelect("container.tags", "tags")
@@ -38,11 +51,25 @@ export class ExperimentV1Service {
         "tagInfoForLab",
         "tags.tagId = tagInfoForLab.epc",
       )
-      .where("tagInfoForLab.name like :name", { name: "%NameTag%" })
+      .where("tagInfoForLab.name like :name", { name: `%${name}%` })
       .andWhere(":start < container.createdAt", {
-        start: addHours(subMinutes(new Date(), 10), 0),
+        start: subSeconds(new Date(), 30),
       })
       .getMany()) as TagContainerJoinTagInfoForLab[];
+  }
+
+  async checkExistenceTag(tagId: string) {
+    return await this.tagRepository
+      .createQueryBuilder("tag")
+      .where("tag.tagId = :tagId", { tagId })
+      .andWhere(":start < tag.createdAt", { start: subMinutes(new Date(), 5) })
+      .orderBy("tag.createdAt", "DESC")
+      .limit(1)
+      .getOne();
+  }
+
+  async findRegisteredTags(environment: string) {
+    return await this.tagInfoForLabRepository.find({ where: { environment } });
   }
 
   valueCounter(arr: string[]) {
