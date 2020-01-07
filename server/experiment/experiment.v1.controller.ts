@@ -1,24 +1,18 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Query } from "@nestjs/common";
 import { ExperimentV1Service } from "./experiment.v1.service";
 
 @Controller("experiment/v1")
 export class ExperimentV1Controller {
   constructor(private readonly experimentV1Service: ExperimentV1Service) {}
-  @Get("object_count")
-  async tenSecondReadCounter() {
-    const tags = await this.experimentV1Service.findTagData();
-    const antennaList = [...new Set(tags.map(t => t.antennaNo))].sort();
 
-    return antennaList.map(a => ({
-      name: `antenna${a}`,
-      ...this.experimentV1Service.valueCounter(
-        tags.filter(t => t.antennaNo === a).map(t => t.tagInfoForLab.name),
-      ),
-    }));
+  @Get("check_existence_tag")
+  async checkExistenceTag(@Query("tag_id") tagId: string) {
+    const isExist = !!(await this.experimentV1Service.checkExistenceTag(tagId));
+    return { isExist };
   }
 
-  @Get("human_data")
-  async humanReadResult() {
-    return this.experimentV1Service.humanReadResult();
+  @Get("registered_tags")
+  async registeredTags(@Query("environment") environment: string) {
+    return this.experimentV1Service.findRegisteredTags(environment);
   }
 }

@@ -8,12 +8,7 @@ import {
 import { TagInfoService } from "./tag-info.service";
 import { TagInfoDto } from "./dto/tagInfo.dto";
 import { TagInfo, TagInfoForLab } from "@/server/entities";
-import {
-  ApiUseTags,
-  ApiResponse,
-  ApiImplicitBody,
-  ApiCreatedResponse,
-} from "@nestjs/swagger";
+import { ApiUseTags, ApiCreatedResponse } from "@nestjs/swagger";
 import { TagInfoForLabDto } from "./dto/tagInfoForLab.dto";
 
 @ApiUseTags("tag-info")

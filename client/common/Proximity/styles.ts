@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  margin: 0 auto;
   text-align: center;
-  width: 500px;
 `;
 
 export const GraphLabel = styled.p`
