@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Tag, TagContainer, TagInfoForLab } from "@/server/entities";
 import { Repository } from "typeorm";
@@ -7,6 +7,7 @@ import { TagContainerJoinTagInfoForLab, TagJoinTagInfoForLab } from "@/types";
 
 @Injectable()
 export class ExperimentV1Service {
+  private readonly logger = new Logger(ExperimentV1Service.name);
   constructor(
     @InjectRepository(Tag) private readonly tagRepository: Repository<Tag>,
     @InjectRepository(TagContainer)
@@ -26,7 +27,7 @@ export class ExperimentV1Service {
       )
       .where("tagInfoForLab.name like :name", { name: `${name}%` })
       .andWhere(":start < tag.createdAt", {
-        start: addHours(subSeconds(new Date(), 10), 0),
+        start: addHours(subSeconds(new Date(), 10), 9),
       })
       .getMany()) as TagJoinTagInfoForLab[];
 
@@ -53,7 +54,7 @@ export class ExperimentV1Service {
       )
       .where("tagInfoForLab.name like :name", { name: `%${name}%` })
       .andWhere(":start < container.createdAt", {
-        start: subSeconds(new Date(), 30),
+        start: addHours(subSeconds(new Date(), 30), 9),
       })
       .getMany()) as TagContainerJoinTagInfoForLab[];
   }
