@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Tags } from "./interfaces/tags.interface";
@@ -18,6 +18,7 @@ import { ExperimentV1Service } from "@/server/experiment/experiment.v1.service";
 
 @Injectable()
 export class RfidService {
+  private readonly logger = new Logger(RfidService.name);
   constructor(
     @InjectModel("RfidTags") private readonly tagsModel: Model<Tags>,
     @InjectRepository(Tag) private readonly tagRepository: Repository<Tag>,
@@ -55,7 +56,7 @@ export class RfidService {
 
   async notifyWebSocket(tagContainer: TagContainer) {
     // websocketでinsertを通知
-    this.gateway.wss.emit("add_tags", tagContainer);
+    // this.gateway.wss.emit("add_tags", tagContainer);
     this.gateway.wss.emit(
       "chair_count",
       await this.experimentV1Service.choiceTagTenSecondReadCounter("Chair"),

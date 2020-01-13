@@ -2,6 +2,7 @@ module.exports = {
   type: "mysql",
   host: "127.0.0.1",
   port: 3308,
+  timezone: "+09:00",
   username: "root",
   password: "root",
   database: "nest-api-database",
