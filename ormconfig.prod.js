@@ -1,5 +1,6 @@
 module.exports = {
   type: "mysql",
+  timezone: "+09:00",
   host: process.env.MYSQL_HOST,
   port: parseInt(process.env.MYSQL_PORT),
   username: process.env.MYSQL_USER,
