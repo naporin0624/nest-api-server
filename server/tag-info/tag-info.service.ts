@@ -14,6 +14,10 @@ export class TagInfoService {
     private readonly tagInfoForLabRepository: Repository<TagInfoForLab>,
   ) {}
 
+  async findAllTagInfoForLab() {
+    return await this.tagInfoForLabRepository.find();
+  }
+
   async createTagInfo(tagInfoDto: TagInfoDto) {
     return await this.tagInfoRepository.save(tagInfoDto);
   }
