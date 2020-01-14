@@ -3,7 +3,7 @@ import { TagJoinTagInfoForLab, TagContainerJoinTagInfoForLab } from "@/types";
 import { socket } from "@/client/lib/socket";
 import { TagContainer, TagInfoForLab } from "@/server/entities";
 import axios from "axios";
-import { Observable, fromEvent } from "rxjs";
+import { fromEvent } from "rxjs";
 import { throttleTime } from "rxjs/operators";
 
 export const useEnhance = () => {

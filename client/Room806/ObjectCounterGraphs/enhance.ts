@@ -4,7 +4,6 @@ import { TagInfoForLab, TagContainer } from "@/server/entities";
 import { TagContainerJoinTagInfoForLab, TagJoinTagInfoForLab } from "@/types";
 import axios from "axios";
 import { unique, valueCounter } from "@/client/utils/";
-import { Observable } from "rx";
 import { fromEvent } from "rxjs";
 import { throttleTime } from "rxjs/operators";
 
