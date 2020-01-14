@@ -5,6 +5,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  Index,
 } from "typeorm";
 
 @Entity()
@@ -18,6 +19,7 @@ export class TagInfoForLab {
   epc: string;
 
   @ApiModelProperty()
+  @Index()
   @Column("varchar")
   name: string;
 

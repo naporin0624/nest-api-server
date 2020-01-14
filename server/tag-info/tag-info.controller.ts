@@ -4,6 +4,7 @@ import {
   Body,
   UsePipes,
   ValidationPipe,
+  Get,
 } from "@nestjs/common";
 import { TagInfoService } from "./tag-info.service";
 import { TagInfoDto } from "./dto/tagInfo.dto";
@@ -31,5 +32,11 @@ export class TagInfoController {
   @ApiCreatedResponse({ type: TagInfoForLab })
   async createNewTagInfoForLabRecord(@Body() tagInfoLabDto: TagInfoForLabDto) {
     return await this.tagInfoService.createTagInfoForLab(tagInfoLabDto);
+  }
+
+  @Get("v2")
+  @ApiCreatedResponse({ type: [TagInfoForLab] })
+  async findAllTagInfoForLab() {
+    return this.tagInfoService.findAllTagInfoForLab();
   }
 }
