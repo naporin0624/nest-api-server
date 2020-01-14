@@ -7,17 +7,22 @@ export const useEnhance = (props: Props) => {
   const { container, filterNames } = props;
   const proximity = useCallback(
     (containers: TagContainerJoinTagInfoForLab[], filter: string) => {
-      return containers.map(
-        c =>
-          c.tags
-            .filter(t => t.tagInfoForLab.name === filter)
-            .map(t => ({
-              antennaNo: t.antennaNo,
-              createdAt: c.createdAt,
-              r: t.rssi,
-            }))
-            .sort((a, b) => b.r - a.r)[0],
-      );
+      return containers
+        .sort(
+          (a, b) =>
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+        )
+        .map(
+          c =>
+            c.tags
+              .filter(t => t.tagInfoForLab.name === filter)
+              .map(t => ({
+                antennaNo: t.antennaNo,
+                createdAt: c.createdAt,
+                r: t.rssi,
+              }))
+              .sort((a, b) => b.r - a.r)[0],
+        );
     },
     [],
   );
