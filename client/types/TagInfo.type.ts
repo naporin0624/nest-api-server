@@ -1,9 +1,7 @@
-export interface TagInfo {
-  id: number;
-  epc: string;
-  companyName: string;
-  filterName: string;
-  groupName: string;
-  createAt: Date;
-  updateAt: Date;
-}
+import {
+  TagInfoForLab as TagInfoForLabEntity,
+  TagInfo as TagInfoEntity,
+} from "@/server/entities";
+
+export type TagInfoForLab = Required<TagInfoForLabEntity>;
+export type TagInfo = Required<TagInfoEntity>;
