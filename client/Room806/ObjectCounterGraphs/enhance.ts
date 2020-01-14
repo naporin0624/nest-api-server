@@ -4,6 +4,9 @@ import { TagInfoForLab, TagContainer } from "@/server/entities";
 import { TagContainerJoinTagInfoForLab, TagJoinTagInfoForLab } from "@/types";
 import axios from "axios";
 import { unique, valueCounter } from "@/client/utils/";
+import { Observable } from "rx";
+import { fromEvent } from "rxjs";
+import { throttleTime } from "rxjs/operators";
 
 interface Counter {
   [key: string]: string | number;
@@ -18,25 +21,26 @@ export const useEnhance = () => {
     axios
       .get("/api/tag-info/v2")
       .then(res => (tagInfoList.current = res.data as TagInfoForLab[]));
-    socket.on("add_tags", (tagContainer: Required<TagContainer>) => {
-      if (!tagInfoList) return;
 
-      const tags = tagContainer.tags
-        .map<TagJoinTagInfoForLab>(tag => ({
-          ...tag,
-          tagInfoForLab: tagInfoList.current.filter(
-            tagInfo => tagInfo.epc === tag.tagId,
-          )[0],
-        }))
-        .filter(tag => tag.tagInfoForLab);
+    fromEvent(socket, "add_tags")
+      .pipe(throttleTime(1000))
+      .subscribe((tagContainer: Required<TagContainer>) => {
+        const tags = tagContainer.tags
+          .map<TagJoinTagInfoForLab>(tag => ({
+            ...tag,
+            tagInfoForLab: (tagInfoList.current || []).filter(
+              tagInfo => tagInfo.epc === tag.tagId,
+            )[0],
+          }))
+          .filter(tag => tag.tagInfoForLab);
 
-      setTagContainerList(tC =>
-        [...tC, { ...tagContainer, tags }].filter(l => {
-          const sub = new Date().getTime() - new Date(l.readTime).getTime();
-          return sub < 10 * 1000;
-        }),
-      );
-    });
+        setTagContainerList(tC =>
+          [...tC, { ...tagContainer, tags }].filter(l => {
+            const sub = new Date().getTime() - new Date(l.readTime).getTime();
+            return sub < 30 * 1000;
+          }),
+        );
+      });
   }, []);
 
   const createCounterProps = useCallback(
