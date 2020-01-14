@@ -12,7 +12,10 @@ declare const module: any;
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-    logger: process.env.NODE_ENV === "development" ? true : ["warn", "error"],
+    logger:
+      process.env.NODE_ENV === "development"
+        ? ["debug", "error", "log", "verbose", "warn"]
+        : ["warn", "error"],
   });
   app.connectMicroservice(grpcClientOptions);
   await app.startAllMicroservicesAsync();
