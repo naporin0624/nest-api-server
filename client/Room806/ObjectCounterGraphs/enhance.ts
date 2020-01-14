@@ -1,26 +1,72 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { socket } from "@/client/lib/socket";
+import { TagInfoForLab, TagContainer } from "@/server/entities";
+import { TagContainerJoinTagInfoForLab, TagJoinTagInfoForLab } from "@/types";
+import axios from "axios";
+import { unique, valueCounter } from "@/client/utils/";
 
 interface Counter {
   [key: string]: string | number;
 }
 export const useEnhance = () => {
-  const [chair, setChair] = useState<Counter[]>([]);
-  const [floor, setFloor] = useState<Counter[]>([]);
-  const [border, setBorder] = useState<Counter[]>([]);
+  const tagInfoList = useRef<TagInfoForLab[] | undefined | null>();
+  const [tagContainerList, setTagContainerList] = useState<
+    Required<TagContainerJoinTagInfoForLab[]>
+  >([]);
 
   useEffect(() => {
-    socket.on("chair_count", (e: Counter[]) => !!e.length && setChair(e));
-    socket.on("floor_count", (e: Counter[]) => !!e.length && setFloor(e));
-    socket.on("border_count", (e: Counter[]) => !!e.length && setBorder(e));
-  });
+    axios
+      .get("/api/tag-info/v2")
+      .then(res => (tagInfoList.current = res.data as TagInfoForLab[]));
+    socket.on("add_tags", (tagContainer: Required<TagContainer>) => {
+      if (!tagInfoList) return;
+
+      const tags = tagContainer.tags
+        .map<TagJoinTagInfoForLab>(tag => ({
+          ...tag,
+          tagInfoForLab: tagInfoList.current.filter(
+            tagInfo => tagInfo.epc === tag.tagId,
+          )[0],
+        }))
+        .filter(tag => tag.tagInfoForLab);
+
+      setTagContainerList(tC =>
+        [...tC, { ...tagContainer, tags }].filter(l => {
+          const sub = new Date().getTime() - new Date(l.readTime).getTime();
+          return sub < 10 * 1000;
+        }),
+      );
+    });
+  }, []);
+
+  const createCounterProps = useCallback(
+    (name: string): Counter[] => {
+      const tags = tagContainerList.map<TagJoinTagInfoForLab[]>(c =>
+        c.tags.filter(tag => tag.tagInfoForLab.name.includes(name)),
+      );
+      if (tags.length == 0) return [];
+
+      const tPick = tags
+        .reduce((a, b) => [...a, ...b])
+        .map(tag => ({
+          antennaNo: tag.antennaNo,
+          name: tag.tagInfoForLab.name,
+        }));
+      const antennaList = unique(tPick.map(t => t.antennaNo)).sort();
+      return antennaList.map(a => ({
+        name: `antenna${a}`,
+        ...valueCounter(tPick.filter(t => t.antennaNo === a).map(t => t.name)),
+      }));
+    },
+    [tagContainerList],
+  );
 
   return {
-    chair,
+    chair: createCounterProps("Chair"),
     chairColors: ["#053a69", "#cd8235", "#de6383", "#c56b0c"],
-    floor,
+    floor: createCounterProps("Floor"),
     floorColors: ["#aab7ef", "#4f0f45"],
-    border,
+    border: createCounterProps("Border"),
     borderColors: ["#aab7ef", "#4f0f45"],
   };
 };
