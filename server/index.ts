@@ -9,6 +9,9 @@ import webpackDevMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
 import config from "@/webpack/client/webpack.config.dev";
 import { LoggingInterceptor } from "./interceptors/logging.interceptor";
+import { ErrorInterceptor } from "./interceptors/error.interceptor";
+import { TimeoutInterceptor } from "./interceptors/timeout.interceptor";
+import { Logger } from "@nestjs/common";
 
 function webpackDevServer(app: NestExpressApplication): void {
   if (process.env.NODE_ENV === "development") {
@@ -28,7 +31,7 @@ function webpackDevServer(app: NestExpressApplication): void {
 
     app.use(
       webpackHotMiddleware(compiler, {
-        log: console.log,
+        log: Logger.debug,
       }),
     );
   }
@@ -43,7 +46,11 @@ async function bootstrap() {
   SwaggerModule.setup("swagger", app, document);
 
   app.setGlobalPrefix("api");
-  app.useGlobalInterceptors(new LoggingInterceptor());
+  app.useGlobalInterceptors(
+    new LoggingInterceptor(),
+    new ErrorInterceptor(),
+    new TimeoutInterceptor(),
+  );
   await app.listen(3000);
 }
 
