@@ -21,7 +21,7 @@ import config from "@/webpack/client/webpack.config.dev";
     TagInfoModule,
     ExperimentModule,
     ServeStaticModule.forRoot({
-      renderPath: "/",
+      renderPath: "/*",
       rootPath: join(process.cwd(), "dist", "public"),
       webpackConfig: config as Configuration,
     }),
