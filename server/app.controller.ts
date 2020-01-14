@@ -1,4 +1,4 @@
-import { Controller, HttpService, Get } from "@nestjs/common";
+import { Controller, HttpService, Get, Logger } from "@nestjs/common";
 import { ApiUseTags } from "@nestjs/swagger";
 
 import { AppService } from "./app.service";
@@ -10,6 +10,7 @@ import { DeepRequired } from "ts-essentials";
 @ApiUseTags("root")
 @Controller()
 export class AppController {
+  private readonly logger = new Logger(AppController.name);
   constructor(
     private readonly appService: AppService,
     private readonly httpService: HttpService,
@@ -29,7 +30,7 @@ export class AppController {
 
   @GrpcMethod("TestService", "Send")
   async testGrpcService(req: Required<test.IRequest>) {
-    console.log(req);
+    this.logger.debug(req);
     return new test.Response({ vtuber: test.Love.SANA_SAORI.toString() });
   }
 }

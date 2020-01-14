@@ -1,13 +1,3 @@
-import { TagInfo } from "./TagInfo.type";
+import { Tag as TagEntity } from "@/server/entities";
 
-export interface Tag {
-  id: number;
-  tagId: string;
-  antennaNo: number;
-  rssi: number;
-  phase: number;
-  doppler: number;
-  tagInfo: TagInfo;
-  createdAt: Date;
-  updatedAt: Date;
-}
+export type Tag = Required<TagEntity>;

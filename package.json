@@ -29,9 +29,7 @@
     "migration:run": "yarn typeorm migration:run",
     "migration:revert": "yarn typeorm migration:revert",
     "migration:show": "yarn typeorm migration:show",
-    "migration:prod": "cd dist && node -r tsconfig-paths/register ./../node_modules/typeorm/cli.js --config ormconfig.prod.js migration:run",
-    "cp:docker": "cp -Rp docker/production/* . & cp docker/production/.dockerignore . & cp docker/production/.env .",
-    "rm:docker": "rm docker-compose.yml & rm Dockerfile & rm .dockerignore & rm .env"
+    "migration:prod": "node -r tsconfig-paths/register node_modules/typeorm/cli.js --config ormconfig.prod.js migration:run"
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.5.1",
@@ -48,6 +46,7 @@
     "axios": "^0.19.0",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.10.0",
+    "connect-history-api-fallback": "^1.6.0",
     "date-fns": "^2.4.1",
     "google-protobuf": "^3.9.0",
     "grpc": "^1.23.2",
@@ -63,6 +62,7 @@
     "recharts": "^1.8.5",
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",
+    "rx": "^4.1.0",
     "rxjs": "^6.3.3",
     "socket.io-client": "^2.3.0",
     "source-map-loader": "^0.2.4",
@@ -74,6 +74,7 @@
   "devDependencies": {
     "@nestjs/testing": "6.1.1",
     "@types/axios": "^0.14.0",
+    "@types/connect-history-api-fallback": "^1.3.3",
     "@types/express": "4.16.1",
     "@types/jest": "^24.0.18",
     "@types/json2csv": "^4.5.1",
@@ -83,6 +84,7 @@
     "@types/react-dom": "^16.9.4",
     "@types/react-router-dom": "^5.1.3",
     "@types/recharts": "^1.8.3",
+    "@types/rx": "^4.1.1",
     "@types/socket.io": "^2.1.4",
     "@types/socket.io-client": "^1.4.32",
     "@types/styled-components": "^4.4.0",
