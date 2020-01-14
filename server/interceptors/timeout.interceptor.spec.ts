@@ -1,7 +1,7 @@
-import { TimeoutInterceptor } from './timeout.interceptor';
+import { TimeoutInterceptor } from "./timeout.interceptor";
 
-describe('TimeoutInterceptor', () => {
-  it('should be defined', () => {
+describe("TimeoutInterceptor", () => {
+  it("should be defined", () => {
     expect(new TimeoutInterceptor()).toBeDefined();
   });
 });

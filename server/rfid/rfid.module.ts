@@ -5,31 +5,15 @@ import { RfidController } from "./rfid.controller";
 import { RfidService } from "./rfid.service";
 import { WssModule } from "@/server/wss/wss.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { TagInfoForLab } from "@/server/entities";
 import { ExperimentModule } from "@/server/experiment/experiment.module";
-import {
-  TagContainer,
-  TagInfo,
-  Tag,
-  CompanyEncode,
-  Filter,
-  Group,
-} from "@/server/entities";
+import { TagContainer, Tag } from "@/server/entities";
 
 @Module({
   imports: [
     WssModule,
     ExperimentModule,
     MongooseModule.forFeature([{ name: "RfidTags", schema: TagsSchema }]),
-    TypeOrmModule.forFeature([
-      TagContainer,
-      TagInfo,
-      Tag,
-      CompanyEncode,
-      Filter,
-      Group,
-      TagInfoForLab,
-    ]),
+    TypeOrmModule.forFeature([TagContainer, Tag]),
   ],
   controllers: [RfidController],
   providers: [RfidService],

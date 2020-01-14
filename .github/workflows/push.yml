@@ -4,9 +4,11 @@ on:
   pull_request:
     branches-ignore:
       - master
+      - staging
   push:
     branches-ignore:
       - master
+      - staging
 
 jobs:
   client:
@@ -56,5 +58,7 @@ jobs:
         run: yarn install
       - name: Lint
         run: yarn lint:server
+      - name: Test
+        run: yarn test
       - name: Build
         run: yarn server:build:prod

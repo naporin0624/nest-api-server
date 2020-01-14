@@ -129,15 +129,14 @@
       "ts"
     ],
     "moduleNameMapper": {
-      "^@/(.+)": "<rootDir>/$1",
-      "^static/(.*)$": "<rootDir>/../static/$1"
+      "^@/(.*)$": "<rootDir>/$1"
     },
-    "rootDir": "server",
+    "rootDir": ".",
     "testRegex": ".spec.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
-    "coverageDirectory": "../coverage",
+    "coverageDirectory": "./coverage",
     "testEnvironment": "node"
   }
 }
