@@ -29,9 +29,7 @@
     "migration:run": "yarn typeorm migration:run",
     "migration:revert": "yarn typeorm migration:revert",
     "migration:show": "yarn typeorm migration:show",
-    "migration:prod": "cd dist && node -r tsconfig-paths/register ./../node_modules/typeorm/cli.js --config ormconfig.prod.js migration:run",
-    "cp:docker": "cp -Rp docker/production/* . & cp docker/production/.dockerignore . & cp docker/production/.env .",
-    "rm:docker": "rm docker-compose.yml & rm Dockerfile & rm .dockerignore & rm .env"
+    "migration:prod": "node -r tsconfig-paths/register node_modules/typeorm/cli.js --config ormconfig.prod.js migration:run"
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.5.1",
