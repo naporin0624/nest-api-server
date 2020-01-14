@@ -13,6 +13,8 @@ import { ErrorInterceptor } from "./interceptors/error.interceptor";
 import { TimeoutInterceptor } from "./interceptors/timeout.interceptor";
 import { Logger } from "@nestjs/common";
 
+declare const module: any;
+
 function webpackDevServer(app: NestExpressApplication): void {
   if (process.env.NODE_ENV === "development") {
     config.entry.unshift(
@@ -52,6 +54,11 @@ async function bootstrap() {
     new TimeoutInterceptor(),
   );
   await app.listen(3000);
+
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
 }
 
 bootstrap().catch();
