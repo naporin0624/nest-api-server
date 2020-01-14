@@ -35,7 +35,7 @@
     "require-atomic-updates": "off", //こういうことはやりたくないが, issueをみてもわからなかった(https://github.com/eslint/eslint/issues/11899)
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
-    "no-console": "off"
+    "no-console": "warn"
   },
   "settings": {
     "react": {

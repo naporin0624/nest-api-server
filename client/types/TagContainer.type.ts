@@ -1,9 +1,3 @@
-import { Tag } from "./Tag.type";
+import { TagContainer as TagContainerEntity } from "@/server/entities";
 
-export interface TagContainer {
-  id: number;
-  readTime: string;
-  tags: Tag[];
-  createdAt: Date;
-  updatedAt: Date;
-}
+export type TagContainer = Required<TagContainerEntity>;
