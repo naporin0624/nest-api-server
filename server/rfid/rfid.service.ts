@@ -50,40 +50,7 @@ export class RfidService {
     _tagContainer.readTime = createTagsDto.readTime;
     const tagContainer = await this.tagContainerRepository.save(_tagContainer);
 
-    this.notifyWebSocket(tagContainer);
+    this.gateway.wss.emit("add_tags", tagContainer);
     return tagContainer;
-  }
-
-  async notifyWebSocket(tagContainer: TagContainer) {
-    // websocketでinsertを通知
-    // this.gateway.wss.emit("add_tags", tagContainer);
-    this.gateway.wss.emit(
-      "chair_count",
-      await this.experimentV1Service.choiceTagTenSecondReadCounter("Chair"),
-    );
-    this.gateway.wss.emit(
-      "floor_count",
-      await this.experimentV1Service.choiceTagTenSecondReadCounter("Floor"),
-    );
-    this.gateway.wss.emit(
-      "border_count",
-      await this.experimentV1Service.choiceTagTenSecondReadCounter("Border"),
-    );
-    this.gateway.wss.emit(
-      "human_read_result",
-      await this.experimentV1Service.choiceTagReadResult("NameTag"),
-    );
-    this.gateway.wss.emit(
-      "wheel_chair_read_result",
-      await this.experimentV1Service.choiceTagReadResult("Wheelchair"),
-    );
-    this.gateway.wss.emit(
-      "slipper_read_result",
-      await this.experimentV1Service.choiceTagReadResult("Slipper"),
-    );
-    this.gateway.wss.emit(
-      "wear_read_result",
-      await this.experimentV1Service.choiceTagReadResult("Waer"),
-    );
   }
 }

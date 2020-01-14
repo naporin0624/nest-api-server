@@ -6,13 +6,12 @@
   "license": "MIT",
   "scripts": {
     "prebuild:rm": "rimraf dist",
-    "server:build:prod": "tsc -p tsconfig.json",
+    "server:build:prod": "webpack --config webpack/server/webpack.config.prod.js",
     "client:build:prod": "webpack --config webpack/client/webpack.config.prod.js",
     "prebuild:build": "run-p client:build:prod server:build:prod",
-    "postbuild": "cp -r static dist/static && cp tsconfig.json dist && cp ormconfig.prod.js dist",
-    "build": "run-s prebuild:rm prebuild:build postbuild",
-    "start:prod": "cd dist && NODE_ENV=production node -r tsconfig-paths/register server",
-    "start:dev": "NODE_ENV=development nodemon",
+    "build": "run-s prebuild:rm prebuild:build",
+    "start:prod": "node dist/server.js",
+    "start:dev": "webpack --config webpack/server/webpack.config.dev.js",
     "lint:server": "eslint server --ext .ts",
     "lint:client": "eslint client --ext .ts,.tsx",
     "lint:fix:server": "eslint server --ext .ts --fix",
@@ -69,7 +68,8 @@
     "source-map-loader": "^0.2.4",
     "styled-components": "^4.4.1",
     "swagger-ui-express": "^4.0.7",
-    "typeorm": "latest"
+    "typeorm": "latest",
+    "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
     "@nestjs/testing": "6.1.1",
@@ -103,6 +103,7 @@
     "jest": "24.7.1",
     "merge": "^1.2.1",
     "nodemon": "^1.19.3",
+    "nodemon-webpack-plugin": "^4.2.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
     "supertest": "4.0.2",

@@ -5,6 +5,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  Index,
 } from "typeorm";
 import { Tag } from "./Tag.entity";
 
@@ -22,6 +23,7 @@ export class TagContainer {
   )
   tags: Tag[];
 
+  @Index()
   @CreateDateColumn()
   createdAt: Date;
 

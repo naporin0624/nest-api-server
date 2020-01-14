@@ -9,7 +9,7 @@ module.exports = merge(config, {
   plugins: [
     ...config.plugins,
     new htmlWebpackPlugin({
-      template: path.join(__dirname, "..", "..", "public/index.html"),
+      template: path.join(process.cwd(), "public/index.html"),
     }),
   ],
 });
