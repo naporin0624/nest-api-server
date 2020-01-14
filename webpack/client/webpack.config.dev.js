@@ -20,11 +20,11 @@ module.exports = merge(config, {
   plugins: [
     ...config.plugins,
     new htmlWebpackPlugin({
-      template: path.join(__dirname, "..", "..", "public/index.html"),
+      template: path.join(process.cwd(), "public/index.html"),
     }),
   ],
   devServer: {
-    contentBase: path.join(__dirname, "..", "..", "public"),
+    contentBase: path.join(process.cwd(), "public"),
     compress: true,
     port: 3000,
     host: "0.0.0.0",

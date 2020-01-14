@@ -9,6 +9,7 @@ import webpackDevMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
 import config from "@/webpack/client/webpack.config.dev";
 import { LoggingInterceptor } from "./interceptors/logging.interceptor";
+declare const module: any;
 
 function webpackDevServer(app: NestExpressApplication): void {
   if (process.env.NODE_ENV === "development") {
@@ -45,6 +46,11 @@ async function bootstrap() {
   app.setGlobalPrefix("api");
   app.useGlobalInterceptors(new LoggingInterceptor());
   await app.listen(3000);
+
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
 }
 
 bootstrap().catch();
