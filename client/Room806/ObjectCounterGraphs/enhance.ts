@@ -2,10 +2,10 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { socket } from "@/client/lib/socket";
 import { TagInfoForLab, TagContainer } from "@/server/entities";
 import { TagContainerJoinTagInfoForLab, TagJoinTagInfoForLab } from "@/types";
-import axios from "axios";
 import { unique, valueCounter } from "@/client/utils/";
 import { fromEvent } from "rxjs";
 import { throttleTime } from "rxjs/operators";
+import { client } from "@/client/lib/axios";
 
 interface Counter {
   [key: string]: string | number;
@@ -17,9 +17,7 @@ export const useEnhance = () => {
   >([]);
 
   useEffect(() => {
-    axios
-      .get("/api/tag-info/v2")
-      .then(res => (tagInfoList.current = res.data as TagInfoForLab[]));
+    client.api.tag_info.v2.$get().then(res => (tagInfoList.current = res));
 
     fromEvent(socket, "add_tags")
       .pipe(throttleTime(1000))

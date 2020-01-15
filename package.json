@@ -17,6 +17,7 @@
     "lint:fix:server": "eslint server --ext .ts --fix",
     "lint:fix:client": "eslint client --ext .ts,.tsx --fix",
     "lint:fix": "run-p lint:fix:client lint:fix:server",
+    "api:build": "aspida --build",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
@@ -32,6 +33,7 @@
     "migration:prod": "node -r tsconfig-paths/register node_modules/typeorm/cli.js --config ormconfig.prod.js migration:run"
   },
   "dependencies": {
+    "@aspida/axios": "^0.1.1",
     "@grpc/proto-loader": "^0.5.1",
     "@nestjs/common": "^6.0.0",
     "@nestjs/core": "^6.0.0",
@@ -43,7 +45,7 @@
     "@nestjs/swagger": "^3.1.0",
     "@nestjs/typeorm": "^6.2.0",
     "@nestjs/websockets": "^6.9.0",
-    "axios": "^0.19.0",
+    "axios": "^0.19.1",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.10.0",
     "connect-history-api-fallback": "^1.6.0",
