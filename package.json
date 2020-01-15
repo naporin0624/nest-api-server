@@ -30,7 +30,7 @@
     "migration:run": "yarn typeorm migration:run",
     "migration:revert": "yarn typeorm migration:revert",
     "migration:show": "yarn typeorm migration:show",
-    "migration:prod": "node -r tsconfig-paths/register node_modules/typeorm/cli.js --config ormconfig.prod.js migration:run"
+    "migration:prod": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js --config ormconfig.prod.js migration:run"
   },
   "dependencies": {
     "@aspida/axios": "^0.1.1",
