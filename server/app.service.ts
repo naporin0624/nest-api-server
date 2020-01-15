@@ -5,6 +5,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { TagContainer } from "./entities";
 import { Repository, Between } from "typeorm";
 import { subHours } from "date-fns";
+import { MessageType, MessageNotified } from "./entities/";
 
 @Injectable()
 export class AppService extends NestSchedule {
@@ -14,6 +15,8 @@ export class AppService extends NestSchedule {
     private readonly slackNotifyService: SlackNotifyService,
     @InjectRepository(TagContainer)
     private readonly tagContainerRepository: Repository<TagContainer>,
+    @InjectRepository(MessageNotified)
+    private readonly messageNotifiedRepository: Repository<MessageNotified>,
   ) {
     super();
   }
@@ -21,6 +24,7 @@ export class AppService extends NestSchedule {
   @Timeout(1000)
   onceJob() {
     this.slackNotifyService.postMessage(
+      MessageType.INFO,
       `starting ${process.env.NODE_ENV} server`,
     );
   }
@@ -33,6 +37,14 @@ export class AppService extends NestSchedule {
 
     if (tagContainer) return;
 
-    this.slackNotifyService.postMessage("1時間データがきてないよ");
+    const notify = await this.messageNotifiedRepository.findOne({
+      where: { createdAt: Between(subHours(new Date(), 1.5), new Date()) },
+    });
+    if (notify.message === "1時間データがきてないよ") return;
+
+    this.slackNotifyService.postMessage(
+      MessageType.ERROR,
+      "1時間データがきてないよ",
+    );
   }
 }

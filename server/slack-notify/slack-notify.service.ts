@@ -1,13 +1,20 @@
 import { Injectable, HttpService, Logger } from "@nestjs/common";
 import { map } from "rxjs/operators";
 import { format } from "date-fns";
+import { InjectRepository } from "@nestjs/typeorm";
+import { MessageNotified, MessageType } from "@/server/entities/";
+import { Repository } from "typeorm";
 
 @Injectable()
 export class SlackNotifyService {
   private readonly logger = new Logger();
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    private readonly httpService: HttpService,
+    @InjectRepository(MessageNotified)
+    private readonly messageNotifiedRepository: Repository<MessageNotified>,
+  ) {}
 
-  async postMessage(message: string) {
+  async postMessage(type: MessageType, message: string) {
     if (process.env.NODE_ENV === "development") {
       this.logger.debug(message);
       return;
@@ -22,6 +29,11 @@ export class SlackNotifyService {
       })
       .pipe(map(x => x.data))
       .toPromise();
+
+    await this.messageNotifiedRepository.save({
+      type,
+      message,
+    });
     return resText === "ok";
   }
 }
