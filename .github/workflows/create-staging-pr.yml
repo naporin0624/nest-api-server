@@ -1,0 +1,27 @@
+name: create staging PR
+
+on:
+  push
+  # push:
+  #   branches:
+  #     - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v1
+        with:
+          title: "[Deploy] Staging deploy"
+          body: ステージングにデプロイします
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: deploy-staging
+          branch-suffix: short-commit-hash
+          base: staging
+      - name: Check outputs
+        run: |
+          echo "Pull Request Number - ${{ env.PULL_REQUEST_NUMBER }}"
+          echo "Pull Request Number - ${{ steps.cpr.outputs.pr_number }}"
