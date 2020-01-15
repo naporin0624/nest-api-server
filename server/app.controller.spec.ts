@@ -13,6 +13,7 @@ import { getModelToken } from "@nestjs/mongoose";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Tag } from "./rfid/dto/tag.dto";
 import { TagContainer, TagInfoForLab, TagInfo } from "./entities";
+import { SlackNotifyService } from "./slack-notify/slack-notify.service";
 
 describe("AppController", () => {
   let appController: AppController;
@@ -63,6 +64,10 @@ describe("AppController", () => {
         },
         {
           provide: getRepositoryToken(TagInfo),
+          useValue: {},
+        },
+        {
+          provide: SlackNotifyService,
           useValue: {},
         },
       ],

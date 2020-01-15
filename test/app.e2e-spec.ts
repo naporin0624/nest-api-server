@@ -15,6 +15,7 @@ import { getModelToken } from "@nestjs/mongoose";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Tag } from "../server/rfid/dto/tag.dto";
 import { TagContainer, TagInfoForLab, TagInfo } from "../server/entities";
+import { SlackNotifyService } from "../server/slack-notify/slack-notify.service";
 
 describe("AppController (e2e)", () => {
   let app: INestApplication;
@@ -65,6 +66,10 @@ describe("AppController (e2e)", () => {
         },
         {
           provide: getRepositoryToken(TagInfo),
+          useValue: {},
+        },
+        {
+          provide: SlackNotifyService,
           useValue: {},
         },
       ],
