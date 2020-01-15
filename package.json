@@ -17,6 +17,7 @@
     "lint:fix:server": "eslint server --ext .ts --fix",
     "lint:fix:client": "eslint client --ext .ts,.tsx --fix",
     "lint:fix": "run-p lint:fix:client lint:fix:server",
+    "api:build": "aspida --build",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
