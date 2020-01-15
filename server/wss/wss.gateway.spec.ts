@@ -15,4 +15,7 @@ describe("WssGateway", () => {
   it("should be defined", () => {
     expect(gateway).toBeDefined();
   });
+  it("wss", () => {
+    expect(gateway.wss).toBeDefined();
+  });
 });

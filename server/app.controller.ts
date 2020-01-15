@@ -1,7 +1,6 @@
 import { Controller, Get, Logger } from "@nestjs/common";
 import { ApiUseTags } from "@nestjs/swagger";
 
-import { AppService } from "./app.service";
 import { GrpcMethod } from "@nestjs/microservices";
 import { rfid, test } from "@/static/proto/api_schema_pb";
 import { RfidService } from "./rfid/rfid.service";
@@ -11,10 +10,7 @@ import { DeepRequired } from "ts-essentials";
 @Controller()
 export class AppController {
   private readonly logger = new Logger(AppController.name);
-  constructor(
-    private readonly appService: AppService,
-    private readonly rfidService: RfidService,
-  ) {}
+  constructor(private readonly rfidService: RfidService) {}
 
   @Get()
   sayHello() {

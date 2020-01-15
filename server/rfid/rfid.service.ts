@@ -4,17 +4,10 @@ import { Model } from "mongoose";
 import { Tags } from "./interfaces/tags.interface";
 import { CreateTagsDto } from "./dto/createTags.dto";
 
-import {
-  TagContainer,
-  Tag,
-  CompanyEncode,
-  Filter,
-  Group,
-} from "@/server/entities";
+import { TagContainer, Tag } from "@/server/entities";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { WssGateway } from "@/server/wss/wss.gateway";
-import { ExperimentV1Service } from "@/server/experiment/experiment.v1.service";
 
 @Injectable()
 export class RfidService {
@@ -24,14 +17,7 @@ export class RfidService {
     @InjectRepository(Tag) private readonly tagRepository: Repository<Tag>,
     @InjectRepository(TagContainer)
     private readonly tagContainerRepository: Repository<TagContainer>,
-    @InjectRepository(CompanyEncode)
-    private readonly companyEncodeRepository: Repository<CompanyEncode>,
-    @InjectRepository(Filter)
-    private readonly filterRepository: Repository<Filter>,
-    @InjectRepository(Group)
-    private readonly groupRepository: Repository<Group>,
     private readonly gateway: WssGateway,
-    private readonly experimentV1Service: ExperimentV1Service,
   ) {}
 
   async create(createTagsDto: CreateTagsDto) {
