@@ -70,6 +70,7 @@ services:
       VIRTUAL_PORT: 3000
       LETSENCRYPT_HOST: ${WEB_DOMAIN_NAME}
       LETSENCRYPT_EMAIL: ${EMAIL}
+      SLACK_NOTIFY_URL: ${SLACK_NOTIFY_URL}
       SSL_POLICY: "Mozilla-Modern"
     networks:
       - nginx_proxy_link
