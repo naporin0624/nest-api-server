@@ -1,4 +1,4 @@
-import { Controller, HttpService, Get, Logger } from "@nestjs/common";
+import { Controller, Get, Logger } from "@nestjs/common";
 import { ApiUseTags } from "@nestjs/swagger";
 
 import { AppService } from "./app.service";
@@ -13,7 +13,6 @@ export class AppController {
   private readonly logger = new Logger(AppController.name);
   constructor(
     private readonly appService: AppService,
-    private readonly httpService: HttpService,
     private readonly rfidService: RfidService,
   ) {}
 
