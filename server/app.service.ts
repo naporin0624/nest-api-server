@@ -1,5 +1,5 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { Cron, Interval, Timeout, NestSchedule } from "nest-schedule";
+import { Interval, Timeout, NestSchedule } from "nest-schedule";
 import { SlackNotifyService } from "./slack-notify/slack-notify.service";
 import { InjectRepository } from "@nestjs/typeorm";
 import { TagContainer } from "./entities";
