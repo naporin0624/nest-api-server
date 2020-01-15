@@ -2,7 +2,7 @@ syntax="proto3";
 package test;
 
 enum Love {
-  SANA_SAORI = 0;
+  SANA_NATORI = 0;
   KAF = 1;
   ROA_YUZUKI = 2;
 }
