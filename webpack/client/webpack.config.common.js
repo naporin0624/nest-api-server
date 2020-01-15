@@ -8,6 +8,7 @@ module.exports = {
   resolve: {
     alias: {
       "@": path.resolve(process.cwd(), "./"),
+      apis: path.resolve(process.cwd(), "./apis/$api.ts"),
     },
     extensions: [".ts", ".tsx", ".js", ".jsx"],
   },

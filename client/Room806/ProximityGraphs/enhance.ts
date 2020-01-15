@@ -2,9 +2,9 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { TagJoinTagInfoForLab, TagContainerJoinTagInfoForLab } from "@/types";
 import { socket } from "@/client/lib/socket";
 import { TagContainer, TagInfoForLab } from "@/server/entities";
-import axios from "axios";
 import { fromEvent } from "rxjs";
 import { throttleTime } from "rxjs/operators";
+import { client } from "@/client/lib/axios";
 
 export const useEnhance = () => {
   const tagInfoList = useRef<TagInfoForLab[] | undefined | null>();
@@ -13,9 +13,7 @@ export const useEnhance = () => {
   >([]);
 
   useEffect(() => {
-    axios
-      .get("/api/tag-info/v2")
-      .then(res => (tagInfoList.current = res.data as TagInfoForLab[]));
+    client.api.tag_info.v2.$get().then(res => (tagInfoList.current = res));
 
     fromEvent(socket, "add_tags")
       .pipe(throttleTime(1000))

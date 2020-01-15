@@ -1,4 +1,11 @@
-import { Module, MiddlewareConsumer, HttpModule } from "@nestjs/common";
+import {
+  Module,
+  MiddlewareConsumer,
+  CacheModule,
+  CacheInterceptor,
+} from "@nestjs/common";
+import { APP_INTERCEPTOR } from "@nestjs/core";
+import { ScheduleModule } from "nest-schedule";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { LoggerMiddleware } from "./middleware/logger.middleware";
@@ -10,13 +17,15 @@ import { ExperimentModule } from "./experiment/experiment.module";
 import { ServeStaticModule } from "./serve-static/serve-static.module";
 import { join } from "path";
 import { Configuration } from "webpack";
+import { SlackNotifyModule } from "./slack-notify/slack-notify.module";
 
 import config from "@/webpack/client/webpack.config.dev";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { TagContainer } from "./entities";
 @Module({
   imports: [
     RfidModule,
     WssModule,
-    HttpModule,
     DatabaseModule,
     TagInfoModule,
     ExperimentModule,
@@ -25,9 +34,19 @@ import config from "@/webpack/client/webpack.config.dev";
       rootPath: join(process.cwd(), "dist", "public"),
       webpackConfig: config as Configuration,
     }),
+    CacheModule.register(),
+    ScheduleModule.register(),
+    SlackNotifyModule,
+    TypeOrmModule.forFeature([TagContainer]),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor,
+    },
+  ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {

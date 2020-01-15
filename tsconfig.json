@@ -18,9 +18,10 @@
     "incremental": true,
     "types": ["react", "jest", "node"],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "apis": ["./apis/$api.ts"]
     }
   },
-  "include": ["server", "client", "types"],
+  "include": ["server", "client", "types", "apis"],
   "exclude": ["node_modules", "dist", "test", "**/*.spec.ts", "webpack"]
 }
