@@ -1,2 +1,3 @@
 server/**/*.spec.ts
 **/migration/**/*.ts
+static/proto/*.js

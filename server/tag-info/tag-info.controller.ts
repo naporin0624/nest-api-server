@@ -4,16 +4,12 @@ import {
   Body,
   UsePipes,
   ValidationPipe,
+  Get,
 } from "@nestjs/common";
 import { TagInfoService } from "./tag-info.service";
 import { TagInfoDto } from "./dto/tagInfo.dto";
-import { TagInfo, TagInfoForLab } from "@/entities";
-import {
-  ApiUseTags,
-  ApiResponse,
-  ApiImplicitBody,
-  ApiCreatedResponse,
-} from "@nestjs/swagger";
+import { TagInfo, TagInfoForLab } from "@/server/entities";
+import { ApiUseTags, ApiCreatedResponse } from "@nestjs/swagger";
 import { TagInfoForLabDto } from "./dto/tagInfoForLab.dto";
 
 @ApiUseTags("tag-info")
@@ -36,5 +32,11 @@ export class TagInfoController {
   @ApiCreatedResponse({ type: TagInfoForLab })
   async createNewTagInfoForLabRecord(@Body() tagInfoLabDto: TagInfoForLabDto) {
     return await this.tagInfoService.createTagInfoForLab(tagInfoLabDto);
+  }
+
+  @Get("v2")
+  @ApiCreatedResponse({ type: [TagInfoForLab] })
+  async findAllTagInfoForLab() {
+    return this.tagInfoService.findAllTagInfoForLab();
   }
 }

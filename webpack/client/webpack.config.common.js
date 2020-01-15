@@ -4,10 +4,11 @@ const webpack = require("webpack");
 const Dotenv = require("dotenv-webpack");
 
 module.exports = {
-  entry: ["./client/src/App.tsx", "babel-polyfill"],
+  entry: ["./client/App.tsx", "babel-polyfill"],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "..", "..", "./client/src/"),
+      "@": path.resolve(process.cwd(), "./"),
+      apis: path.resolve(process.cwd(), "./apis/$api.ts"),
     },
     extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
@@ -57,7 +58,7 @@ module.exports = {
   },
   output: {
     filename: "js/[name]-[hash].js",
-    path: path.join(__dirname, "..", "..", "dist/public"),
+    path: path.join(process.cwd(), "dist/public"),
     publicPath: "/",
   },
   plugins: [

@@ -3,17 +3,23 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
-    "prettier/@typescript-eslint"
+    "prettier/@typescript-eslint",
+    "plugin:react/recommended",
+    "prettier/react"
   ],
   "plugins": ["@typescript-eslint", "jest"],
   "parser": "@typescript-eslint/parser",
   "env": {
     "node": true,
-    "es6": true
+    "es6": true,
+    "browser": true
   },
   "parserOptions": {
     "sourceType": "module",
-    "project": "./tsconfig.json"
+    "project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "rules": {
     "prettier/prettier": "error",
@@ -21,8 +27,19 @@
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-parameter-properties": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-unused-vars": "warn", //これは消す
-    "max-len": ["error", { "code": 240, "tabWidth": 2 }],
-    "require-atomic-updates": "off" //こういうことはやりたくないが, issueをみてもわからなかった(https://github.com/eslint/eslint/issues/11899)
+    "@typescript-eslint/no-unused-vars": "error",
+    "max-len": ["error", {
+      "code": 240,
+      "tabWidth": 2
+    }],
+    "require-atomic-updates": "off", //こういうことはやりたくないが, issueをみてもわからなかった(https://github.com/eslint/eslint/issues/11899)
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "no-console": "warn"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

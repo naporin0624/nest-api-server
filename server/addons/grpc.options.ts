@@ -6,6 +6,6 @@ export const grpcClientOptions: ClientOptions = {
   options: {
     url: `0.0.0.0:${5000}`,
     package: "api",
-    protoPath: join(__dirname, "..", "..", "static/proto/api_service.proto"),
+    protoPath: join(process.cwd(), "static/proto/api_service.proto"),
   },
 };

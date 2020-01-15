@@ -1,27 +1,52 @@
-import { Module, MiddlewareConsumer, HttpModule } from "@nestjs/common";
+import {
+  Module,
+  MiddlewareConsumer,
+  CacheModule,
+  CacheInterceptor,
+} from "@nestjs/common";
+import { APP_INTERCEPTOR } from "@nestjs/core";
+import { ScheduleModule } from "nest-schedule";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { LoggerMiddleware } from "./middleware/logger.middleware";
 import { RfidModule } from "./rfid/rfid.module";
 import { WssModule } from "./wss/wss.module";
-import { join } from "path";
-import { ServeStaticModule } from "@nestjs/serve-static";
 import { DatabaseModule } from "./database/database.module";
 import { TagInfoModule } from "./tag-info/tag-info.module";
+import { ExperimentModule } from "./experiment/experiment.module";
+import { ServeStaticModule } from "./serve-static/serve-static.module";
+import { join } from "path";
+import { Configuration } from "webpack";
+import { SlackNotifyModule } from "./slack-notify/slack-notify.module";
 
+import config from "@/webpack/client/webpack.config.dev";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { TagContainer } from "./entities";
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, "..", "public"),
-    }),
     RfidModule,
     WssModule,
-    HttpModule,
     DatabaseModule,
     TagInfoModule,
+    ExperimentModule,
+    ServeStaticModule.forRoot({
+      renderPath: "/*",
+      rootPath: join(process.cwd(), "dist", "public"),
+      webpackConfig: config as Configuration,
+    }),
+    CacheModule.register(),
+    ScheduleModule.register(),
+    SlackNotifyModule,
+    TypeOrmModule.forFeature([TagContainer]),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor,
+    },
+  ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
