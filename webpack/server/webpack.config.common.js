@@ -2,6 +2,7 @@
 const webpack = require("webpack");
 const path = require("path");
 const nodeExternals = require("webpack-node-externals");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   entry: ["webpack/hot/poll?100", "./server/index.ts"],
@@ -26,7 +27,7 @@ module.exports = {
       "@": path.resolve(process.cwd(), "./"),
     },
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [new webpack.HotModuleReplacementPlugin(), new Dotenv()],
   output: {
     path: path.join(process.cwd(), "dist"),
     filename: "server.js",

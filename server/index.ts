@@ -7,6 +7,7 @@ import { NestExpressApplication } from "@nestjs/platform-express";
 import { LoggingInterceptor } from "./interceptors/logging.interceptor";
 import { ErrorInterceptor } from "./interceptors/error.interceptor";
 import { TimeoutInterceptor } from "./interceptors/timeout.interceptor";
+import compression from "compression";
 
 declare const module: any;
 
@@ -17,6 +18,7 @@ async function bootstrap() {
         ? ["debug", "error", "log", "verbose", "warn"]
         : ["warn", "error"],
   });
+  app.use(compression());
   app.connectMicroservice(grpcClientOptions);
   await app.startAllMicroservicesAsync();
   const document = SwaggerModule.createDocument(app, swaggerOptions);

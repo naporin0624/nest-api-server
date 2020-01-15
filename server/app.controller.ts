@@ -10,7 +10,10 @@ import { DeepRequired } from "ts-essentials";
 @Controller()
 export class AppController {
   private readonly logger = new Logger(AppController.name);
-  constructor(private readonly rfidService: RfidService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly rfidService: RfidService,
+  ) {}
 
   @Get()
   sayHello() {
