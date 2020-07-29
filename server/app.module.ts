@@ -22,6 +22,7 @@ import { SlackNotifyModule } from "./slack-notify/slack-notify.module";
 import config from "@/webpack/client/webpack.config.dev";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { TagContainer, MessageNotified } from "./entities";
+import { SimpleActionModule } from "./simple-action/simple-action.module";
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { TagContainer, MessageNotified } from "./entities";
     ScheduleModule.register(),
     SlackNotifyModule,
     TypeOrmModule.forFeature([TagContainer, MessageNotified]),
+    SimpleActionModule,
   ],
   controllers: [AppController],
   providers: [
