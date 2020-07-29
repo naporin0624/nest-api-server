@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 import { SimpleAction } from "@/server/entities/SimpleAction.entity";
+import { SimpleActionRequestDto } from "./dto/SimpleActionRequestDto.dto";
 
 @Injectable()
 export class SimpleActionService {
@@ -12,5 +13,9 @@ export class SimpleActionService {
 
   async getAllSimpleAction() {
     return await this.simpleActionRepository.find();
+  }
+
+  async createSimpleAction(SimpleActionRequestDto: SimpleActionRequestDto) {
+    return await this.simpleActionRepository.save(SimpleActionRequestDto);
   }
 }
