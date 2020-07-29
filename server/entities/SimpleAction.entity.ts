@@ -11,8 +11,11 @@ export class SimpleAction {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column("name")
+  @Column("varchar")
   name: string;
+
+  @Column("int")
+  userId?: number;
 
   @CreateDateColumn()
   createdAt: Date;

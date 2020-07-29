@@ -6,3 +6,4 @@ export * from "./CompanyEncode.entity";
 export * from "./TagInfo.entity";
 export * from "./TagInfoForLab.entity";
 export * from "./MessageNotified.entity";
+export * from "./SimpleAction.entity";
