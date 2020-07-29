@@ -15,7 +15,7 @@ export class SimpleActionService {
     return await this.simpleActionRepository.find();
   }
 
-  async createSimpleAction(SimpleActionRequestDto: SimpleActionRequestDto) {
-    return await this.simpleActionRepository.save(SimpleActionRequestDto);
+  async createSimpleAction(simpleActionRequestDto: SimpleActionRequestDto) {
+    return await this.simpleActionRepository.save(simpleActionRequestDto);
   }
 }
